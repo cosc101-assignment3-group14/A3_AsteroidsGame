@@ -47,12 +47,10 @@ class AsteroidGame
 AsteroidGame myAsteroidGame;
 
 /*
-Setup initialises the AsteroidGame and sets the background and screen size.
+Setup initialises the AsteroidGame and sets the screen size.
 */
 void setup()
 {
-  // set background
-  background(0);
   // set screen size
   size(800, 800);
   
@@ -65,7 +63,7 @@ The draw loop controls the calls for Asteroid game play
 */
 void draw()
 {
-  
+ 
 }
 
 /*
