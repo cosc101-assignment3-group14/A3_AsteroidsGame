@@ -51,10 +51,7 @@ class Asteroid
     hit = false;
     
     //create PShape
-    noFill();
-    drawAsteroid = createShape(RECT, -25, -25, 50, 50);
-    drawAsteroid.setStrokeWeight(2);
-    drawAsteroid.setStroke(#24DE14);
+    generateAsteroidShape();
   }
   
   /*
@@ -90,12 +87,27 @@ class Asteroid
     asteroidLocation.add(asteroidVelocity);
   }
   
+  void generateAsteroidShape()
+  {
+    noFill();
+    drawAsteroid = createShape();
+    drawAsteroid.setStrokeWeight(2);
+    drawAsteroid.setStroke(#24DE14);
+    drawAsteroid.beginShape();
+    drawAsteroid.vertex(random(0, 30), random(0, 30));
+    drawAsteroid.vertex(random(0, 30), random(0, -30));
+    drawAsteroid.vertex(random(0, -30), random(0, -30));
+    drawAsteroid.vertex(random(0, -30), random(0, 30));
+    drawAsteroid.endShape(CLOSE);
+  }
+  
   /*
   Method to dislay the asteroid image to screen
   */
   void displayAsteroid()
   {
     drawAsteroid.rotate(0.01);
+    
     shape(drawAsteroid, asteroidLocation.x, asteroidLocation.y);
   }
 }
