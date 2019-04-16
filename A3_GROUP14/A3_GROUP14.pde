@@ -32,13 +32,21 @@ relevent direction. Collision detection is monitored.
 
 class AsteroidGame
 {
+  Ufo myUfo;
 
   /*
   AsteroidGame Constructor initialises objects, variables and loads media files.
   */ 
   AsteroidGame()
   {
+    myUfo = new Ufo();
+  }
   
+  void updateUfo()
+  {
+    myUfo.moveUfo(new PVector(mouseX, mouseY));
+    myUfo.ufoEdgeDetect();
+    myUfo.displayUfo();
   }
 
 }
@@ -63,7 +71,8 @@ The draw loop controls the calls for Asteroid game play
 */
 void draw()
 {
- 
+  background(0);
+  myAsteroidGame.updateUfo();
 }
 
 /*
