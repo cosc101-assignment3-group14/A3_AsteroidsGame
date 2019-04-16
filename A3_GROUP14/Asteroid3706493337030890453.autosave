@@ -45,7 +45,7 @@ class Asteroid
     asteroidAcceleration = new PVector(random(-0.1, 0.1),random(-0.1, 0.1));
     
     // sets random top speed
-    topspeed = random(2, 4); 
+    topspeed = random(2, 4);  
     
     // Sets the initial squashed status to false
     hit = false;
@@ -94,14 +94,10 @@ class Asteroid
     drawAsteroid.setStrokeWeight(2);
     drawAsteroid.setStroke(#24DE14);
     drawAsteroid.beginShape();
-    drawAsteroid.vertex(random(14, 25), random(-10, -20));
-    drawAsteroid.vertex(random(6, 16), random(-22, -30));
-    drawAsteroid.vertex(random(-8, 0), random(-12, -25));
-    drawAsteroid.vertex(random(-26, -14), random(-10, -24));
-    drawAsteroid.vertex(random(-16, -6), random(-6, 6));
-    drawAsteroid.vertex(random(-20, -10), random(12, 24));
-    drawAsteroid.vertex(random(-2, 10), random(6, 18));
-    drawAsteroid.vertex(random(18, 30), random(-2, 8));
+    drawAsteroid.vertex(random(0, 30), random(0, 30));
+    drawAsteroid.vertex(random(0, 30), random(0, -30));
+    drawAsteroid.vertex(random(0, -30), random(0, -30));
+    drawAsteroid.vertex(random(0, -30), random(0, 30));
     drawAsteroid.endShape(CLOSE);
   }
   
@@ -111,6 +107,7 @@ class Asteroid
   void displayAsteroid()
   {
     drawAsteroid.rotate(0.01);
+    
     shape(drawAsteroid, asteroidLocation.x, asteroidLocation.y);
   }
 }
