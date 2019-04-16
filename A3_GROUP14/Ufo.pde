@@ -48,7 +48,7 @@ class Ufo
     generateUfoShape();
     
     // set motion control variables 
-    topspeed = 5;
+    topspeed = 2;
     resistance = 0.99;
     direction = PI;
     mode = -1;
@@ -58,8 +58,8 @@ class Ufo
     ufoHit = true;
     
     // set variables
-    attackZone = 300;
-    retreatZone = 200;
+    attackZone = 500;
+    retreatZone = 100;
   }
   
     /*
@@ -72,7 +72,7 @@ class Ufo
     if((abs(ship.x - ufoLocation.x) > attackZone) || (abs(ship.y - ufoLocation.y) > attackZone))
     {
        PVector acceleration = PVector.sub(ship, ufoLocation);
-       acceleration.setMag(0.8);
+       acceleration.setMag(-0.4);
        // Velocity changes according to acceleration
        ufoVelocity.add(acceleration);
        // Limit the velocity by topspeed
@@ -82,17 +82,27 @@ class Ufo
     }
     // if the distance between ship location and ufo is less then attack zone 
     // then the ufo moves away from ship
-    else if((abs(ship.x - ufoLocation.x) < retreatZone) || (abs(ship.y - ufoLocation.y) < retreatZone))
+    else
     {
-       PVector acceleration = PVector.sub(ship, ufoLocation);
+      PVector acceleration = PVector.sub(ship, ufoLocation);
       // Set magnitude of acceleration
-      acceleration.setMag(-0.8);
+      acceleration.setMag(0.4);
       // Velocity changes according to acceleration
       ufoVelocity.add(acceleration);
       // Limit the velocity by topspeed
       ufoVelocity.limit(topspeed);
       // Location changes by velocity
       ufoLocation.add(ufoVelocity);
+      if((abs(ship.x - ufoLocation.x) < retreatZone) || (abs(ship.y - ufoLocation.y) < retreatZone))
+      {
+        acceleration.setMag(-0.4);
+        // Velocity changes according to acceleration
+        ufoVelocity.add(acceleration);
+        // Limit the velocity by topspeed
+        ufoVelocity.limit(topspeed);
+        // Location changes by velocity
+        ufoLocation.add(ufoVelocity);
+    }
     }
   }
   
