@@ -47,6 +47,8 @@ class AsteroidGame
     myUfo.moveUfo(new PVector(mouseX, mouseY));
     myUfo.ufoEdgeDetect();
     myUfo.displayUfo();
+    myUfo.addShot(new PVector(mouseX, mouseY));
+    myUfo.updateShot();
   }
 
 }
