@@ -28,13 +28,10 @@ class Ufo
          top;                    // declare PShape object to hold detail in group
   
   float topspeed,                // the speed to increase by when ship moves
-        resistance,              // the resistance to 
-        direction,               // 
-        torque,                  //
-        rotation,                //
-        attackZone,              //
-        retreatZone,             //
-        shotInterval;            //
+        direction,               // angle to rotate the image by
+        attackZone,              // sets the inner boundary around ship
+        retreatZone,             // sets the outer boundary around ship
+        shotInterval;            // time interval between shots
         
         
   int startTime,                 // stores the millisecond starting point of timer
@@ -45,7 +42,8 @@ class Ufo
   boolean ufoDeployed,           // boolean flag to state if the ufo has been deployed to attack 
           shotFired,             // boolean flag to state if a shot has been fired on not
           ufoHit,                // boolean flag to state if the ufo has been hit
-          timing;                // boolean flag to state if the shot timer has started
+          timing,                // boolean flag to state if the shot timer has started
+          status;                // boolean flag used to state if locations are equal to space ship
           
   /*
   UFO constructor 
@@ -53,7 +51,7 @@ class Ufo
   Ufo()
   {
      // create PVectors for ship movement
-    ufoLocation = new PVector(width/2, height/2);
+    ufoLocation = new PVector(width/2, (0 - (2*delay)));
     ufoVelocity = new PVector();
     
     // create PShape object
@@ -61,7 +59,6 @@ class Ufo
     
     // set motion control variables 
     topspeed = 2;
-    resistance = 0.99;
     direction = PI;
     
     //set status flags
@@ -82,13 +79,15 @@ class Ufo
   }
   
   /*
-  Method to update the movement of the ship
+  Method to update the movement of the ship relative to the players ship current location
+  @PARAMS: ship is a PVector with the ships location
   */
   void moveUfo(PVector ship)
   {
     // if the distance between ship location and ufo is greater then the attack zone 
     // the ufo moves towards the ship to attack
-    if((abs(ship.x - ufoLocation.x) > attackZone) || (abs(ship.y - ufoLocation.y) > attackZone))
+    if((abs(ship.x - ufoLocation.x) > attackZone) || 
+       (abs(ship.y - ufoLocation.y) > attackZone))
     {
        PVector acceleration = PVector.sub(ship, ufoLocation);
        acceleration.setMag(-0.4);
@@ -112,7 +111,8 @@ class Ufo
       ufoVelocity.limit(topspeed);
       // Location changes by velocity
       ufoLocation.add(ufoVelocity);
-      if((abs(ship.x - ufoLocation.x) < retreatZone) || (abs(ship.y - ufoLocation.y) < retreatZone))
+      if((abs(ship.x - ufoLocation.x) < retreatZone) ||
+         (abs(ship.y - ufoLocation.y) < retreatZone))
       {
         acceleration.setMag(-0.4);
         // Velocity changes according to acceleration
@@ -138,6 +138,7 @@ class Ufo
     {
       ufoLocation.x = 0 - delay;
     }
+    
     if(ufoLocation.y < - delay)
     {
       ufoLocation.y = height + delay;
@@ -182,14 +183,15 @@ class Ufo
   */
   void displayUfo()
   {
-    //pushMatrix();
-    drawUfo.rotate(radians(direction)); // rotates the PShape detail
-    shape(drawUfo, ufoLocation.x, ufoLocation.y); // draws the shape object to the current location
-    //popMatrix();
+    // rotates the PShape detail
+    drawUfo.rotate(radians(direction)); 
+    // draws the shape object to the current location
+    shape(drawUfo, ufoLocation.x, ufoLocation.y); 
   }
   
   /*
   Method to fire shots at random intervals
+  @PARAMS: PVector containing players ship location
   */
   void addShot(PVector ship)
   {
@@ -228,5 +230,37 @@ class Ufo
         ufoShots.get(i).displayShot();
       }
     }
+  }
+  
+  /*
+  Method to check if ufoShot locations or the ufo location itself are equal to ship location. 
+  It does this by using a circular collision detection algorithm.
+  @PARAMS: x and y are locations
+  @Return: A boolean true if equal false if not.  
+  */
+  boolean equals(float x, float y)
+  {
+    // First check shot locations
+    for (int i = 0; i <  ufoShots.size(); i++)
+    {
+      if ((abs(x - ufoShots.get(i).shotLocation.x) < 10) 
+          && (abs(y - ufoShots.get(i).shotLocation.y)) < 10)
+      {
+        status = true;
+        // remove shot from array once used
+        ufoShots.remove(i);
+      }   
+      else
+      {
+        status = false;
+      }
+    }
+    // then check ufo location
+    if((abs(x - ufoLocation.x)) < 10 && (abs(y - ufoLocation.y)) < 10)
+    {
+      status = true;
+    }
+    return status;
+    
   }
 }

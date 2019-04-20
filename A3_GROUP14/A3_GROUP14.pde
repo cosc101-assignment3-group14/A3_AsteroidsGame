@@ -32,25 +32,59 @@ relevent direction. Collision detection is monitored.
 
 class AsteroidGame
 {
-  Ufo myUfo;
+  Ufo myUfo;              // declare Ufo object
+  
+  boolean startAsteroids, // boolean status flag to control the start of the asteroids
+          ufoExists;      // boolean status flag to track the existance of ufo.
 
   /*
   AsteroidGame Constructor initialises objects, variables and loads media files.
   */ 
   AsteroidGame()
   {
+    // initialise Ufo object
     myUfo = new Ufo();
+    
+     // set boolean variables. 
+    //NOTE WHEN EVENT HANDLING ADDED TO PROGRAM THESE WILL BE INITALISED TO FALSE
+    
+    startAsteroids = true;
+    ufoExists = true;
+    
   }
   
   void updateUfo()
   {
-    myUfo.moveUfo(new PVector(mouseX, mouseY));
-    myUfo.ufoEdgeDetect();
-    myUfo.displayUfo();
-    myUfo.addShot(new PVector(mouseX, mouseY));
-    myUfo.updateShot();
+    if(startAsteroids)
+    {
+      myUfo.moveUfo(new PVector(mouseX, mouseY));
+      myUfo.ufoEdgeDetect();
+      myUfo.displayUfo();
+      myUfo.addShot(new PVector(mouseX, mouseY));
+      myUfo.updateShot();
+    }
+    
   }
-
+  
+  /*
+  Method to collision detect ufo shots and space ship
+  */
+  void collisionShot_Ship()
+  {
+    if (startAsteroids && ufoExists)
+    {
+      // Iterate over ufoShots Array list
+      for (int i = 0; i <  myUfo.ufoShots.size(); i++)
+      {
+        //TODO MOUSE LOCATION REPLACED BY SHIP LOCATION
+        if(myUfo.equals(mouseX, mouseY))
+        {
+          // TODO PLAYER SHOULD LOSE A LIFE AT THIS POINT
+          print("hit");
+        }
+      }
+    }
+  }
 }
 
 // Declare AsteroidGame object
@@ -75,6 +109,7 @@ void draw()
 {
   background(0);
   myAsteroidGame.updateUfo();
+  myAsteroidGame.collisionShot_Ship();
 }
 
 /*
