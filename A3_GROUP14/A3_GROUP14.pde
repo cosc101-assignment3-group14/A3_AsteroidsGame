@@ -54,7 +54,7 @@ class AsteroidGame
     // set integer variables
 
     border = 100;
-    level = 1 ;
+    level = 1;
 
     // set boolean variables. 
     //NOTE WHEN EVENT HANDLING ADDED TO PROGRAM THESE WILL BE INITALISED TO FALSE

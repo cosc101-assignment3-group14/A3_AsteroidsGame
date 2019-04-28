@@ -17,6 +17,7 @@ class Asteroid
         angle,               // angle for the direction of the PVector velocity
         scale,               // scale of the asteroid PShape
         asteroidCreation;    // time stamp at the point of asteroid creation
+       
 
 
   int delay,                 // sets a delay of asteroids exiting and reentering the screen
@@ -25,7 +26,7 @@ class Asteroid
   PVector asteroidLocation,  // declare PVector object to track current location
           asteroidVelocity;  // declare PVector object to track velocity
     
-  boolean asteroidCollision; // switches on collision status after creation
+  boolean collisionActive; // switches on collision status after creation
 
   /*
   Constructor sets the Asteroid objects initial values and generates a random PShape
@@ -54,8 +55,8 @@ class Asteroid
 
     // time stamp for object creation
     asteroidCreation = millis();
-    asteroidCollision = false;
-
+    collisionActive = false;
+    
     //creates PShape
     generateAsteroidShape();
   }
@@ -73,19 +74,23 @@ class Asteroid
     if (asteroidLocation.x < - delay )
     {
       asteroidLocation.x = width + delay;
+      asteroidVelocity.mult(0.95);
     } 
     else if (asteroidLocation.x > width + delay)
     {
       asteroidLocation.x = 0 - delay;
+      asteroidVelocity.mult(0.95);
     }
     
     if (asteroidLocation.y < - delay)
     {
       asteroidLocation.y = height + delay;
+      asteroidVelocity.mult(0.95);
     } 
     else if (asteroidLocation.y > height + delay)
     {
       asteroidLocation.y = 0 - delay;
+      asteroidVelocity.mult(0.95);
     }
 
     asteroidLocation.add(asteroidVelocity);
@@ -95,7 +100,7 @@ class Asteroid
     // all colliding upon creation at the same location
     if(millis() - asteroidCreation > 2500)
     {
-      asteroidCollision = true;
+      collisionActive = true;
     }
   }
 
@@ -150,18 +155,18 @@ class Asteroid
   */
   void collisionAsteroid(Asteroid ast)
   {
-    if (asteroidCollision && ast.asteroidCollision)
+    if (collisionActive && ast.collisionActive)
     {
       float dx = ast.asteroidLocation.x - asteroidLocation.x;
       float dy = ast.asteroidLocation.y - asteroidLocation.y;
-      float minDist = 30;
+      float minDist = (radius * scale) + (ast.radius * ast.scale) ;
       float angle = atan2(dy, dx);
       float targetX = asteroidLocation.x + cos(angle) * minDist;
       float targetY = asteroidLocation.y + sin(angle) * minDist;
       float ax = (targetX - ast.asteroidLocation.x) * 0.05;
       float ay = (targetY - ast.asteroidLocation.y) * 0.05;
       asteroidVelocity.sub(new PVector(ax, ay));
-      ast.asteroidVelocity.add(new PVector(ax, ay));
+      ast.asteroidVelocity.add(new PVector(ax, ay)); 
     }
   }
 
@@ -173,14 +178,18 @@ class Asteroid
   */
   boolean equals(Asteroid ast)
   {
-    boolean status;
-    if (abs(asteroidLocation.x - ast.asteroidLocation.x) < radius 
-      && abs(asteroidLocation.y - ast.asteroidLocation.y) < radius)
+    boolean status = false;
+    if(collisionActive)
     {
-      status = true;
-    } else
-    {
-      status = false;
+      if (abs(asteroidLocation.x - ast.asteroidLocation.x) < (radius * scale + (ast.radius * ast.scale))
+        && abs(asteroidLocation.y - ast.asteroidLocation.y) < (radius * scale + (ast.radius * ast.scale)))
+      {
+        status = true;
+      } else
+      {
+        status = false;
+      }
+      return status;
     }
     return status;
   }
