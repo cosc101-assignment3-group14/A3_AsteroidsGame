@@ -160,18 +160,18 @@ class Ship
   }
   
   /*
-  Method to check if ufoShot locations or the ufo location itself are equal to ship location. 
+  Method to check if asteroid locations are equal to ship shot location. 
   It does this by using a circular collision detection algorithm.
-  @PARAMS: x and y are locations
+  @PARAMS: ast is an Asteroid object
   @Return: A boolean true if equal false if not.  
   */
-  boolean equals(float x, float y)
+  boolean equals(Asteroid ast)
   {
     // First check shot locations
     for (int i = 0; i <  shipShots.size(); i++)
     {
-      if ((abs(x - shipShots.get(i).shotLocation.x) < 10) 
-          && (abs(y - shipShots.get(i).shotLocation.y)) < 10)
+      if ((abs(ast.asteroidLocation.x - shipShots.get(i).shotLocation.x) < (ast.radius * ast.scale)) 
+          && (abs(ast.asteroidLocation.y - shipShots.get(i).shotLocation.y)) < (ast.radius * ast.scale))
       {
         shipStatus = true;
         // remove shot from array once used
@@ -182,12 +182,32 @@ class Ship
         shipStatus = false;
       }
     }
-    // then check ufo location
-    if((abs(x - shipCoord.x)) < 10 && (abs(y - shipCoord.y)) < 10)
+    return shipStatus;
+  }
+  
+  /*
+  Overloaded method to check if the ships shot locations are equal to the ufo location. 
+  It does this by using a circular collision detection algorithm.
+  @PARAMS: myUfo is a ufo object
+  @Return: A boolean true if equal false if not.  
+  */
+  boolean equals(Ufo myUfo)
+  {
+    // First check shot locations
+    for (int i = 0; i <  shipShots.size(); i++)
     {
-      shipStatus = true;
+      if ((abs(myUfo.ufoLocation.x - shipShots.get(i).shotLocation.x) < 30
+          && (abs(myUfo.ufoLocation.y - shipShots.get(i).shotLocation.y)) < 30))
+      {
+        shipStatus = true;
+        // remove shot from array once used
+        shipShots.remove(i);
+      }   
+      else
+      {
+        shipStatus = false;
+      }
     }
     return shipStatus;
-    
   }
 }

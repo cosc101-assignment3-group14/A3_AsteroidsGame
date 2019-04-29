@@ -193,6 +193,30 @@ class Asteroid
     }
     return status;
   }
+  
+  /*
+  Overloaded method to check if asteroid locations is equal to ship location. It does this by using
+  a circular collision detection algorithm.
+  @PARAMS: is the ship object to compare against the object calling.
+  @Return: A boolean true if equal false if not.  
+  */
+  boolean equals(Ship myShip)
+  {
+    boolean status = false;
+    if(collisionActive)
+    {
+      if (abs(asteroidLocation.x - myShip.shipCoord.x) < (radius * scale)
+        && abs(asteroidLocation.y - myShip.shipCoord.y) < (radius * scale ))
+      {
+        status = true;
+      } else
+      {
+        status = false;
+      }
+      return status;
+    }
+    return status;
+  }
 
   /*
   Method to create a random number of smaller Asteroids upon each impact
