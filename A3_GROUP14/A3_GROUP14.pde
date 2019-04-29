@@ -30,8 +30,21 @@ play status is moitored with boolean flags and game flow is directed in the
 relevent direction. Collision detection is monitored.
 */
 
+// Global key code variables
+boolean sUP = false,
+        sDOWN = false,
+        sRIGHT = false,
+        sLEFT = false;
+
 class AsteroidGame
 {
+
+  Ship myShip;            // declare Ship object
+  
+  boolean startAsteroids, // boolean status flag to control the start of the asteroids
+          shipExists;     // boolean status flag to track the existance of ship
+          
+
   Ufo myUfo;              // declare Ufo object
   
   boolean startAsteroids, // boolean status flag to control the start of the asteroids
@@ -55,11 +68,26 @@ class AsteroidGame
 
 
 
+
   /*
   AsteroidGame Constructor initialises objects, variables and loads media files.
    */
   AsteroidGame()
   {
+
+    // initialise Ship object
+    myShip = new Ship();
+    
+    void updateShip()
+    {
+      if(startAsteroids)
+      {
+        myShip.moveShip();
+        myShip.shipEdgeDetect();
+        myShip.displayShip();
+        myShip.addShot();
+        myShip.updateShot();
+
 
     // initialise Ufo object
     myUfo = new Ufo();
@@ -209,10 +237,10 @@ class AsteroidGame
         asteroidsExist = false;
         // once all asteroids are destroyed more are deployed increasing by 1 asteriod for each level
         level += 1; 
+
       }
     }
   }
-
 }
 
 // Declare AsteroidGame object
@@ -236,6 +264,9 @@ The draw loop controls the calls for Asteroid game play
 void draw()
 {
 
+  myAsteroidGame.updateShip();
+
+
   background(0);
   myAsteroidGame.updateUfo();
   myAsteroidGame.collisionShot_Ship();
@@ -246,6 +277,7 @@ void draw()
   myAsteroidGame.collisionAsteroids();
   myAsteroidGame.collisionShot_Asteroid();
 
+
 }
 
 /*
@@ -253,6 +285,21 @@ Built in function.
  */
 void keyPressed()
 {
+
+  if (key == CODED) {
+    if (keyCode == UP) {
+      sUP = true;
+    }
+    if (keyCode == DOWN) {
+      sDOWN = true;
+    } 
+    if (keyCode == RIGHT) {
+      sRIGHT = true;
+    }
+    if (keyCode == LEFT) {
+      sLEFT = true;
+    }
+  }
 }
 
 /*
@@ -267,4 +314,18 @@ Built in function.
  */
 void keyReleased() 
 {
+  if (key == CODED) {
+    if (keyCode == UP) {
+      sUP = false;
+    }
+    if (keyCode == DOWN) {
+      sDOWN = false;
+    } 
+    if (keyCode == RIGHT) {
+      sRIGHT = false;
+    }
+    if (keyCode == LEFT) {
+      sLEFT = false;
+    }
+  } 
 }
