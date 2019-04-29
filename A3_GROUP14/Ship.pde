@@ -136,12 +136,14 @@ class Ship
   */
   void addShot()
   {
-    if (key == ' ') 
+    if (key == ' ' && shotReady) 
     {
       shipShots.add(oneShot = new Shot(shipCoord, shipDirection, shipDirection.heading()));
-      shotFired = true; 
+      shotFired = true;
+      shotReady = false;
     }
-  }
+  } 
+  
   /*
   Method to update the shot trajectory once fired
   */
