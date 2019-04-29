@@ -24,7 +24,7 @@ class Ship
   float speed,           // the speed to increase by when ship moves
         maxSpeed,        // maximum speed for the ship
         angle,           // angle to rotate the image by
-        direction;         // direction that ship is heading
+        direction;       // direction that ship is heading
         
   int sWidth = 14,       // ship width
       sLength = 18;      // ship length
@@ -49,7 +49,6 @@ class Ship
     speed = 0.5;
     maxSpeed = 2;
     angle = radians(270);
-    direction = shipDirection.heading();
     
     //set status flags
     shotFired = false;
@@ -114,7 +113,7 @@ class Ship
     stroke(255);
     strokeWeight(2);
     fill(0);
-    drawShip = createShape(TRIANGLE, 0, sLength, sWidth/2, 0, sWidth, sLength);
+    drawShip = createShape(TRIANGLE, -sWidth/2, sLength, 0, 0, sWidth/2, sLength);
   }
   
   /*
@@ -137,12 +136,14 @@ class Ship
   */
   void addShot()
   {
-    if (key == ' ') 
+    if (key == ' ' && shotReady) 
     {
-      shipShots.add(oneShot = new Shot(shipCoord, shipDirection, direction * PI));
-      shotFired = true; 
+      shipShots.add(oneShot = new Shot(shipCoord, shipDirection, shipDirection.heading()));
+      shotFired = true;
+      shotReady = false;
     }
-  }
+  } 
+  
   /*
   Method to update the shot trajectory once fired
   */
