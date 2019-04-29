@@ -38,27 +38,20 @@ boolean sUP = false,
 
 class AsteroidGame
 {
-
   Ship myShip;            // declare Ship object
   
   boolean startAsteroids, // boolean status flag to control the start of the asteroids
-          shipExists;     // boolean status flag to track the existance of ship
+          shipExists,     // boolean status flag to track the existance of ship
+          ufoExists,      // boolean status flag to track the existance of ufo.
+          startGame,                // boolean status flag to control start game status 
+          asteroidsExist;           // boolean status flag to monitor when asteroid arraylist equals zero
           
 
   Ufo myUfo;              // declare Ufo object
   
-  boolean startAsteroids, // boolean status flag to control the start of the asteroids
-          ufoExists;      // boolean status flag to track the existance of ufo.
-
-
-
-
+          
 
   Asteroid oneAsteroid;             // declare Asteroid object
-
-  boolean startGame,                // boolean status flag to control start game status 
-          startAsteroids,           // boolean status flag to control the start of the asteroids
-          asteroidsExist;           // boolean status flag to monitor when asteroid arraylist equals zero
 
   ArrayList<Asteroid> myAsteroids = 
     new ArrayList<Asteroid>();      // declare Asteroid object ArrayList
@@ -66,19 +59,44 @@ class AsteroidGame
   int level,                        // tracks the level of the game reached
       border;                       // sets the border off screen to accomaodate shapes beyond edges
 
-
-
-
   /*
   AsteroidGame Constructor initialises objects, variables and loads media files.
    */
   AsteroidGame()
   {
-
     // initialise Ship object
     myShip = new Ship();
+
+    // initialise Ufo object
+    myUfo = new Ufo();
     
-    void updateShip()
+    // set integer variables
+
+    border = 100;
+    level = 1;
+   
+    // set boolean variables. 
+    //NOTE WHEN EVENT HANDLING ADDED TO PROGRAM THESE WILL BE INITALISED TO FALSE
+
+    startGame = true;
+    startAsteroids = true;
+    asteroidsExist = false;
+    ufoExists = true;
+  }
+  
+  void updateUfo()
+  {
+    if(startAsteroids)
+    {
+      myUfo.moveUfo(myShip.shipCoord);
+      myUfo.ufoEdgeDetect();
+      myUfo.displayUfo();
+      myUfo.addShot(myShip.shipCoord);
+      myUfo.updateShot();
+    }
+  }
+  
+  void updateShip()
     {
       if(startAsteroids)
       {
@@ -87,31 +105,8 @@ class AsteroidGame
         myShip.displayShip();
         myShip.addShot();
         myShip.updateShot();
-
-
-    // initialise Ufo object
-    myUfo = new Ufo();
-    
-     // set boolean variables. 
-    //NOTE WHEN EVENT HANDLING ADDED TO PROGRAM THESE WILL BE INITALISED TO FALSE
-    
-    startAsteroids = true;
-    ufoExists = true;
-    
-  }
-  
-  void updateUfo()
-  {
-    if(startAsteroids)
-    {
-      myUfo.moveUfo(new PVector(mouseX, mouseY));
-      myUfo.ufoEdgeDetect();
-      myUfo.displayUfo();
-      myUfo.addShot(new PVector(mouseX, mouseY));
-      myUfo.updateShot();
+      }
     }
-    
-  }
   
   /*
   Method to collision detect ufo shots and space ship
@@ -124,26 +119,13 @@ class AsteroidGame
       for (int i = 0; i <  myUfo.ufoShots.size(); i++)
       {
         //TODO MOUSE LOCATION REPLACED BY SHIP LOCATION
-        if(myUfo.equals(mouseX, mouseY))
+        if(myUfo.equals(myShip.shipCoord.x, myShip.shipCoord.y))
         {
           // TODO PLAYER SHOULD LOSE A LIFE AT THIS POINT
           print("hit");
         }
       }
     }
-  }
-
-    // set integer variables
-
-    border = 100;
-    level = 1;
-
-    // set boolean variables. 
-    //NOTE WHEN EVENT HANDLING ADDED TO PROGRAM THESE WILL BE INITALISED TO FALSE
-
-    startGame = true;
-    startAsteroids = true;
-    asteroidsExist = false;
   }
 
   /*
@@ -263,21 +245,19 @@ The draw loop controls the calls for Asteroid game play
  */
 void draw()
 {
-
-  myAsteroidGame.updateShip();
-
-
-  background(0);
-  myAsteroidGame.updateUfo();
-  myAsteroidGame.collisionShot_Ship();
-
   background(0); // this will go in layout() method
+  //ship
+  myAsteroidGame.updateShip();
+  myAsteroidGame.collisionShot_Ship();
+  
+  //ufo
+  myAsteroidGame.updateUfo();
+  
+  //asteroid
   myAsteroidGame.addAsteroid();
   myAsteroidGame.updateAsteroids();
   myAsteroidGame.collisionAsteroids();
   myAsteroidGame.collisionShot_Asteroid();
-
-
 }
 
 /*
