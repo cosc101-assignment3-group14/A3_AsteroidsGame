@@ -49,7 +49,6 @@ class Ship
     speed = 0.5;
     maxSpeed = 2;
     angle = radians(270);
-    direction = shipDirection.heading();
     
     //set status flags
     shotFired = false;
@@ -139,7 +138,7 @@ class Ship
   {
     if (key == ' ') 
     {
-      shipShots.add(oneShot = new Shot(shipCoord, shipDirection, radians(direction)-angle));
+      shipShots.add(oneShot = new Shot(shipCoord, shipDirection, shipDirection.heading()));
       shotFired = true; 
     }
   }
