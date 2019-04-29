@@ -32,11 +32,6 @@ AsteroidGame class accesses the clases required to build up the Asteroids
 
 // Global key code variables
 
-boolean sUP = false, 
-  sDOWN = false, 
-  sRIGHT = false, 
-  sLEFT = false;
-
 boolean sUP = false,
         sDOWN = false,
         sRIGHT = false,
