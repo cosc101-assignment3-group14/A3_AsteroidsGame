@@ -32,6 +32,11 @@ relevent direction. Collision detection is monitored.
 
 class AsteroidGame
 {
+
+
+
+
+
   Asteroid oneAsteroid;             // declare Asteroid object
 
   boolean startGame,                // boolean status flag to control start game status 
