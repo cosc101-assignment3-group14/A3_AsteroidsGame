@@ -34,7 +34,8 @@ relevent direction. Collision detection is monitored.
 boolean sUP = false,
         sDOWN = false,
         sRIGHT = false,
-        sLEFT = false;
+        sLEFT = false,
+        shotReady = true;
 
 class AsteroidGame
 {
@@ -307,5 +308,8 @@ void keyReleased()
     if (keyCode == LEFT) {
       sLEFT = false;
     }
-  } 
+  }
+  if (key == ' ') {
+    shotReady = true;
+  }
 }
