@@ -202,11 +202,9 @@ class Asteroid
   */
   boolean equals(Ship myShip)
   {
-    boolean status = false;
-    if(collisionActive)
-    {
-      if (abs(asteroidLocation.x - myShip.shipCoord.x) < (radius * scale)
-        && abs(asteroidLocation.y - myShip.shipCoord.y) < (radius * scale ))
+    boolean status;
+      if (abs(asteroidLocation.x - myShip.shipCoord.x) < 100
+        && abs(asteroidLocation.y - myShip.shipCoord.y) < 100)
       {
         status = true;
       } else
@@ -214,8 +212,6 @@ class Asteroid
         status = false;
       }
       return status;
-    }
-    return status;
   }
 
   /*
