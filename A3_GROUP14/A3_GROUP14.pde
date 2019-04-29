@@ -165,7 +165,7 @@ AsteroidGame myAsteroidGame;
 
 /*
 Setup initialises the AsteroidGame and sets the screen size.
-
+*/
 void setup()
 {
   // set screen size
@@ -180,7 +180,11 @@ The draw loop controls the calls for Asteroid game play
  */
 void draw()
 {
-
+  background(0); // this will go in layout() method
+  myAsteroidGame.addAsteroid();
+  myAsteroidGame.updateAsteroids();
+  myAsteroidGame.collisionAsteroids();
+  myAsteroidGame.collisionShot_Asteroid();
 }
 
 /*
