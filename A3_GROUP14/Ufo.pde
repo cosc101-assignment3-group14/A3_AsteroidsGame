@@ -238,13 +238,13 @@ class Ufo
   @PARAMS: x and y are locations
   @Return: A boolean true if equal false if not.  
   */
-  boolean equals(float x, float y)
+  boolean equals(Ship myShip)
   {
     // First check shot locations
     for (int i = 0; i <  ufoShots.size(); i++)
     {
-      if ((abs(x - ufoShots.get(i).shotLocation.x) < 10) 
-          && (abs(y - ufoShots.get(i).shotLocation.y)) < 10)
+      if ((abs(myShip.shipCoord.x - ufoShots.get(i).shotLocation.x) < 8) 
+          && (abs(myShip.shipCoord.y - ufoShots.get(i).shotLocation.y)) < 8)
       {
         status = true;
         // remove shot from array once used
@@ -256,7 +256,7 @@ class Ufo
       }
     }
     // then check ufo location
-    if((abs(x - ufoLocation.x)) < 10 && (abs(y - ufoLocation.y)) < 10)
+    if((abs(myShip.shipCoord.x - ufoLocation.x)) < 30 && (abs(myShip.shipCoord.y - ufoLocation.y)) < 30)
     {
       status = true;
     }

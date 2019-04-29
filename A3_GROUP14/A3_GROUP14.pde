@@ -39,25 +39,21 @@ boolean sUP = false,
 class AsteroidGame
 {
   Ship myShip;            // declare Ship object
+  Ufo myUfo;              // declare Ufo object
+  Asteroid oneAsteroid;   // declare Asteroid object
+  Collision myCollision;  // declare Collision object
 
   boolean startAsteroids, // boolean status flag to control the start of the asteroids
-    shipExists, // boolean status flag to track the existance of ship
-    ufoExists, // boolean status flag to track the existance of ufo.
-    startGame, // boolean status flag to control start game status 
+    shipExists,           // boolean status flag to track the existance of ship
+    ufoExists,            // boolean status flag to track the existance of ufo.
+    startGame,            // boolean status flag to control start game status 
     asteroidsExist;           // boolean status flag to monitor when asteroid arraylist equals zero
-
-
-  Ufo myUfo;              // declare Ufo object
-
-
-
-  Asteroid oneAsteroid;             // declare Asteroid object
 
   ArrayList<Asteroid> myAsteroids = 
     new ArrayList<Asteroid>();      // declare Asteroid object ArrayList
 
   int level, // tracks the level of the game reached
-    border;                       // sets the border off screen to accomaodate shapes beyond edges
+    border;  // sets the border off screen to accomaodate shapes beyond edges
 
   /*
   AsteroidGame Constructor initialises objects, variables and loads media files.
@@ -69,6 +65,9 @@ class AsteroidGame
 
     // initialise Ufo object
     myUfo = new Ufo();
+    
+    // initialise Collision object
+    myCollision = new Collision();
 
     // set integer variables
 
@@ -147,75 +146,20 @@ class AsteroidGame
       myShip.updateShot();
     }
   }
-
-  /*
-  Method to collision detect between Asteriods 
-   */
-  void collisionAsteroids()
-  {
-    if (startAsteroids && asteroidsExist)
-    {
-      // outer loop iterates over all Asteroid objects except last one
-      for (int i = 0; i < myAsteroids.size() - 1; i++)
-      {
-        // inner loop iterates over all Asteroid objects except first one (prevents checking against self)
-        for (int j = i + 1; j < myAsteroids.size(); j++)
-        {
-          // equals method in Asteroid object called to see if locations are in a certain radius
-          if (myAsteroids.get(i).equals(myAsteroids.get(j)))
-          {
-            // if equal collisionAsteroid() method called to change both asteroids motion
-            myAsteroids.get(i).collisionAsteroid(myAsteroids.get(j));
-          }
-        }
-      }
-    }
-  }
   
   /*
-  Method to collision detect ufo shots and space ship
-   */
-  void collisionUfoShot_Ship()
-  {
-    if (startAsteroids && ufoExists)
-    {
-      // Iterate over ufoShots Array list
-      for (int i = 0; i <  myUfo.ufoShots.size(); i++)
-      {
-        if (myUfo.equals(myShip.shipCoord.x, myShip.shipCoord.y))
-        {
-          // TODO PLAYER SHOULD LOSE A LIFE AT THIS POINT
-          print("hit");
-        }
-      }
-    }
-  }
-
-  /*
-  Method to collision detect player shots and the asteroids
-   */
-  void collisionShipShot_Asteroid()
+  Method to update the collision
+  */
+  void updateCollision()
   {
     if (startAsteroids && asteroidsExist)
     {
-      // Iterate over asteroid list in reverse. This way if new asteroids are added to the 
-      // list mid iterate they are not included in the current collision detect
-      for (int i = myAsteroids.size()-1; i >= 0; i--)
-      {
-        if(myShip.equals(myAsteroids.get(i)))
-        {
-          // if a hit is detected the resulting action depends on the number of hits already sustained
-          if (myAsteroids.get(i).hits < 2)
-          {
-            myAsteroids.addAll(myAsteroids.get(i).splitAsteroid());
-            myAsteroids.remove(myAsteroids.get(i));
-          } else
-          {
-            myAsteroids.remove(myAsteroids.get(i));
-          }
-        }
-      }
-
+      // collision detect between asteroids
+      myCollision.collisionAsteroids(myAsteroids);
+      // collision detect between player shots and asteroids
+      myCollision.collisionShipShot_Asteroid(myAsteroids, myShip);
+      // collision detect between
+      myCollision.collisionShip_Asteroid(myAsteroids, myShip);
       if (myAsteroids.size() < 1)
       {
         asteroidsExist = false;
@@ -223,16 +167,11 @@ class AsteroidGame
         level += 1;
       }
     }
-  }
-  
-   /*
-  Method to collision detect ship location and the asteroids
-   */
-  void collisionShip_Asteroid()
-  {
-    if (startAsteroids && asteroidsExist)
+
+    if(startAsteroids && ufoExists)
     {
-      
+      myCollision.collisionShipShot_Ufo(myShip, myUfo);
+      myCollision.collisionUfoShot_Ship(myUfo, myShip);
     }
   }
 }
@@ -262,15 +201,15 @@ void draw()
   //asteroid
   myAsteroidGame.addAsteroid();
   myAsteroidGame.updateAsteroids();
-  myAsteroidGame.collisionAsteroids();
   
   //ship
   myAsteroidGame.updateShip();
-  myAsteroidGame.collisionShipShot_Asteroid();
 
   //ufo
   myAsteroidGame.updateUfo();
-  myAsteroidGame.collisionUfoShot_Ship();
+  
+  //collision
+  myAsteroidGame.updateCollision();
 }
 
 /*
