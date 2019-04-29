@@ -281,6 +281,9 @@ void keyPressed()
       sLEFT = true;
     }
   }
+  if (key == ' ') {
+    shotReady = true;
+  }
 }
 
 /*
@@ -308,8 +311,5 @@ void keyReleased()
     if (keyCode == LEFT) {
       sLEFT = false;
     }
-  }
-  if (key == ' ') {
-    shotReady = true;
   }
 }
