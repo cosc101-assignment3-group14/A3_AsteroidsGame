@@ -24,40 +24,40 @@
 
 /*
 AsteroidGame class accesses the clases required to build up the Asteroids
-game implementation. User input events are monitored and passed to the relevent
-classes requiring this information. Sound files are called at input events. Game 
-play status is moitored with boolean flags and game flow is directed in the 
-relevent direction. Collision detection is monitored.
-*/
+ game implementation. User input events are monitored and passed to the relevent
+ classes requiring this information. Sound files are called at input events. Game 
+ play status is moitored with boolean flags and game flow is directed in the 
+ relevent direction. Collision detection is monitored.
+ */
 
 // Global key code variables
-boolean sUP = false,
-        sDOWN = false,
-        sRIGHT = false,
-        sLEFT = false;
+boolean sUP = false, 
+  sDOWN = false, 
+  sRIGHT = false, 
+  sLEFT = false;
 
 class AsteroidGame
 {
   Ship myShip;            // declare Ship object
-  
+
   boolean startAsteroids, // boolean status flag to control the start of the asteroids
-          shipExists,     // boolean status flag to track the existance of ship
-          ufoExists,      // boolean status flag to track the existance of ufo.
-          startGame,                // boolean status flag to control start game status 
-          asteroidsExist;           // boolean status flag to monitor when asteroid arraylist equals zero
-          
+    shipExists, // boolean status flag to track the existance of ship
+    ufoExists, // boolean status flag to track the existance of ufo.
+    startGame, // boolean status flag to control start game status 
+    asteroidsExist;           // boolean status flag to monitor when asteroid arraylist equals zero
+
 
   Ufo myUfo;              // declare Ufo object
-  
-          
+
+
 
   Asteroid oneAsteroid;             // declare Asteroid object
 
   ArrayList<Asteroid> myAsteroids = 
     new ArrayList<Asteroid>();      // declare Asteroid object ArrayList
 
-  int level,                        // tracks the level of the game reached
-      border;                       // sets the border off screen to accomaodate shapes beyond edges
+  int level, // tracks the level of the game reached
+    border;                       // sets the border off screen to accomaodate shapes beyond edges
 
   /*
   AsteroidGame Constructor initialises objects, variables and loads media files.
@@ -69,12 +69,12 @@ class AsteroidGame
 
     // initialise Ufo object
     myUfo = new Ufo();
-    
+
     // set integer variables
 
     border = 100;
     level = 1;
-   
+
     // set boolean variables. 
     //NOTE WHEN EVENT HANDLING ADDED TO PROGRAM THESE WILL BE INITALISED TO FALSE
 
@@ -84,50 +84,6 @@ class AsteroidGame
     ufoExists = true;
   }
   
-  void updateUfo()
-  {
-    if(startAsteroids)
-    {
-      myUfo.moveUfo(myShip.shipCoord);
-      myUfo.ufoEdgeDetect();
-      myUfo.displayUfo();
-      myUfo.addShot(myShip.shipCoord);
-      myUfo.updateShot();
-    }
-  }
-  
-  void updateShip()
-    {
-      if(startAsteroids)
-      {
-        myShip.moveShip();
-        myShip.shipEdgeDetect();
-        myShip.displayShip();
-        myShip.addShot();
-        myShip.updateShot();
-      }
-    }
-  
-  /*
-  Method to collision detect ufo shots and space ship
-  */
-  void collisionShot_Ship()
-  {
-    if (startAsteroids && ufoExists)
-    {
-      // Iterate over ufoShots Array list
-      for (int i = 0; i <  myUfo.ufoShots.size(); i++)
-      {
-        //TODO MOUSE LOCATION REPLACED BY SHIP LOCATION
-        if(myUfo.equals(myShip.shipCoord.x, myShip.shipCoord.y))
-        {
-          // TODO PLAYER SHOULD LOSE A LIFE AT THIS POINT
-          print("hit");
-        }
-      }
-    }
-  }
-
   /*
   Method to add Asteroid objects to the Asteroid object array list.
    */
@@ -138,12 +94,12 @@ class AsteroidGame
       for (int i = 0; i < level; i ++)
       {
         myAsteroids.add(oneAsteroid = new Asteroid(new PVector(random(width), 0 - (2 * border)), 
-                                                   random(1, 1.5), 0));
+          random(1, 1.5), 0));
       }                                            
       asteroidsExist = true;
     }
   }
-
+  
   /*
   Method to update each Asteroid object in the Array list. 
    */
@@ -161,9 +117,39 @@ class AsteroidGame
       }
     }
   } 
+  
+  /*
+  Method to update the ufo 
+  */
+  void updateUfo()
+  {
+    if (startAsteroids)
+    {
+      myUfo.moveUfo(myShip.shipCoord);
+      myUfo.ufoEdgeDetect();
+      myUfo.displayUfo();
+      myUfo.addShot(myShip.shipCoord);
+      myUfo.updateShot();
+    }
+  }
 
   /*
-  Method to collision detect between Asteriods in the game
+  Method to update the ship
+  */
+  void updateShip()
+  {
+    if (startAsteroids)
+    {
+      myShip.moveShip();
+      myShip.shipEdgeDetect();
+      myShip.displayShip();
+      myShip.addShot();
+      myShip.updateShot();
+    }
+  }
+
+  /*
+  Method to collision detect between Asteriods 
    */
   void collisionAsteroids()
   {
@@ -185,22 +171,38 @@ class AsteroidGame
       }
     }
   }
-
+  
+  /*
+  Method to collision detect ufo shots and space ship
+   */
+  void collisionUfoShot_Ship()
+  {
+    if (startAsteroids && ufoExists)
+    {
+      // Iterate over ufoShots Array list
+      for (int i = 0; i <  myUfo.ufoShots.size(); i++)
+      {
+        if (myUfo.equals(myShip.shipCoord.x, myShip.shipCoord.y))
+        {
+          // TODO PLAYER SHOULD LOSE A LIFE AT THIS POINT
+          print("hit");
+        }
+      }
+    }
+  }
 
   /*
-  Method to collision detect shots and the asteroids
+  Method to collision detect player shots and the asteroids
    */
-  void collisionShot_Asteroid()
+  void collisionShipShot_Asteroid()
   {
-    if (startAsteroids && keyPressed && asteroidsExist)
+    if (startAsteroids && asteroidsExist)
     {
       // Iterate over asteroid list in reverse. This way if new asteroids are added to the 
       // list mid iterate they are not included in the current collision detect
       for (int i = myAsteroids.size()-1; i >= 0; i--)
       {
-        // use circular collision detect algorithm
-        if ((abs(mouseX - myAsteroids.get(i).asteroidLocation.x) < 10) 
-          && (abs(mouseY - myAsteroids.get(i).asteroidLocation.y)) < 10)
+        if(myShip.equals(myAsteroids.get(i)))
         {
           // if a hit is detected the resulting action depends on the number of hits already sustained
           if (myAsteroids.get(i).hits < 2)
@@ -218,9 +220,19 @@ class AsteroidGame
       {
         asteroidsExist = false;
         // once all asteroids are destroyed more are deployed increasing by 1 asteriod for each level
-        level += 1; 
-
+        level += 1;
       }
+    }
+  }
+  
+   /*
+  Method to collision detect ship location and the asteroids
+   */
+  void collisionShip_Asteroid()
+  {
+    if (startAsteroids && asteroidsExist)
+    {
+      
     }
   }
 }
@@ -230,7 +242,7 @@ AsteroidGame myAsteroidGame;
 
 /*
 Setup initialises the AsteroidGame and sets the screen size.
-*/
+ */
 void setup()
 {
   // set screen size
@@ -246,18 +258,19 @@ The draw loop controls the calls for Asteroid game play
 void draw()
 {
   background(0); // this will go in layout() method
-  //ship
-  myAsteroidGame.updateShip();
-  myAsteroidGame.collisionShot_Ship();
-  
-  //ufo
-  myAsteroidGame.updateUfo();
   
   //asteroid
   myAsteroidGame.addAsteroid();
   myAsteroidGame.updateAsteroids();
   myAsteroidGame.collisionAsteroids();
-  myAsteroidGame.collisionShot_Asteroid();
+  
+  //ship
+  myAsteroidGame.updateShip();
+  myAsteroidGame.collisionShipShot_Asteroid();
+
+  //ufo
+  myAsteroidGame.updateUfo();
+  myAsteroidGame.collisionUfoShot_Ship();
 }
 
 /*
@@ -307,5 +320,5 @@ void keyReleased()
     if (keyCode == LEFT) {
       sLEFT = false;
     }
-  } 
+  }
 }

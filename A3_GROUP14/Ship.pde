@@ -164,13 +164,13 @@ class Ship
   @PARAMS: x and y are locations
   @Return: A boolean true if equal false if not.  
   */
-  boolean equals(float x, float y)
+  boolean equals(Asteroid ast)
   {
     // First check shot locations
     for (int i = 0; i <  shipShots.size(); i++)
     {
-      if ((abs(x - shipShots.get(i).shotLocation.x) < 10) 
-          && (abs(y - shipShots.get(i).shotLocation.y)) < 10)
+      if ((abs(ast.asteroidLocation.x - shipShots.get(i).shotLocation.x) < (ast.radius * ast.scale)) 
+          && (abs(ast.asteroidLocation.y - shipShots.get(i).shotLocation.y)) < (ast.radius * ast.scale))
       {
         shipStatus = true;
         // remove shot from array once used
@@ -181,12 +181,6 @@ class Ship
         shipStatus = false;
       }
     }
-    // then check ufo location
-    if((abs(x - shipCoord.x)) < 10 && (abs(y - shipCoord.y)) < 10)
-    {
-      shipStatus = true;
-    }
     return shipStatus;
-    
   }
 }
