@@ -165,7 +165,7 @@ class Ship
   @PARAMS: ast is an Asteroid object
   @Return: A boolean true if equal false if not.  
   */
-  boolean equals(Asteroid ast)
+  boolean equalsAsteroid(Asteroid ast)
   {
     // First check shot locations
     for (int i = 0; i <  shipShots.size(); i++)
@@ -186,12 +186,12 @@ class Ship
   }
   
   /*
-  Overloaded method to check if the ships shot locations are equal to the ufo location. 
+  Method to check if the ships shot locations are equal to the ufo location. 
   It does this by using a circular collision detection algorithm.
   @PARAMS: myUfo is a ufo object
   @Return: A boolean true if equal false if not.  
   */
-  boolean equals(Ufo myUfo)
+  boolean equalsUfo(Ufo myUfo)
   {
     // First check shot locations
     for (int i = 0; i <  shipShots.size(); i++)

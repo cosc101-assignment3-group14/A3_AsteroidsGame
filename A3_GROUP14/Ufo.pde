@@ -243,8 +243,8 @@ class Ufo
     // First check shot locations
     for (int i = 0; i <  ufoShots.size(); i++)
     {
-      if ((abs(myShip.shipCoord.x - ufoShots.get(i).shotLocation.x) < 8) 
-          && (abs(myShip.shipCoord.y - ufoShots.get(i).shotLocation.y)) < 8)
+      if ((abs(myShip.shipCoord.x - ufoShots.get(i).shotLocation.x) < 10) 
+          && (abs(myShip.shipCoord.y - ufoShots.get(i).shotLocation.y)) < 10)
       {
         status = true;
         // remove shot from array once used

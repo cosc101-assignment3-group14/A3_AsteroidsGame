@@ -45,17 +45,21 @@ class AsteroidGame
   Ufo myUfo;              // declare Ufo object
   Asteroid oneAsteroid;   // declare Asteroid object
 
-  boolean startAsteroids, // boolean status flag to control the start of the asteroids
-    shipExists,           // boolean status flag to track the existance of ship
+  boolean startGame,      // boolean status flag to control start game status 
+    startAsteroids,       // boolean status flag to control the start of the asteroids
     ufoExists,            // boolean status flag to track the existance of ufo.
-    startGame,            // boolean status flag to control start game status 
-    asteroidsExist;           // boolean status flag to monitor when asteroid arraylist equals zero
+    asteroidsExist,       // boolean status flag to monitor when asteroid arraylist equals zero
+    ufoTiming;            // boolean status flag to track when the timer between ufos has been set
+    
 
   ArrayList<Asteroid> myAsteroids = 
     new ArrayList<Asteroid>();      // declare Asteroid object ArrayList
 
   int level, // tracks the level of the game reached
-    border;  // sets the border off screen to accomaodate shapes beyond edges
+      ufoTimer, // stores the time starting at the point of when a ufo is destroyed till next ufo released
+      border;  // sets the border off screen to accomaodate shapes beyond edges
+      
+  float ufoInterval; // stores a random interval to time between ufo releases
 
   /*
   AsteroidGame Constructor initialises objects, variables and loads media files.
@@ -64,9 +68,6 @@ class AsteroidGame
   {
     // initialise Ship object
     myShip = new Ship();
-
-    // initialise Ufo object
-    myUfo = new Ufo();
 
     // set integer variables
 
@@ -79,7 +80,8 @@ class AsteroidGame
     startGame = true;
     startAsteroids = true;
     asteroidsExist = false;
-    ufoExists = true;
+    ufoExists = false;
+    ufoTiming = false;
   }
   
   /*
@@ -117,11 +119,33 @@ class AsteroidGame
   } 
   
   /*
+  Method to add Ufo object at random intervals.
+   */
+  void addUfo()
+  {
+    if (startAsteroids && !ufoExists) //<>//
+    {
+      if(!ufoTiming)
+      {
+        ufoTimer = millis();
+        ufoInterval = random(30, 40);
+        ufoTiming = true;
+      }
+      else if((millis() - ufoTimer) / 1000  > ufoInterval)
+      {
+        // initialise Ufo object
+        myUfo = new Ufo();
+        ufoExists = true;
+      }
+    }
+  }
+  
+  /*
   Method to update the ufo 
   */
   void updateUfo()
   {
-    if (startAsteroids)
+    if (startAsteroids && ufoExists)
     {
       myUfo.moveUfo(myShip.shipCoord);
       myUfo.ufoEdgeDetect();
@@ -177,14 +201,11 @@ class AsteroidGame
   {
     if(startAsteroids && ufoExists)
     {
-      // Iterate over ufoShots Array list
-      for (int i = 0; i <  myUfo.ufoShots.size(); i++)
+      if (myUfo.equals(myShip))
       {
-        if (myUfo.equals(myShip))
-        {
-          // TODO PLAYER SHOULD LOSE A LIFE AT THIS POINT AND RESTART IN THE CENTRE
-          println("Ufo hit player");
-        }
+        // TODO PLAYER SHOULD LOSE A LIFE AT THIS POINT AND RESTART IN THE CENTRE
+        // TODO HIT SOUND
+        println("Ufo hit player");
       }
     }
   }
@@ -200,16 +221,18 @@ class AsteroidGame
       // list mid iterate they are not included in the current collision detect
       for (int i = myAsteroids.size()-1; i >= 0; i--)
       {
-        if(myShip.equals(myAsteroids.get(i)))
+        if(myShip.equalsAsteroid(myAsteroids.get(i)))
         {
           // if a hit is detected the resulting action depends on the number of hits already sustained
           if (myAsteroids.get(i).hits < 2)
           {
             myAsteroids.addAll(myAsteroids.get(i).splitAsteroid());
             myAsteroids.remove(myAsteroids.get(i));
+            // TODO HIT SOUND
           } else
           {
             myAsteroids.remove(myAsteroids.get(i));
+            //TODO HIT SOUND
           }
         }
       }
@@ -218,6 +241,7 @@ class AsteroidGame
           asteroidsExist = false;
           // once all asteroids are destroyed more are deployed increasing by 1 asteriod for each level
           level += 1;
+          // TODO NEW LEVEL BOOLEAN
         }
     }
   }
@@ -229,9 +253,13 @@ class AsteroidGame
   {
     if(startAsteroids && ufoExists)
     {
-      if (myShip.equals(myUfo))
+      if (myShip.equalsUfo(myUfo))
       {
         // TODO PLAYER SHOULD LOSE A LIFE AT THIS POINT
+        // TODO HIT SOUND
+        myUfo = null;
+        ufoExists = false;
+        ufoTiming = false;
         println("player HIT UFO");
       }
     }
@@ -247,7 +275,7 @@ class AsteroidGame
     {
       for(int i = 0; i < myAsteroids.size(); i ++)
       {
-        if(myAsteroids.equals(myShip))
+        if(myAsteroids.get(i).equals(myShip))
         {
           // TODO here the ship can lose a life and restart in the centre
           println("Ship destroyed by asteroid");
@@ -288,9 +316,10 @@ void draw()
   //ship
   myAsteroidGame.updateShip();
   myAsteroidGame.collisionShipShot_Asteroid();
-  //myAsteroidGame.collisionShipShot_Ufo();
+  myAsteroidGame.collisionShipShot_Ufo();
 
   //ufo
+  myAsteroidGame.addUfo();
   myAsteroidGame.updateUfo();
   myAsteroidGame.collisionUfoShot_Ship();
   
