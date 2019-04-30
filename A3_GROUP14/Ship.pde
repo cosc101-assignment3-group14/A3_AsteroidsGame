@@ -33,6 +33,8 @@ class Ship
           shipHit,       // boolean flag to state if the ship has been hit
           shipStatus;    // boolean flag used to state if locations are equal to ufo
           
+  String shotColour;     // hexidecimal of shot colour
+          
   /*
   Ship constructor 
   */
@@ -53,6 +55,9 @@ class Ship
     //set status flags
     shotFired = false;
     shipHit = true;
+    
+    //shot colour
+    shotColour = "FF006699";
     
   }
   
@@ -138,7 +143,7 @@ class Ship
   {
     if (key == ' ' && shotReady) 
     {
-      shipShots.add(oneShot = new Shot(shipCoord, shipDirection, shipDirection.heading()));
+      shipShots.add(oneShot = new Shot(shipCoord, shipDirection, shipDirection.heading(), shotColour));
       shotFired = true;
       shotReady = false;
     }
