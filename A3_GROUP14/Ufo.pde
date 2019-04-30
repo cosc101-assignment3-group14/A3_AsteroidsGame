@@ -44,7 +44,9 @@ class Ufo
           ufoHit,                // boolean flag to state if the ufo has been hit
           timing,                // boolean flag to state if the shot timer has started
           status;                // boolean flag used to state if locations are equal to space ship
-          
+  
+  String shotColour;             // hexidecimal for colour of shot
+           
   /*
   UFO constructor 
   */
@@ -75,6 +77,9 @@ class Ufo
     // time control
     startTime = 0;
     totalTime = 0;
+    
+    // shot colour
+    shotColour = "FFEA070F";
     
   }
   
@@ -207,7 +212,7 @@ class Ufo
       totalTime += split;
       if(totalTime > shotInterval)
       {
-        ufoShots.add(oneShot = new Shot(ufoLocation, ufoVelocity, ship));
+        ufoShots.add(oneShot = new Shot(ufoLocation, ufoVelocity, ship, shotColour));
         shotFired = true; 
         shotInterval = random(1, 100);
         startTime = millis();

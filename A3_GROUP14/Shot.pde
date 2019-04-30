@@ -27,8 +27,9 @@ class Shot
   @PARAMS pos: A PVector object containing ship's location
   @PARAMS vel:  A PVector object containing ship's velocity
   @PARAMS direction: The direction of the ship
+  @PARAMS col: The colour of the shot.
   */
-  Shot(PVector pos, PVector vel, float direction)
+  Shot(PVector pos, PVector vel, float direction, String col)
   {
     //set speed
     shotSpeed = 5;
@@ -40,8 +41,9 @@ class Shot
     shotVelocity.mult(shotSpeed);
     
     // create PShape object
+    int colour = unhex(col);
     drawShot = createShape(POINT, 0, 0);
-    drawShot.setStroke(#CB0E0E);
+    drawShot.setStroke(colour);
     drawShot.setStrokeWeight(4);
   }
   
@@ -54,8 +56,9 @@ class Shot
   @PARAMS pos: A PVector object containing ufo's location
   @PARAMS vel:  A PVector object containing ufo's velocity
   @PARAMS ship: A PVector object containing ship's location 
+  @PARAMS col: The colour of the shot.
   */
-  Shot(PVector ufoPos, PVector vel, PVector ship)
+  Shot(PVector ufoPos, PVector vel, PVector ship, String col)
   {
     //set speed
     shotSpeed = 8;
@@ -68,8 +71,9 @@ class Shot
     shotVelocity.mult(shotSpeed);
     
     // create PShape object
+    int colour = unhex(col);
     drawShot = createShape(POINT, 0, 0);
-    drawShot.setStroke(#CB0E0E);
+    drawShot.setStroke(colour);
     drawShot.setStrokeWeight(4);
   }
   
