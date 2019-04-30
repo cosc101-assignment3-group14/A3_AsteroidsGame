@@ -203,8 +203,8 @@ class Asteroid
   boolean equals(Ship myShip)
   {
     boolean status;
-      if (abs(asteroidLocation.x - myShip.shipCoord.x) < 100
-        && abs(asteroidLocation.y - myShip.shipCoord.y) < 100)
+      if (abs(asteroidLocation.x - myShip.shipCoord.x) < radius * scale
+        && abs(asteroidLocation.y - myShip.shipCoord.y) < radius * scale)
       {
         status = true;
       } else
