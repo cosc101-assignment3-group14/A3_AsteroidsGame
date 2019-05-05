@@ -32,7 +32,7 @@ class Ship
   boolean shotFired,     // boolean flag to state if a shot has been fired on not
           shipHit,       // boolean flag to state if the ship has been hit
           shipStatus,    // boolean flag used to state if locations are equal to ufo
-          shotReady;
+          shotReady;     // boolean flag to control the status of the user input events
           
   String shotColour;     // hexidecimal of shot colour
           
@@ -150,6 +150,10 @@ class Ship
       shipShots.add(oneShot = new Shot(shipCoord, shipDirection, shipDirection.heading(), shotColour));
       shotFired = true;
       shotReady = false;
+    }
+    else if(!keypress[' '])
+    {
+      shotReady = true;
     }
   } 
   
