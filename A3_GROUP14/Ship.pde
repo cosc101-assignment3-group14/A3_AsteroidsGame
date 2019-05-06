@@ -31,7 +31,8 @@ class Ship
         
   boolean shotFired,     // boolean flag to state if a shot has been fired on not
           shipHit,       // boolean flag to state if the ship has been hit
-          shipStatus;    // boolean flag used to state if locations are equal to ufo
+          shipStatus,    // boolean flag used to state if locations are equal to ufo
+          shotReady;     // boolean flag to control the status of the user input events
           
   String shotColour;     // hexidecimal of shot colour
           
@@ -55,6 +56,7 @@ class Ship
     //set status flags
     shotFired = false;
     shipHit = true;
+    shotReady = true;
     
     //shot colour
     shotColour = "FF006699";
@@ -63,25 +65,26 @@ class Ship
   
   /*
   Method to update the movement of the ship relative to the players ship current location
-  @PARAMS: ship is a PVector with the ships location
+  @PARAM keypress: boolean array storing a boolean at each keypressed events
+  corrosponding ASCII value.
   */
-  void moveShip()
+  void moveShip(boolean [] keypress)
   {
 
   //this function should update if keys are pressed down 
      // - this creates smooth movement
   //update rotation,speed and update current location
 
-    if(sUP){
+    if(keypress[UP]){
       shipDirection.add(new PVector(0, -speed));
     }
-    if(sDOWN){
+    if(keypress[DOWN]){
       shipDirection.add(new PVector(0, speed)); 
     }
-    if(sRIGHT){
+    if(keypress[RIGHT]){
       shipDirection.add(new PVector(speed, 0));
     }
-    if(sLEFT){
+    if(keypress[LEFT]){
       shipDirection.add(new PVector(-speed, 0));
     }
   
@@ -137,15 +140,20 @@ class Ship
 
   /*
   Method to fire shots at random intervals
-  @PARAMS: PVector containing players ship location
+  @PARAM keypress: boolean array storing a boolean at each keypressed events
+  corrosponding ASCII value.
   */
-  void addShot()
+  void addShot(boolean[] keypress)
   {
-    if (key == ' ' && shotReady) 
+    if (keypress[' '] && shotReady) 
     {
       shipShots.add(oneShot = new Shot(shipCoord, shipDirection, shipDirection.heading(), shotColour));
       shotFired = true;
       shotReady = false;
+    }
+    else if(!keypress[' '])
+    {
+      shotReady = true;
     }
   } 
   

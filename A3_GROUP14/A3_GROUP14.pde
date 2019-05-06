@@ -29,16 +29,6 @@ AsteroidGame class accesses the clases required to build up the Asteroids
  play status is moitored with boolean flags and game flow is directed in the 
  relevent direction. Collision detection is monitored.
  */
-
-// Global key code variables
-
-boolean sUP = false,
-        sDOWN = false,
-        sRIGHT = false,
-        sLEFT = false,
-        shotReady = true;
-
-
 class AsteroidGame
 {
   Ship myShip;            // declare Ship object
@@ -60,6 +50,8 @@ class AsteroidGame
       border;  // sets the border off screen to accomaodate shapes beyond edges
       
   float ufoInterval; // stores a random interval to time between ufo releases
+  
+  boolean[] keyIsPressed; // boolean array to store a boolean corrosponding to keypress event.
 
   /*
   AsteroidGame Constructor initialises objects, variables and loads media files.
@@ -82,6 +74,10 @@ class AsteroidGame
     asteroidsExist = false;
     ufoExists = false;
     ufoTiming = false;
+    
+    // create a boolean array to monitor which keys are pressed. 256 corrosponds to the
+    // number of ASCII characters
+    keyIsPressed = new boolean[256];
   }
   
   /*
@@ -162,10 +158,10 @@ class AsteroidGame
   {
     if (startAsteroids)
     {
-      myShip.moveShip();
+      myShip.moveShip(keyIsPressed);
       myShip.shipEdgeDetect();
       myShip.displayShip();
-      myShip.addShot();
+      myShip.addShot(keyIsPressed);
       myShip.updateShot();
     }
   }
@@ -283,6 +279,29 @@ class AsteroidGame
       }
     }
   }
+  
+  /*
+  Method called from the built-in keyPressed() method. This method works along side the
+  keyRelease() method below to handle key press and key release events. The concept used
+  was sourced from code on https://forum.processing.org. It was including because it
+  provides a concise way to store all key input events (press or release) in an array.
+  They can then be passed to classes that require access to them. The array keyIsPressed
+  can hold 256 boolean values, corrosponding to each ASCII value. The values are set to
+  true on key press events and false on key release events.
+  */
+  void keyPress() 
+  {
+    keyIsPressed[keyCode] = true;
+  }
+  
+  /*
+  Method called from the built-in keyReleased() method. See keyPress method (above)
+  for description of functionality.
+  */
+  void keyRelease() 
+  {
+    keyIsPressed[keyCode] = false;
+  }
 }
 
 // Declare AsteroidGame object
@@ -294,7 +313,7 @@ Setup initialises the AsteroidGame and sets the screen size.
 void setup()
 {
   // set screen size
-  size(800, 800);
+  size(800,800);
 
   // Initialise objects
   myAsteroidGame = new AsteroidGame();
@@ -326,27 +345,19 @@ void draw()
 }
 
 /*
-Built in function.
- */
+Built in function KeyPressed() initially has no functionality, until the player mouse
+clicks to select play game. This action sets the startGame flag to true and sets the
+game screen to 'ready to play'. Now the game waits for the player to input any click to
+commence play (which starts the asteroids). Once in 'game play' mode any clicks invoke
+the keyPress() method which updates the keyIsPressed boolean array.
+*/  
 void keyPressed()
 {
-
-  if (key == CODED) {
-    if (keyCode == UP) {
-      sUP = true;
+  if(myAsteroidGame.startGame && myAsteroidGame.asteroidsExist)
+  {
+    {
+      myAsteroidGame.keyPress();
     }
-    if (keyCode == DOWN) {
-      sDOWN = true;
-    } 
-    if (keyCode == RIGHT) {
-      sRIGHT = true;
-    }
-    if (keyCode == LEFT) {
-      sLEFT = true;
-    }
-  }
-  if (key == ' ') {
-    shotReady = true;
   }
 }
 
@@ -358,22 +369,14 @@ void mousePressed()
 }
 
 /*
-Built in function.
- */
+Like keyPressed(), keyReleased() has no functionality until 'play game' mode. Once at 
+this point any clicks invoke the keyRelease() method which updates the keyIsPressed 
+boolean array.
+*/
 void keyReleased() 
 {
-  if (key == CODED) {
-    if (keyCode == UP) {
-      sUP = false;
-    }
-    if (keyCode == DOWN) {
-      sDOWN = false;
-    } 
-    if (keyCode == RIGHT) {
-      sRIGHT = false;
-    }
-    if (keyCode == LEFT) {
-      sLEFT = false;
-    }
+  if(myAsteroidGame.startAsteroids)
+  {
+    myAsteroidGame.keyRelease();
   }
 }
