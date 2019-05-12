@@ -40,8 +40,7 @@ class Ship
   Ship constructor 
   */
   Ship()
-  {
-     // create PVectors for ship movement
+  {     // create PVectors for ship movement
     shipCoord = new PVector(width/2, height/2);
     shipDirection = new PVector(0, 0);
     
@@ -60,8 +59,8 @@ class Ship
     
     //shot colour
     shotColour = "FF006699";
-    
-  }
+   
+   }
   
   /*
   Method to update the movement of the ship relative to the players ship current location
@@ -150,6 +149,8 @@ class Ship
       shipShots.add(oneShot = new Shot(shipCoord, shipDirection, shipDirection.heading(), shotColour));
       shotFired = true;
       shotReady = false;
+      // call audio object to play shot sound
+      myAudio.playShot();
     }
     else if(!keypress[' '])
     {

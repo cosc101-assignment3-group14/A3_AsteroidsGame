@@ -217,6 +217,8 @@ class Ufo
         shotInterval = random(1, 100);
         startTime = millis();
         totalTime = 0;
+        // call audio object to play shot sound
+        myAudio.playShot();
       }
     }
   
