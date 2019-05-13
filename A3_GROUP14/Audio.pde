@@ -13,11 +13,11 @@ class Audio
 {
   Minim minim;                // Minim object to load sound file
   
-  AudioPlayer shipHit,            //Audioplayer object for hit 
-              astHit,
-              shot,
-              ufo,
-              asteroids;
+  AudioPlayer shipHit,        //Audioplayer object for ship destoyed
+              astHit,         //Audioplayer object for asteroid destroyed
+              shot,           //Audioplayer object for shot 
+              ufo;            //Audioplayer object for ufo
+         
   
   
   /*
@@ -34,7 +34,6 @@ class Audio
     shipHit = minim.loadFile("shiphit1.wav");
     shot = minim.loadFile("shot.wav");
     ufo = minim.loadFile("ufo.wav");
-    //asteroids = minim.loadFile("asteroidscollide.wav");
     astHit = minim.loadFile("asteroidexplode.wav");
   }
   
@@ -63,15 +62,6 @@ class Audio
   {
     astHit.rewind();
     astHit.play();
-  }
-  
-  /*
-  Method to play sound
-  */
-  void playAsteroids()
-  {
-    asteroids.rewind();
-    asteroids.play();
   }
   
   /*
