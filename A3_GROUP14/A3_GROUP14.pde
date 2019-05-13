@@ -21,7 +21,9 @@
  Font is sourced from https://www.fontspace.com.
  Any Code Sampled from online sources is commented in method or class headings.
  **************************************************************/
-
+ 
+//imoprt a java audio library
+import ddf.minim.*;
 /*
 AsteroidGame class accesses the clases required to build up the Asteroids
  game implementation. User input events are monitored and passed to the relevent
@@ -29,6 +31,7 @@ AsteroidGame class accesses the clases required to build up the Asteroids
  play status is moitored with boolean flags and game flow is directed in the 
  relevent direction. Collision detection is monitored.
  */
+ 
 class AsteroidGame
 {
   Ship myShip;            // declare Ship object
@@ -39,7 +42,8 @@ class AsteroidGame
     startAsteroids,       // boolean status flag to control the start of the asteroids
     ufoExists,            // boolean status flag to track the existance of ufo.
     asteroidsExist,       // boolean status flag to monitor when asteroid arraylist equals zero
-    ufoTiming;            // boolean status flag to track when the timer between ufos has been set
+    ufoTiming,            // boolean status flag to track when the timer between ufos has been set
+    shipHit;              // boolean status flag to track if the ship has been hit and is dead or alive
     
 
   ArrayList<Asteroid> myAsteroids = 
@@ -74,6 +78,7 @@ class AsteroidGame
     asteroidsExist = false;
     ufoExists = false;
     ufoTiming = false;
+    shipHit = false;
     
     // create a boolean array to monitor which keys are pressed. 256 corrosponds to the
     // number of ASCII characters
@@ -132,6 +137,8 @@ class AsteroidGame
         // initialise Ufo object
         myUfo = new Ufo();
         ufoExists = true;
+        // call audio object to play ufo sound
+        //myAudio.loopUfoSound();
       }
     }
   }
@@ -184,6 +191,7 @@ class AsteroidGame
           {
             // if equal collisionAsteroid() method called to change both asteroids motion
             myAsteroids.get(i).collisionAsteroid(myAsteroids.get(j));
+            
           }
         }
       }
@@ -197,11 +205,14 @@ class AsteroidGame
   {
     if(startAsteroids && ufoExists)
     {
-      if (myUfo.equals(myShip))
+      if (myUfo.equals(myShip) && !shipHit)
       {
         // TODO PLAYER SHOULD LOSE A LIFE AT THIS POINT AND RESTART IN THE CENTRE
-        // TODO HIT SOUND
+        
         println("Ufo hit player");
+        // call audio object to ship hit sound
+        myAudio.playShipHit();
+        shipHit = true;
       }
     }
   }
@@ -224,11 +235,13 @@ class AsteroidGame
           {
             myAsteroids.addAll(myAsteroids.get(i).splitAsteroid());
             myAsteroids.remove(myAsteroids.get(i));
-            // TODO HIT SOUND
+            // call audio object to ship hit sound
+            myAudio.playAstHit();
           } else
           {
             myAsteroids.remove(myAsteroids.get(i));
-            //TODO HIT SOUND
+            // call audio object to ship hit sound
+            myAudio.playAstHit();
           }
         }
       }
@@ -257,6 +270,9 @@ class AsteroidGame
         ufoExists = false;
         ufoTiming = false;
         println("player HIT UFO");
+        // call audio object to pause ufo sound
+        myAudio.pauseLoopUfoSound();
+        
       }
     }
   }
@@ -271,8 +287,11 @@ class AsteroidGame
     {
       for(int i = 0; i < myAsteroids.size(); i ++)
       {
-        if(myAsteroids.get(i).equals(myShip))
+        if(myAsteroids.get(i).equals(myShip) && !shipHit)
         {
+          // call audio object to ship hit sound
+          myAudio.playShipHit();
+          shipHit = true;
           // TODO here the ship can lose a life and restart in the centre
           println("Ship destroyed by asteroid");
         }
@@ -306,6 +325,7 @@ class AsteroidGame
 
 // Declare AsteroidGame object
 AsteroidGame myAsteroidGame;
+Audio myAudio;
 
 /*
 Setup initialises the AsteroidGame and sets the screen size.
@@ -317,6 +337,7 @@ void setup()
 
   // Initialise objects
   myAsteroidGame = new AsteroidGame();
+  myAudio = new Audio(this);
 }
 
 /*
