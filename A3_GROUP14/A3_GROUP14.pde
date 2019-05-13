@@ -138,7 +138,7 @@ class AsteroidGame
         myUfo = new Ufo();
         ufoExists = true;
         // call audio object to play ufo sound
-        //myAudio.loopUfoSound();
+        myAudio.loopUfoSound();
       }
     }
   }
@@ -270,9 +270,9 @@ class AsteroidGame
         ufoExists = false;
         ufoTiming = false;
         println("player HIT UFO");
-        // call audio object to pause ufo sound
+        // call audio object to pause ufo sound and sound explosion
         myAudio.pauseLoopUfoSound();
-        
+        myAudio.playUfoHit();
       }
     }
   }

@@ -16,7 +16,9 @@ class Audio
   AudioPlayer shipHit,        //Audioplayer object for ship destoyed
               astHit,         //Audioplayer object for asteroid destroyed
               shot,           //Audioplayer object for shot 
+              ufoHit,         //Audioplayer object for ufo hit
               ufo;            //Audioplayer object for ufo
+              
          
   
   
@@ -33,8 +35,9 @@ class Audio
     //load sound
     shipHit = minim.loadFile("shiphit1.wav");
     shot = minim.loadFile("shot.wav");
-    ufo = minim.loadFile("ufo.wav");
+    ufo = minim.loadFile("ufo.mp3");
     astHit = minim.loadFile("asteroidexplode.wav");
+    ufoHit = minim.loadFile("ufohit.wav");
   }
   
   /*
@@ -62,6 +65,15 @@ class Audio
   {
     astHit.rewind();
     astHit.play();
+  }
+  
+  /*
+  Method to playufo hit sound
+  */
+  void playUfoHit()
+  {
+    ufoHit.rewind();
+    ufoHit.play();
   }
   
   /*
