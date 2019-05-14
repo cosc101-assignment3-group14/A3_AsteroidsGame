@@ -67,7 +67,7 @@ class AsteroidGame
 
     // set integer variables
 
-    border = 100;
+    border = 25;
     level = 1;
 
     // set boolean variables. 
@@ -173,6 +173,9 @@ class AsteroidGame
     }
   }
   
+  /*
+  Method to check lives
+  */
   void checkLives()
   {
     if (startAsteroids)
@@ -184,11 +187,19 @@ class AsteroidGame
         fill(255, 0, 0);
         textSize(100);
         text("GAME OVER", width/7, height/2);
+        // pause ufo audio if playing
+        if(ufoExists)
+        {
+          myAudio.pauseLoopUfoSound();
+        }
         // go to menu or cut out
         noLoop();
       }    
   }
   
+  /*
+  Method to display score
+  */
   void displayScore()
   {
     if (startAsteroids)
@@ -223,7 +234,7 @@ class AsteroidGame
   }
   
   /*
-  Method to collision detect between ufo shots and space ship
+  Method to collision detect between ufo/ ufo shots and space ship
   */
   void collisionUfoShot_Ship()
   {
@@ -231,7 +242,6 @@ class AsteroidGame
     {
       if (myUfo.equals(myShip) && myShip.lives != 0)
       {
-        // TODO PLAYER SHOULD LOSE A LIFE AT THIS POINT AND RESTART IN THE CENTRE
         myShip.lives -= 1;
         myShip.shipCoord.x = width/2;
         myShip.shipCoord.y = height/2;
@@ -278,6 +288,7 @@ class AsteroidGame
           level += 1;
           // call audio object to play next level sound
           myAudio.playLevelUp();
+          // start new level with ship in center
           myShip.shipCoord.x = width/2;
           myShip.shipCoord.y = height/2;
           myShip.score += 500;
@@ -295,8 +306,6 @@ class AsteroidGame
     {
       if (myShip.equalsUfo(myUfo))
       {
-        // TODO PLAYER SHOULD LOSE A LIFE AT THIS POINT
-        // TODO HIT SOUND
         myUfo = null;
         ufoExists = false;
         ufoTiming = false;
@@ -307,7 +316,6 @@ class AsteroidGame
       }
     }
   }
-  
   
   /*
   Method to collision detect ship location and the asteroids
@@ -323,7 +331,7 @@ class AsteroidGame
           // call audio object to ship hit sound
           myAudio.playShipHit();
           shipHit = true;
-          // TODO here the ship can lose a life and restart in the centre
+          // lose life and start in center
           myShip.lives -= 1;
           myShip.shipCoord.x = width/2;
           myShip.shipCoord.y = height/2;
