@@ -27,7 +27,9 @@ class Ship
         direction;       // direction that ship is heading
         
   int sWidth = 14,       // ship width
-      sLength = 18;      // ship length
+      sLength = 18,      // ship length
+      lives = 3,
+      score = 0;
         
   boolean shotFired,     // boolean flag to state if a shot has been fired on not
           shipHit,       // boolean flag to state if the ship has been hit
@@ -46,6 +48,8 @@ class Ship
     
     // create PShape object
     generateShipShape();
+    shipLives();
+    gameScore();
     
     // set motion control variables 
     speed = 0.5;
@@ -61,6 +65,34 @@ class Ship
     shotColour = "FF006699";
    
    }
+   
+  /*
+  Method the display the amount of lives left
+  */ 
+  void shipLives()
+  {
+    if (lives != 0)
+    {
+      for (int i = 0; i < lives; i ++)
+      {
+      translate(sWidth*2, 0);
+      stroke(255);
+      strokeWeight(2);
+      fill(0);
+      triangle(-sWidth/2, sLength, 0, 0, sWidth/2, sLength);
+      }
+    }
+  }
+  
+  /*
+  Method the display score
+  */ 
+  void gameScore()
+  {
+    fill(150);
+    textSize(25);
+    text(score, sWidth-(sWidth*2)*lives, sLength*3);
+  }
   
   /*
   Method to update the movement of the ship relative to the players ship current location
@@ -69,11 +101,6 @@ class Ship
   */
   void moveShip(boolean [] keypress)
   {
-
-  //this function should update if keys are pressed down 
-     // - this creates smooth movement
-  //update rotation,speed and update current location
-
     if(keypress[UP]){
       shipDirection.add(new PVector(0, -speed));
     }
@@ -90,29 +117,28 @@ class Ship
     shipDirection.limit(maxSpeed);
     shipCoord.add(shipDirection);
     
-}
+  }
   
   /*
-  Method to wrap the ufo around the edges of the screen
+  Method to wrap the ship around the edges of the screen
   */
   void shipEdgeDetect()
   {
-  // Make sure the ship is not outside of the window; Check edges
-  if (shipCoord.x > width) {
-    shipCoord.x = 0;
-  } else if (shipCoord.x < 0) {
-    shipCoord.x = width;
-  }
+    if (shipCoord.x > width) {
+      shipCoord.x = 0;
+    } else if (shipCoord.x < 0) {
+      shipCoord.x = width;
+    }
   
-  if (shipCoord.y > height) {
-    shipCoord.y = 0;
-  } else if (shipCoord.y < 0) {
-    shipCoord.y = height;
+    if (shipCoord.y > height) {
+      shipCoord.y = 0;
+    } else if (shipCoord.y < 0) {
+      shipCoord.y = height;
+    }
   }
-}
   
   /*
-  Method called from the constructor to generate the drawUfo PShape object group
+  Method called from the constructor to generate the drawShip PShape object group
   */
   void generateShipShape()
   {
@@ -124,7 +150,7 @@ class Ship
   }
   
   /*
-  Method to rotate the drawUfo PShape object and display it to screen
+  Method to rotate the drawShip PShape object and display it to screen
   */
   void displayShip()
   {
@@ -190,6 +216,7 @@ class Ship
         shipStatus = true;
         // remove shot from array once used
         shipShots.remove(i);
+        score += 10;
       }   
       else
       {
@@ -200,7 +227,7 @@ class Ship
   }
   
   /*
-  Method to check if the ships shot locations are equal to the ufo location. 
+  Method to check if the ship's shot locations are equal to the ufo location. 
   It does this by using a circular collision detection algorithm.
   @PARAMS: myUfo is a ufo object
   @Return: A boolean true if equal false if not.  
@@ -216,6 +243,7 @@ class Ship
         shipStatus = true;
         // remove shot from array once used
         shipShots.remove(i);
+        score += 100;
       }   
       else
       {
