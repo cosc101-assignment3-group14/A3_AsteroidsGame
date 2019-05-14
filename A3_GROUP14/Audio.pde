@@ -17,7 +17,8 @@ class Audio
               astHit,         //Audioplayer object for asteroid destroyed
               shot,           //Audioplayer object for shot 
               ufoHit,         //Audioplayer object for ufo hit
-              ufo;            //Audioplayer object for ufo
+              ufo,            //Audioplayer object for ufo
+              levelUp;        //Audioplayer object for next level
               
          
   
@@ -38,6 +39,7 @@ class Audio
     ufo = minim.loadFile("ufo.mp3");
     astHit = minim.loadFile("asteroidexplode.wav");
     ufoHit = minim.loadFile("ufohit.wav");
+    levelUp = minim.loadFile("levelup.wav");
   }
   
   /*
@@ -65,6 +67,15 @@ class Audio
   {
     astHit.rewind();
     astHit.play();
+  }
+  
+  /*
+  Method to play asteroid hit sound
+  */
+  void playLevelUp()
+  {
+    levelUp.rewind();
+    levelUp.play();
   }
   
   /*
