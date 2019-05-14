@@ -75,11 +75,11 @@ class Ship
     {
       for (int i = 0; i < lives; i ++)
       {
-      translate(sWidth*2, 0);
-      stroke(255);
-      strokeWeight(2);
-      fill(0);
-      triangle(-sWidth/2, sLength, 0, 0, sWidth/2, sLength);
+        translate(sWidth*2, 0);
+        stroke(255);
+        strokeWeight(2);
+        fill(0);
+        triangle(-sWidth/2, sLength, 0, 0, sWidth/2, sLength);
       }
     }
   }
@@ -91,7 +91,7 @@ class Ship
   {
     fill(150);
     textSize(25);
-    text(score, sWidth-(sWidth*2)*lives, sLength*3);
+    text("Score: " + score, sWidth-(sWidth*2)*lives, sLength*3);
   }
   
   /*

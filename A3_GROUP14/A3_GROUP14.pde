@@ -179,6 +179,14 @@ class AsteroidGame
     {
       myShip.shipLives();
     }
+    if (myShip.lives == 0)
+      {
+        fill(255, 0, 0);
+        textSize(100);
+        text("GAME OVER", width/7, height/2);
+        // go to menu or cut out
+        noLoop();
+      }    
   }
   
   void displayScore()
@@ -268,6 +276,10 @@ class AsteroidGame
           asteroidsExist = false;
           // once all asteroids are destroyed more are deployed increasing by 1 asteriod for each level
           level += 1;
+          // call audio object to play next level sound
+          myAudio.playLevelUp();
+          myShip.shipCoord.x = width/2;
+          myShip.shipCoord.y = height/2;
           myShip.score += 500;
           // TODO NEW LEVEL BOOLEAN
         }
