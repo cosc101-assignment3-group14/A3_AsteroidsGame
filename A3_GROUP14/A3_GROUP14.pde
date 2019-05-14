@@ -173,6 +173,22 @@ class AsteroidGame
     }
   }
   
+  void checkLives()
+  {
+    if (startAsteroids)
+    {
+      myShip.shipLives();
+    }
+  }
+  
+  void displayScore()
+  {
+    if (startAsteroids)
+    {
+      myShip.gameScore();
+    }
+  }  
+  
   /*
   Method to collision detect between Asteriods 
   */
@@ -205,14 +221,16 @@ class AsteroidGame
   {
     if(startAsteroids && ufoExists)
     {
-      if (myUfo.equals(myShip) && !shipHit)
+      if (myUfo.equals(myShip) && myShip.lives != 0)
       {
         // TODO PLAYER SHOULD LOSE A LIFE AT THIS POINT AND RESTART IN THE CENTRE
-        
+        myShip.lives -= 1;
+        myShip.shipCoord.x = width/2;
+        myShip.shipCoord.y = height/2;
         println("Ufo hit player");
         // call audio object to ship hit sound
         myAudio.playShipHit();
-        shipHit = true;
+     //   shipHit = true;
       }
     }
   }
@@ -250,6 +268,7 @@ class AsteroidGame
           asteroidsExist = false;
           // once all asteroids are destroyed more are deployed increasing by 1 asteriod for each level
           level += 1;
+          myShip.score += 500;
           // TODO NEW LEVEL BOOLEAN
         }
     }
@@ -287,12 +306,15 @@ class AsteroidGame
     {
       for(int i = 0; i < myAsteroids.size(); i ++)
       {
-        if(myAsteroids.get(i).equals(myShip) && !shipHit)
+        if(myAsteroids.get(i).equals(myShip) && myShip.lives != 0)
         {
           // call audio object to ship hit sound
           myAudio.playShipHit();
           shipHit = true;
           // TODO here the ship can lose a life and restart in the centre
+          myShip.lives -= 1;
+          myShip.shipCoord.x = width/2;
+          myShip.shipCoord.y = height/2;
           println("Ship destroyed by asteroid");
         }
       }
@@ -357,6 +379,8 @@ void draw()
   myAsteroidGame.updateShip();
   myAsteroidGame.collisionShipShot_Asteroid();
   myAsteroidGame.collisionShipShot_Ufo();
+  myAsteroidGame.checkLives();
+  myAsteroidGame.displayScore();
 
   //ufo
   myAsteroidGame.addUfo();
