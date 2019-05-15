@@ -90,7 +90,9 @@ class Ship
   }
 
   /*
-  Method the display score
+  Method the display score. 
+  The text is in this location to counter the effect of translation
+  in the shipLives function.
    */
   void gameScore()
   {
@@ -129,21 +131,17 @@ class Ship
    */
   void shipEdgeDetect()
   {
-    if (shipCoord.x > width) 
-    {
+    if (shipCoord.x > width) {
       shipCoord.x = 0;
     } 
-    else if (shipCoord.x < 0)
-    {
+    else if (shipCoord.x < 0) {
       shipCoord.x = width;
     }
 
-    if (shipCoord.y > height) 
-    {
+    if (shipCoord.y > height) {
       shipCoord.y = 0;
     } 
-    else if (shipCoord.y < 0)
-    {
+    else if (shipCoord.y < 0) {
       shipCoord.y = height;
     }
   }

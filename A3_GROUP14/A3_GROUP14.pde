@@ -211,7 +211,9 @@ class AsteroidGame
   }  
   
   /*
-  Method to display the next level change
+  Method to display the next level change.
+  The text is in this location to counter the effect of translation
+  in the shipLives function.
   */
   void nextLevel()
   {
@@ -220,8 +222,9 @@ class AsteroidGame
       fill(0, 255, 0);
       textSize(100);
       String txt = ("NEXT LEVEL");
-      text(txt, (width-textWidth(txt))/3, height/2);
+      text(txt, (width-textWidth(txt))/(2*myShip.lives), height/2);
     }
+    // Keeps the next level message displayed until player shoots an asteroid
     if (myAsteroids.size() > level+3)
     {
       newLevel = false;
