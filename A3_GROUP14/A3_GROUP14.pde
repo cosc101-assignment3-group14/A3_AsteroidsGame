@@ -35,29 +35,32 @@ AsteroidGame class accesses the clases required to build up the Asteroids
 class AsteroidGame
 {
 
-  Ship myShip;            // declare Ship object
-  Ufo myUfo;              // declare Ufo object
-  Asteroid oneAsteroid;   // declare Asteroid object
+  Ship myShip; // declare Ship object
+  Ufo myUfo; // declare Ufo object
+  Asteroid oneAsteroid; // declare Asteroid object
 
-  boolean startGame,      // boolean status flag to control start game status 
-    startAsteroids,       // boolean status flag to control the start of the asteroids
-    ufoExists,            // boolean status flag to track the existance of ufo.
-    asteroidsExist,       // boolean status flag to monitor when asteroid arraylist equals zero
-    ufoTiming,            // boolean status flag to track when the timer between ufos has been set
-    shipHit,              // boolean status flag to track if the ship has been hit and is dead or alive
-    newLevel;             // boolean status flag to show a new level has been reached
+  boolean startAsteroids, // boolean status flag to control the start of the asteroids/game
+    ufoExists, // boolean status flag to track the existance of ufo.
+    asteroidsExist, // boolean status flag to monitor when asteroid arraylist equals zero
+    ufoTiming, // boolean status flag to track when the timer between ufos has been set
+    shipHit,  // boolean status flag to track if the ship has been hit and is dead or alive
+    textTiming, // boolean status flag to track display time of level message
+    newLevel; // boolean status flag to show a new level has been reached
 
   ArrayList<Asteroid> myAsteroids = 
     new ArrayList<Asteroid>(); // declare Asteroid object ArrayList
 
   int level, // tracks the level of the game reached
     ufoTimer, // stores the time starting at the point of when a ufo is destroyed till next ufo released
+    textTimer, // stores starting tie to display level messege
     border;  // sets the border off screen to accomaodate shapes beyond edges
 
-  float ufoInterval; // stores a random interval to time between ufo releases
+  float ufoInterval, // stores a random interval to time between ufo releases
+        textInterval; // stores an interval to display the next level message
 
   boolean[] keyIsPressed; // boolean array to store a boolean corrosponding to keypress event.
 
+  PFont font; // declare a Pfont object
   /*
   AsteroidGame Constructor initialises objects, variables and loads media files.
    */
@@ -66,15 +69,14 @@ class AsteroidGame
     // initialise Ship object
     myShip = new Ship();
 
-    // set integer variables
+    // set variables
 
     border = 15;
     level = 1;
+    textInterval = 3;
 
     // set boolean variables. 
-    //NOTE WHEN EVENT HANDLING ADDED TO PROGRAM THESE WILL BE INITALISED TO FALSE
-
-    startGame = true;
+   
     startAsteroids = true;
     asteroidsExist = false;
     ufoExists = false;
@@ -85,6 +87,10 @@ class AsteroidGame
     // create a boolean array to monitor which keys are pressed. 256 corrosponds to the
     // number of ASCII characters
     keyIsPressed = new boolean[256];
+    
+    // load font
+    font = createFont("Pixel-Miners.otf", 32);
+    textFont(font);
   }
 
   /*
@@ -130,10 +136,12 @@ class AsteroidGame
     {
       if (!ufoTiming)
       {
+        // start a timer to time interval between ufo attacks
         ufoTimer = millis();
         ufoInterval = random(30, 40);
         ufoTiming = true;
-      } else if ((millis() - ufoTimer) / 1000  > ufoInterval)
+      } 
+      else if ((millis() - ufoTimer) / 1000  > ufoInterval)
       {
         // initialise Ufo object
         myUfo = new Ufo();
@@ -187,8 +195,8 @@ class AsteroidGame
     if (myShip.lives == 0)
     {
       fill(255, 0, 0);
-      textSize(100);
-      text("GAME OVER", width/7, height/2);
+      textSize(55);
+      text("GAME OVER", width/4, height/2);
       // pause ufo audio if playing
       if (ufoExists)
       {
@@ -217,17 +225,22 @@ class AsteroidGame
   */
   void nextLevel()
   {
-    if (newLevel == true)
-    {  
-      fill(0, 255, 0);
-      textSize(100);
-      String txt = ("NEXT LEVEL");
-      text(txt, (width-textWidth(txt))/(2*myShip.lives), height/2);
+    if (newLevel && !textTiming)
+    {
+      // start a timer to display a message for a specific interval
+      textTimer = millis();
+      textTiming = true;
     }
-    // Keeps the next level message displayed until player shoots an asteroid
-    if (myAsteroids.size() > level+3)
+    else if((millis() - textTimer) / 1000  < textInterval)
+    {
+      fill(#24DE14);
+      textSize(55);
+      text("LEVEL: " + level, width/5, height/2);
+    }
+    else
     {
       newLevel = false;
+      textTiming = false;
     }
   }
 
@@ -439,7 +452,7 @@ Built in function KeyPressed() initially has no functionality, until the player 
  */
 void keyPressed()
 {
-  if (myAsteroidGame.startGame && myAsteroidGame.asteroidsExist)
+  if (myAsteroidGame.asteroidsExist)
   {
     {
       myAsteroidGame.keyPress();

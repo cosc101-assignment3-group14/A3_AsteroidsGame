@@ -97,7 +97,7 @@ class Ship
   void gameScore()
   {
     fill(150);
-    textSize(25);
+    textSize(15);
     text("Score: " + score, sWidth-(sWidth*2)*lives, sLength*3);
   }
 
