@@ -50,7 +50,7 @@ class Asteroid
     asteroidVelocity.mult(speed);
 
     // spatial variables
-    delay = 100;
+    delay = 25;
     radius = 35;
 
     // time stamp for object creation
@@ -222,7 +222,7 @@ class Asteroid
   ArrayList<Asteroid> splitAsteroid()
   {
     ArrayList<Asteroid> splitAsteroids = new ArrayList<Asteroid>();
-    for (int i = 0; i < random(3, 5); i ++)
+    for (int i = 0; i < random(2, 4); i ++)
     {
       if (hits == 0)
       {
@@ -232,7 +232,7 @@ class Asteroid
       } else if (hits == 1)
       {
         Asteroid newAsteroid = new Asteroid(new PVector(asteroidLocation.x, asteroidLocation.y), 
-          random(0.2, 0.6), 2);
+          random(0.5, 0.7), 2);
         splitAsteroids.add(newAsteroid);
       }
     }
