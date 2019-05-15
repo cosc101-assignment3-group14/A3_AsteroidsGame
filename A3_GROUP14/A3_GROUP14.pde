@@ -219,7 +219,9 @@ class AsteroidGame
   }  
   
   /*
-  Method to display the next level change
+  Method to display the next level change.
+  The text is in this location to counter the effect of translation
+  in the shipLives function.
   */
   void nextLevel()
   {
