@@ -450,7 +450,7 @@ Built in function KeyPressed() initially has no functionality, until the player 
  */
 void keyPressed()
 {
-  if (myAsteroidGame.startGame && myAsteroidGame.asteroidsExist)
+  if (myAsteroidGame.asteroidsExist)
   {
     {
       myAsteroidGame.keyPress();
