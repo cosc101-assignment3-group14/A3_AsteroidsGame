@@ -1,4 +1,4 @@
-/**************************************************************
+/************************************************************** //<>//
  * File: A3_GROUP14.pde
  * Group: 14; {Tegan Lee Barnes, Alison Bryce, Josh Le Gresley}.
  * Date: 12/04/2018
@@ -21,7 +21,7 @@
  Font is sourced from https://www.fontspace.com.
  Any Code Sampled from online sources is commented in method or class headings.
  **************************************************************/
- 
+
 //imoprt a java audio library
 import ddf.minim.*;
 /*
@@ -31,30 +31,30 @@ AsteroidGame class accesses the clases required to build up the Asteroids
  play status is moitored with boolean flags and game flow is directed in the 
  relevent direction. Collision detection is monitored.
  */
- 
+
 class AsteroidGame
 {
-  Ship myShip;            // declare Ship object
-  Ufo myUfo;              // declare Ufo object
-  Asteroid oneAsteroid;   // declare Asteroid object
+  Ship myShip; // declare Ship object
+  Ufo myUfo; // declare Ufo object
+  Asteroid oneAsteroid; // declare Asteroid object
 
-  boolean startGame,      // boolean status flag to control start game status 
-    startAsteroids,       // boolean status flag to control the start of the asteroids
-    ufoExists,            // boolean status flag to track the existance of ufo.
-    asteroidsExist,       // boolean status flag to monitor when asteroid arraylist equals zero
-    ufoTiming,            // boolean status flag to track when the timer between ufos has been set
-    shipHit;              // boolean status flag to track if the ship has been hit and is dead or alive
-    
+  boolean startGame, // boolean status flag to control start game status 
+    startAsteroids, // boolean status flag to control the start of the asteroids
+    ufoExists, // boolean status flag to track the existance of ufo.
+    asteroidsExist, // boolean status flag to monitor when asteroid arraylist equals zero
+    ufoTiming, // boolean status flag to track when the timer between ufos has been set
+    shipHit; // boolean status flag to track if the ship has been hit and is dead or alive
+
 
   ArrayList<Asteroid> myAsteroids = 
-    new ArrayList<Asteroid>();      // declare Asteroid object ArrayList
+    new ArrayList<Asteroid>(); // declare Asteroid object ArrayList
 
   int level, // tracks the level of the game reached
-      ufoTimer, // stores the time starting at the point of when a ufo is destroyed till next ufo released
-      border;  // sets the border off screen to accomaodate shapes beyond edges
-      
+    ufoTimer, // stores the time starting at the point of when a ufo is destroyed till next ufo released
+    border;  // sets the border off screen to accomaodate shapes beyond edges
+
   float ufoInterval; // stores a random interval to time between ufo releases
-  
+
   boolean[] keyIsPressed; // boolean array to store a boolean corrosponding to keypress event.
 
   /*
@@ -67,7 +67,7 @@ class AsteroidGame
 
     // set integer variables
 
-    border = 25;
+    border = 15;
     level = 1;
 
     // set boolean variables. 
@@ -79,12 +79,12 @@ class AsteroidGame
     ufoExists = false;
     ufoTiming = false;
     shipHit = false;
-    
+
     // create a boolean array to monitor which keys are pressed. 256 corrosponds to the
     // number of ASCII characters
     keyIsPressed = new boolean[256];
   }
-  
+
   /*
   Method to add Asteroid objects to the Asteroid object array list.
    */
@@ -100,7 +100,7 @@ class AsteroidGame
       asteroidsExist = true;
     }
   }
-  
+
   /*
   Method to update each Asteroid object in the Array list. 
    */
@@ -118,21 +118,20 @@ class AsteroidGame
       }
     }
   } 
-  
+
   /*
   Method to add Ufo object at random intervals.
    */
   void addUfo()
   {
-    if (startAsteroids && !ufoExists) //<>//
+    if (startAsteroids && !ufoExists)
     {
-      if(!ufoTiming)
+      if (!ufoTiming)
       {
         ufoTimer = millis();
         ufoInterval = random(30, 40);
         ufoTiming = true;
-      }
-      else if((millis() - ufoTimer) / 1000  > ufoInterval)
+      } else if ((millis() - ufoTimer) / 1000  > ufoInterval)
       {
         // initialise Ufo object
         myUfo = new Ufo();
@@ -142,10 +141,10 @@ class AsteroidGame
       }
     }
   }
-  
+
   /*
   Method to update the ufo 
-  */
+   */
   void updateUfo()
   {
     if (startAsteroids && ufoExists)
@@ -160,7 +159,7 @@ class AsteroidGame
 
   /*
   Method to update the ship
-  */
+   */
   void updateShip()
   {
     if (startAsteroids)
@@ -172,10 +171,10 @@ class AsteroidGame
       myShip.updateShot();
     }
   }
-  
+
   /*
   Method to check lives
-  */
+   */
   void checkLives()
   {
     if (startAsteroids)
@@ -183,23 +182,23 @@ class AsteroidGame
       myShip.shipLives();
     }
     if (myShip.lives == 0)
+    {
+      fill(255, 0, 0);
+      textSize(100);
+      text("GAME OVER", width/7, height/2);
+      // pause ufo audio if playing
+      if (ufoExists)
       {
-        fill(255, 0, 0);
-        textSize(100);
-        text("GAME OVER", width/7, height/2);
-        // pause ufo audio if playing
-        if(ufoExists)
-        {
-          myAudio.pauseLoopUfoSound();
-        }
-        // go to menu or cut out
-        noLoop();
-      }    
+        myAudio.pauseLoopUfoSound();
+      }
+      // go to menu or cut out
+      noLoop();
+    }
   }
-  
+
   /*
   Method to display score
-  */
+   */
   void displayScore()
   {
     if (startAsteroids)
@@ -207,10 +206,10 @@ class AsteroidGame
       myShip.gameScore();
     }
   }  
-  
+
   /*
   Method to collision detect between Asteriods 
-  */
+   */
   void collisionAsteroids()
   {
     if (startAsteroids && asteroidsExist)
@@ -226,36 +225,34 @@ class AsteroidGame
           {
             // if equal collisionAsteroid() method called to change both asteroids motion
             myAsteroids.get(i).collisionAsteroid(myAsteroids.get(j));
-            
           }
         }
       }
     }
   }
-  
+
   /*
   Method to collision detect between ufo/ ufo shots and space ship
-  */
+   */
   void collisionUfoShot_Ship()
   {
-    if(startAsteroids && ufoExists)
+    if (startAsteroids && ufoExists)
     {
       if (myUfo.equals(myShip) && myShip.lives != 0)
       {
         myShip.lives -= 1;
         myShip.shipCoord.x = width/2;
         myShip.shipCoord.y = height/2;
-        println("Ufo hit player");
         // call audio object to ship hit sound
         myAudio.playShipHit();
-     //   shipHit = true;
+        //   shipHit = true;
       }
     }
   }
 
   /*
   Method to collision detect between player shots and the asteroids
-  */
+   */
   void collisionShipShot_Asteroid()
   {
     if (startAsteroids && asteroidsExist)
@@ -264,7 +261,7 @@ class AsteroidGame
       // list mid iterate they are not included in the current collision detect
       for (int i = myAsteroids.size()-1; i >= 0; i--)
       {
-        if(myShip.equalsAsteroid(myAsteroids.get(i)))
+        if (myShip.equalsAsteroid(myAsteroids.get(i)))
         {
           // if a hit is detected the resulting action depends on the number of hits already sustained
           if (myAsteroids.get(i).hits < 2)
@@ -282,51 +279,49 @@ class AsteroidGame
         }
       }
       if (myAsteroids.size() < 1)
-        {
-          asteroidsExist = false;
-          // once all asteroids are destroyed more are deployed increasing by 1 asteriod for each level
-          level += 1;
-          // call audio object to play next level sound
-          myAudio.playLevelUp();
-          // start new level with ship in center
-          myShip.shipCoord.x = width/2;
-          myShip.shipCoord.y = height/2;
-          myShip.score += 500;
-          // TODO NEW LEVEL BOOLEAN
-        }
+      {
+        asteroidsExist = false;
+        // once all asteroids are destroyed more are deployed increasing by 1 asteriod for each level
+        level += 1;
+        // call audio object to play next level sound
+        myAudio.playLevelUp();
+        // start new level with ship in center
+        myShip.shipCoord.x = width/2;
+        myShip.shipCoord.y = height/2;
+        myShip.score += 500;
+      }
     }
   }
-  
+
   /*
    Method to collision detect between player shots and ufo
    */
   void collisionShipShot_Ufo()
   {
-    if(startAsteroids && ufoExists)
+    if (startAsteroids && ufoExists)
     {
       if (myShip.equalsUfo(myUfo))
       {
         myUfo = null;
         ufoExists = false;
         ufoTiming = false;
-        println("player HIT UFO");
         // call audio object to pause ufo sound and sound explosion
         myAudio.pauseLoopUfoSound();
         myAudio.playUfoHit();
       }
     }
   }
-  
+
   /*
   Method to collision detect ship location and the asteroids
-  */
+   */
   void collisionShip_Asteroid()
   {
     if (startAsteroids && asteroidsExist)
     {
-      for(int i = 0; i < myAsteroids.size(); i ++)
+      for (int i = 0; i < myAsteroids.size(); i ++)
       {
-        if(myAsteroids.get(i).equals(myShip) && myShip.lives != 0)
+        if (myAsteroids.get(i).equals(myShip) && myShip.lives != 0)
         {
           // call audio object to ship hit sound
           myAudio.playShipHit();
@@ -335,30 +330,29 @@ class AsteroidGame
           myShip.lives -= 1;
           myShip.shipCoord.x = width/2;
           myShip.shipCoord.y = height/2;
-          println("Ship destroyed by asteroid");
         }
       }
     }
   }
-  
+
   /*
   Method called from the built-in keyPressed() method. This method works along side the
-  keyRelease() method below to handle key press and key release events. The concept used
-  was sourced from code on https://forum.processing.org. It was including because it
-  provides a concise way to store all key input events (press or release) in an array.
-  They can then be passed to classes that require access to them. The array keyIsPressed
-  can hold 256 boolean values, corrosponding to each ASCII value. The values are set to
-  true on key press events and false on key release events.
-  */
+   keyRelease() method below to handle key press and key release events. The concept used
+   was sourced from code on https://forum.processing.org. It was including because it
+   provides a concise way to store all key input events (press or release) in an array.
+   They can then be passed to classes that require access to them. The array keyIsPressed
+   can hold 256 boolean values, corrosponding to each ASCII value. The values are set to
+   true on key press events and false on key release events.
+   */
   void keyPress() 
   {
     keyIsPressed[keyCode] = true;
   }
-  
+
   /*
   Method called from the built-in keyReleased() method. See keyPress method (above)
-  for description of functionality.
-  */
+   for description of functionality.
+   */
   void keyRelease() 
   {
     keyIsPressed[keyCode] = false;
@@ -375,7 +369,7 @@ Setup initialises the AsteroidGame and sets the screen size.
 void setup()
 {
   // set screen size
-  size(800,800);
+  size(800, 800);
 
   // Initialise objects
   myAsteroidGame = new AsteroidGame();
@@ -388,13 +382,13 @@ The draw loop controls the calls for Asteroid game play
 void draw()
 {
   background(0); // this will go in layout() method
-  
+
   //asteroid
   myAsteroidGame.addAsteroid();
   myAsteroidGame.updateAsteroids();
   myAsteroidGame.collisionAsteroids();
   myAsteroidGame.collisionShip_Asteroid();
-  
+
   //ship
   myAsteroidGame.updateShip();
   myAsteroidGame.collisionShipShot_Asteroid();
@@ -406,19 +400,18 @@ void draw()
   myAsteroidGame.addUfo();
   myAsteroidGame.updateUfo();
   myAsteroidGame.collisionUfoShot_Ship();
-  
 }
 
 /*
 Built in function KeyPressed() initially has no functionality, until the player mouse
-clicks to select play game. This action sets the startGame flag to true and sets the
-game screen to 'ready to play'. Now the game waits for the player to input any click to
-commence play (which starts the asteroids). Once in 'game play' mode any clicks invoke
-the keyPress() method which updates the keyIsPressed boolean array.
-*/  
+ clicks to select play game. This action sets the startGame flag to true and sets the
+ game screen to 'ready to play'. Now the game waits for the player to input any click to
+ commence play (which starts the asteroids). Once in 'game play' mode any clicks invoke
+ the keyPress() method which updates the keyIsPressed boolean array.
+ */
 void keyPressed()
 {
-  if(myAsteroidGame.startGame && myAsteroidGame.asteroidsExist)
+  if (myAsteroidGame.startGame && myAsteroidGame.asteroidsExist)
   {
     {
       myAsteroidGame.keyPress();
@@ -435,12 +428,12 @@ void mousePressed()
 
 /*
 Like keyPressed(), keyReleased() has no functionality until 'play game' mode. Once at 
-this point any clicks invoke the keyRelease() method which updates the keyIsPressed 
-boolean array.
-*/
+ this point any clicks invoke the keyRelease() method which updates the keyIsPressed 
+ boolean array.
+ */
 void keyReleased() 
 {
-  if(myAsteroidGame.startAsteroids)
+  if (myAsteroidGame.startAsteroids)
   {
     myAsteroidGame.keyRelease();
   }
