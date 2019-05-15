@@ -64,7 +64,10 @@ class Ship
     //shot colour
     shotColour = "FF006699";
     
-    shipShots.add(oneShot = new Shot( new PVector(-200, -200), new PVector(0, 0), 0, shotColour));
+    // This line fixes a bug where the initial player shot was causing all asteroids to
+    // vanish.
+    shipShots.add(oneShot = new Shot( new PVector(-200, -200), 
+                  new PVector(0, 0), 0, shotColour));
    }
    
   /*
@@ -96,7 +99,8 @@ class Ship
   }
   
   /*
-  Method to update the movement of the ship relative to the players ship current location
+  Method to update the movement of the ship relative to the players ship current 
+  location
   @PARAM keypress: boolean array storing a boolean at each keypressed events
   corrosponding ASCII value.
   */
