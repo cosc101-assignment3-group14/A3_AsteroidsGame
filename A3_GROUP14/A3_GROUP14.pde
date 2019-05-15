@@ -222,7 +222,7 @@ class AsteroidGame
       String txt = ("NEXT LEVEL");
       text(txt, (width-textWidth(txt))/3, height/2);
     }
-    if (myAsteroids.size() > 3)
+    if (myAsteroids.size() > level+3)
     {
       newLevel = false;
     }
