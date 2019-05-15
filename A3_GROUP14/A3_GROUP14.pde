@@ -34,17 +34,18 @@ AsteroidGame class accesses the clases required to build up the Asteroids
 
 class AsteroidGame
 {
-  Ship myShip; // declare Ship object
-  Ufo myUfo; // declare Ufo object
-  Asteroid oneAsteroid; // declare Asteroid object
 
-  boolean startGame, // boolean status flag to control start game status 
-    startAsteroids, // boolean status flag to control the start of the asteroids
-    ufoExists, // boolean status flag to track the existance of ufo.
-    asteroidsExist, // boolean status flag to monitor when asteroid arraylist equals zero
-    ufoTiming, // boolean status flag to track when the timer between ufos has been set
-    shipHit; // boolean status flag to track if the ship has been hit and is dead or alive
+  Ship myShip;            // declare Ship object
+  Ufo myUfo;              // declare Ufo object
+  Asteroid oneAsteroid;   // declare Asteroid object
 
+  boolean startGame,      // boolean status flag to control start game status 
+    startAsteroids,       // boolean status flag to control the start of the asteroids
+    ufoExists,            // boolean status flag to track the existance of ufo.
+    asteroidsExist,       // boolean status flag to monitor when asteroid arraylist equals zero
+    ufoTiming,            // boolean status flag to track when the timer between ufos has been set
+    shipHit,              // boolean status flag to track if the ship has been hit and is dead or alive
+    newLevel;             // boolean status flag to show a new level has been reached
 
   ArrayList<Asteroid> myAsteroids = 
     new ArrayList<Asteroid>(); // declare Asteroid object ArrayList
@@ -79,6 +80,7 @@ class AsteroidGame
     ufoExists = false;
     ufoTiming = false;
     shipHit = false;
+    newLevel = false;
 
     // create a boolean array to monitor which keys are pressed. 256 corrosponds to the
     // number of ASCII characters
@@ -171,10 +173,11 @@ class AsteroidGame
       myShip.updateShot();
     }
   }
-
+  
   /*
-  Method to check lives
-   */
+  Method to check there are lives left and display that the game is over 
+  when all lives are lost.
+  */
   void checkLives()
   {
     if (startAsteroids)
@@ -197,8 +200,8 @@ class AsteroidGame
   }
 
   /*
-  Method to display score
-   */
+  Method to update the display the score
+  */
   void displayScore()
   {
     if (startAsteroids)
@@ -206,6 +209,24 @@ class AsteroidGame
       myShip.gameScore();
     }
   }  
+  
+  /*
+  Method to display the next level change
+  */
+  void nextLevel()
+  {
+    if (newLevel == true)
+    {  
+      fill(0, 255, 0);
+      textSize(100);
+      String txt = ("NEXT LEVEL");
+      text(txt, (width-textWidth(txt))/3, height/2);
+    }
+    if (myAsteroids.size() > 3)
+    {
+      newLevel = false;
+    }
+  }
 
   /*
   Method to collision detect between Asteriods 
@@ -240,12 +261,12 @@ class AsteroidGame
     {
       if (myUfo.equals(myShip) && myShip.lives != 0)
       {
+        // the ship loses a life and restarts in the center
         myShip.lives -= 1;
         myShip.shipCoord.x = width/2;
         myShip.shipCoord.y = height/2;
         // call audio object to ship hit sound
         myAudio.playShipHit();
-        //   shipHit = true;
       }
     }
   }
@@ -279,17 +300,20 @@ class AsteroidGame
         }
       }
       if (myAsteroids.size() < 1)
-      {
-        asteroidsExist = false;
-        // once all asteroids are destroyed more are deployed increasing by 1 asteriod for each level
-        level += 1;
-        // call audio object to play next level sound
-        myAudio.playLevelUp();
-        // start new level with ship in center
-        myShip.shipCoord.x = width/2;
-        myShip.shipCoord.y = height/2;
-        myShip.score += 500;
-      }
+        {
+          asteroidsExist = false;
+          
+          // once all asteroids are destroyed more are deployed increasing by 1 asteriod for each level
+          level += 1;
+          // call audio object to play next level sound
+          myAudio.playLevelUp();
+          // ship restarts in the center
+          myShip.shipCoord.x = width/2;
+          myShip.shipCoord.y = height/2;
+          // level up points added to score
+          myShip.score += 500;
+          newLevel = true;
+        }
     }
   }
 
@@ -326,7 +350,7 @@ class AsteroidGame
           // call audio object to ship hit sound
           myAudio.playShipHit();
           shipHit = true;
-          // lose life and start in center
+          // the ship loses a life and restarts in the center
           myShip.lives -= 1;
           myShip.shipCoord.x = width/2;
           myShip.shipCoord.y = height/2;
@@ -395,6 +419,7 @@ void draw()
   myAsteroidGame.collisionShipShot_Ufo();
   myAsteroidGame.checkLives();
   myAsteroidGame.displayScore();
+  myAsteroidGame.nextLevel();
 
   //ufo
   myAsteroidGame.addUfo();
