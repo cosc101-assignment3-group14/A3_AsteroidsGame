@@ -220,7 +220,7 @@ class Asteroid
   ArrayList<Asteroid> splitAsteroid()
   {
     ArrayList<Asteroid> splitAsteroids = new ArrayList<Asteroid>();
-    for (int i = 0; i < random(2, 4); i ++)
+    for (int i = 0; i < random(2, 3); i ++)
     {
       if (hits == 0)
       {

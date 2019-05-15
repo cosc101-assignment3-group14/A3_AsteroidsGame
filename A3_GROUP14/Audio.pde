@@ -20,9 +20,6 @@ class Audio
     ufo, //Audioplayer object for ufo
     levelUp; //Audioplayer object for next level
 
-
-
-
   /*
   Constructor takes in PApplet argument to get minim class to load 
    files within this class. Code sourced from https://forum.processing.org

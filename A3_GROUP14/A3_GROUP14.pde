@@ -275,7 +275,7 @@ class AsteroidGame
   {
     if (startAsteroids && ufoExists)
     {
-      if (myUfo.equals(myShip) && myShip.lives != 0)
+      if (myUfo.equals(myShip))
       {
         // the ship loses a life and restarts in the center
         myShip.lives -= 1;
@@ -329,6 +329,7 @@ class AsteroidGame
           // level up points added to score
           myShip.score += 500;
           newLevel = true;
+          myShip.lives = 3;
         }
     }
   }
@@ -340,7 +341,7 @@ class AsteroidGame
   {
     if (startAsteroids && ufoExists)
     {
-      if (myShip.equalsUfo(myUfo))
+      if (myShip.equalsUfo(myUfo) && myShip.lives != 0)
       {
         myUfo = null;
         ufoExists = false;
