@@ -1,10 +1,10 @@
 /**************************************************************
- * File: A3_GROUP14.pde
+ * File: Ship.pde
  * Group: 14; {Tegan Lee Barnes, Alison Bryce, Josh Le Gresley}.
- * Date: 29/04/2019
+ * Date: 12/04/2018
  * Course: COSC101 - Software Development Studio 1
  ***************************************************************/
-
+ 
 /*
 The Ship class is creates the ship object for the AsteroidsGame class.
  */

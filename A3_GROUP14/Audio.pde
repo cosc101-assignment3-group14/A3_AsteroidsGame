@@ -1,9 +1,9 @@
 /**************************************************************
- * File: a3.pde
- * Group: Tegan Lee Barnes, Alison Bryce, Josh Le Gresley; 14.
- * Date: 4/04/2018
+ * File: Audio.pde
+ * Group: 14; {Tegan Lee Barnes, Alison Bryce, Josh Le Gresley}.
+ * Date: 12/04/2018
  * Course: COSC101 - Software Development Studio 1
- **************************************************************/
+ ***************************************************************/
 
 /*
 Audio class handles loading sound files and gives access to play

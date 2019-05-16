@@ -1,29 +1,13 @@
-/************************************************************** //<>//
- * File: A3_GROUP14.pde
+/**************************************************************
+ * File: A3_Group14.pde
  * Group: 14; {Tegan Lee Barnes, Alison Bryce, Josh Le Gresley}.
  * Date: 12/04/2018
  * Course: COSC101 - Software Development Studio 1
- *
- * Description: 
- Astroids is a classic multidirection shooter archade game. The player controls 
- a space ship in an asteroid field, the aim being to survive as long as possible 
- whilst shooting the asteroids to increase their score. UFO's will also attack 
- the players space ship at random intervals.The game becomes harder as the number 
- of asteroids and their velocity increases.
- *
- * Usage: 
- To compile and run the .pde file, download the Processing editor from the 
- processing website: https://processing.org/download/. The proceesing editor will 
- compilethe processing language to Java and run the program.
- *
- * Notes: 
- All audio samples sourced from https://freesound.org.
- Font is sourced from https://www.fontspace.com.
- Any Code Sampled from online sources is commented in method or class headings.
- **************************************************************/
+ ***************************************************************/
 
 //imoprt a java audio library
 import ddf.minim.*;
+
 /*
 AsteroidGame class accesses the clases required to build up the Asteroids
  game implementation. User input events are monitored and passed to the relevent
@@ -341,7 +325,7 @@ class AsteroidGame
   {
     if (startAsteroids && ufoExists)
     {
-      if (myShip.equalsUfo(myUfo) && myShip.lives != 0)
+      if (myShip.equalsUfo(myUfo))
       {
         myUfo = null;
         ufoExists = false;
@@ -362,7 +346,7 @@ class AsteroidGame
     {
       for (int i = 0; i < myAsteroids.size(); i ++)
       {
-        if (myAsteroids.get(i).equals(myShip) && myShip.lives != 0)
+        if (myAsteroids.get(i).equals(myShip))
         {
           // call audio object to ship hit sound
           myAudio.playShipHit();
