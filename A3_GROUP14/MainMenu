@@ -2,12 +2,15 @@ class MainMenu
 {
 
 String new.Label,
-instructions.label;
-high.Score.Label;
+instructions.label,
+high.Score.Label,
 easy.Label,
 medium.Label,
 hard.Label,
-choose.Label;
+choose.Label,
+return.Label,
+instructions.Title,
+instruction.blurb;
 
 new.Label = "NEW GAME";
 how.Label = "HOW TO PLAY";
@@ -15,7 +18,10 @@ high.Label = "HIGH SCORE";
 easy.Label = "EASY";
 medium.Label = "MEDIUM";
 hard.Label = "HARD";
-choose.Label = "CHOOSE YOUR DIFFICULTY"
+choose.Label = "CHOOSE YOUR DIFFICULTY";
+return.Label = "RETURN TO MAIN MENU";
+instructions.Blurb = "WE WILL MAKE THIS ALL UP LATER";
+instructions.Title = "THIS IS HOW YOU PLAY";
 
 display.Menu()
 {
@@ -23,48 +29,84 @@ display.Menu()
  text.Align(CENTER);
  textSize(35);
  text(new.Label, 400, 300); 
+ difficulty.Menu();
  text(how.Label, 400, 400);
  text(high.Label, 400, 500);
  }
 
-difficulty.Menu();
+difficulty.Menu()
+{
  if (mousePressed){
-  if (mouseX>350
- background(0);
- fill(255);
- text.Size(40);
- textAlign(CENTER);
- text(choose.Label, 400, 150);
- textSize(35);
- text(easy.Label, 400, 300);
- text(medium.Label, 400, 400);
- text(hard.Label, 400, 500);
+  if ((mouseX>350) && (mouseY<350) 
+    && (mouseX<450) && (mouseY>250)){
+    background(0);
+    fill(255);
+    textSize(40);
+    textAlign(CENTER);
+    text(choose.Label, 400, 150);
+    textSize(35);
+    text(easy.Label, 400, 300);
+    text(medium.Label, 400, 400);
+    text(hard.Label, 400, 500);
+    difficulty.Easy();
+    difficulty.Medium();
+    difficulty.Hard();
+    }
+  }
+} 
 
 
-// should the below 3 method be one with multiple 'if statments?
+// should the below 3 methods be one 'Difficulty() method' with multiple 'if' statments?
 difficulty.Easy()
+{
  if mousePressed{
   if((mouseX>400) && (mouseY<350) &&
     (mouseX<500) && (mouseY>250)){
    // change int for numbers of asteriods what variable is this ??
    Asteriod.int = random(3, 7);
    AsteriodGame.StartAsteroids = False
+   }
+ }
+} 
 
 difficulty.Medium()
+{
  if mousePressed{
   if((mouseX>400) && (mouseY<450) &&
     (mouseX<500) && (mouseY>350)){
    // change int for numbers of asteriods medium difficulty
    //what variable is this??
    Asteriod.int = random(8, 13);
-   AsteriodGame.StartAsteroids = False
+   AsteriodGame.StartAsteroids = False;
+   }
+ }
+}
 
 difficulty.Hard()
+{
  if mousePressed{
   if((mouseX>400) && (mouseY<450) &&
     (mouseX<500) && (mouseY>550)){
    // change int for numbers of asteriods?? what variable is this 
    Asteriod.int = random(14, 20);
-   AsteriodGame.StartAsteroids = False
+   AsteriodGame.StartAsteroids = False;
+   }
+ }
+} 
  
+menu.Instructions()
+{
+ if (mousePressed){
+  if ((mouseX>350) && (mouseY<450) &&
+    (mouseX<450) && (mouseY>350)){
+    background(0);
+    fill(225);
+    textAlign(CENTER);
+    text(instructions.Title, 400, 150);
+    text(instructions.Blurb, 400, 300);
+    }
+  }
+}
+    
+
   
