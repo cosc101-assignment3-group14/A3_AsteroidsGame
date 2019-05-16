@@ -6,7 +6,7 @@
  ***************************************************************/
  
 /*
-The Ship class is creates the ship object for the AsteroidsGame class.
+The Ship class creates the ship object for the AsteroidsGame class.
  */
 
 class Ship
@@ -96,9 +96,19 @@ class Ship
    */
   void gameScore()
   {
-    fill(150);
-    textSize(15);
-    text("Score: " + score, sWidth-(sWidth*2)*lives, sLength*3);
+    if (lives > 0)
+    {
+      fill(150);
+      textSize(15);
+      text("Score: " + score, sWidth-(sWidth*2)*lives, sLength*3);
+    }
+    if (lives == 0)
+    {
+      fill(255);
+      textSize(20);
+      textAlign(CENTER, TOP);
+      text("Your score:   " + score, 0, height/2.5, width, height);
+    }
   }
 
   /*

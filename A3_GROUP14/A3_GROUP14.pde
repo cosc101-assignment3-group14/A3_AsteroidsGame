@@ -22,6 +22,7 @@ class AsteroidGame
   Ship myShip; // declare Ship object
   Ufo myUfo; // declare Ufo object
   Asteroid oneAsteroid; // declare Asteroid object
+  HighScores myHighScores;
 
   boolean startAsteroids, // boolean status flag to control the start of the asteroids/game
     ufoExists, // boolean status flag to track the existance of ufo.
@@ -52,6 +53,7 @@ class AsteroidGame
   {
     // initialise Ship object
     myShip = new Ship();
+    myHighScores = new HighScores();
 
     // set variables
 
@@ -178,16 +180,20 @@ class AsteroidGame
     }
     if (myShip.lives == 0)
     {
-      fill(255, 0, 0);
-      textSize(55);
-      text("GAME OVER", width/4, height/2);
-      // pause ufo audio if playing
-      if (ufoExists)
+      startAsteroids = false;
+      if (!startAsteroids)
       {
-        myAudio.pauseLoopUfoSound();
+        myHighScores.endOfGame();
+        myShip.gameScore();
+
+        // pause ufo audio if playing
+        if (ufoExists)
+        {
+          myAudio.pauseLoopUfoSound();
+        }
+         // go to menu or cut out
+         //noLoop();
       }
-      // go to menu or cut out
-      noLoop();
     }
   }
 
@@ -399,6 +405,7 @@ void setup()
   // Initialise objects
   myAsteroidGame = new AsteroidGame();
   myAudio = new Audio(this);
+
 }
 
 /*
