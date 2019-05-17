@@ -288,7 +288,7 @@ class AsteroidGame
   */
   void nextLevel()
   {
-    if (startAsteroids && asteroidsExist)
+    if (startAsteroids)
     {
       if (newLevel && !textTiming)
       {
@@ -511,8 +511,7 @@ class AsteroidGame
         menuMainVisible = true;
         menuDifficultyVisible = false;
         menuInstructionsVisible = false;
-      }
-      
+      }  
     }
     else if(menuInstructionsVisible)
     {
