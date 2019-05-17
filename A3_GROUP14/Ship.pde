@@ -70,7 +70,23 @@ class Ship
     shipShots.add(oneShot = new Shot( new PVector(-200, -200), 
       new PVector(0, 0), 0, shotColour));
   }
-
+  
+  /*
+  Method to set ship score
+  */
+   void setScore(int sc)
+   {
+     score = sc;
+   }
+   
+   /*
+  Method to set ship lives
+  */
+   void setLives(int liv)
+   {
+     lives = liv;
+   }
+   
   /*
   Method the display the amount of lives left
    */
