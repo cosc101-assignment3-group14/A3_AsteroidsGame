@@ -300,7 +300,8 @@ class AsteroidGame
       {
         fill(#24DE14);
         textSize(55);
-        text("LEVEL: " + level, width/5, height/2);
+        textAlign(CENTER, CENTER);
+        text("LEVEL: " + level, 0, 0, width, height);
       }
       else
       {
