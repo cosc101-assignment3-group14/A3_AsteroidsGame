@@ -22,6 +22,7 @@ class AsteroidGame
   Ship myShip; // declare Ship object
   Ufo myUfo; // declare Ufo object
   Asteroid oneAsteroid; // declare Asteroid object
+  MainMenu myMenu; // declare MainMenu object
 
   boolean startAsteroids, // boolean status flag to control the start of the asteroids/game
     ufoExists, // boolean status flag to track the existance of ufo.
@@ -29,7 +30,11 @@ class AsteroidGame
     ufoTiming, // boolean status flag to track when the timer between ufos has been set
     shipHit,  // boolean status flag to track if the ship has been hit and is dead or alive
     textTiming, // boolean status flag to track display time of level message
-    newLevel; // boolean status flag to show a new level has been reached
+    newLevel, // boolean status flag to show a new level has been reached
+    menuMainVisible, //
+    menuDifficultyVisible, //
+    menuInstructionsVisible; //
+    
 
   ArrayList<Asteroid> myAsteroids = 
     new ArrayList<Asteroid>(); // declare Asteroid object ArrayList
@@ -43,7 +48,11 @@ class AsteroidGame
         textInterval; // stores an interval to display the next level message
 
   boolean[] keyIsPressed; // boolean array to store a boolean corrosponding to keypress event.
-
+  PVector[] starsBackground; // PVector array to store locations of stars for moving background.
+  float[] starSpeed; // float array to set the speed of the star
+          
+  String start;                      // Sting to store the game start messege
+  
   PFont font; // declare a Pfont object
   /*
   AsteroidGame Constructor initialises objects, variables and loads media files.
@@ -52,21 +61,28 @@ class AsteroidGame
   {
     // initialise Ship object
     myShip = new Ship();
+    // initialise menu object
+    myMenu = new MainMenu();
 
     // set variables
 
     border = 15;
-    level = 1;
     textInterval = 3;
 
-    // set boolean variables. 
+    // set game boolean variables. 
    
-    startAsteroids = true;
+    startAsteroids = false;
     asteroidsExist = false;
     ufoExists = false;
     ufoTiming = false;
     shipHit = false;
     newLevel = false;
+    
+    // set menu boolean variables.
+    
+    menuMainVisible = true;
+    menuDifficultyVisible = false;
+    menuInstructionsVisible = false;
 
     // create a boolean array to monitor which keys are pressed. 256 corrosponds to the
     // number of ASCII characters
@@ -75,6 +91,69 @@ class AsteroidGame
     // load font
     font = createFont("Pixel-Miners.otf", 32);
     textFont(font);
+    
+    // CREATE A MOVING BACKGROUND
+    
+    // create a PVector array to store locations of stars in game background
+    starsBackground = new PVector[100];
+    // create a float array with corrosponding speed values for each star
+    starSpeed = new float[100] ;
+    
+    // use a for loop to construct the stars Background and starsSpeed arrays
+    for(int i = 0; i < starsBackground.length; i++)
+    {
+      starsBackground[i] = new PVector(random(0, width), random(0, height));
+      starSpeed[i] = random(1, 5);
+    }
+    
+  }
+  
+  /*
+  Method to set up game screen.
+  */
+  void layout()
+  {
+    background(0);
+    stroke(255);
+    // set to start on main menu
+    if(!startAsteroids)
+    {
+      if(menuMainVisible)
+      {
+        myMenu.displayMenu();
+      }
+      else if(menuDifficultyVisible)
+      {
+        myMenu.displayDifficultyMenu();
+      }
+      else if(menuInstructionsVisible)
+      {
+        myMenu.displayInstructions();
+      }
+    }
+    // enter game 
+    else
+    {
+      //Draw moving background
+      for(int i = 0; i < starsBackground.length; i++)
+      {
+        if(starsBackground[i].x < 0)
+        {
+          starsBackground[i].x = width;
+        }
+        starsBackground[i].sub(new PVector(starSpeed[i] / 2, 0));
+        strokeWeight(starSpeed[i]);
+        point(starsBackground[i].x, starsBackground[i].y);
+      }
+      
+      // //game holds off asteroids till player is ready and clicks any button
+      //if(startAsteroids)
+      //{
+      //  start = "Press any key\n to start game";
+      //  // print messege and time to screen.      
+      //  text(start, width/4.5, height/2);
+      //}
+    } 
   }
 
   /*
@@ -172,7 +251,7 @@ class AsteroidGame
   */
   void checkLives()
   {
-    if (startAsteroids)
+    if (startAsteroids && asteroidsExist)
     {
       myShip.shipLives();
     }
@@ -196,7 +275,7 @@ class AsteroidGame
   */
   void displayScore()
   {
-    if (startAsteroids)
+    if (startAsteroids && asteroidsExist)
     {
       myShip.gameScore();
     }
@@ -209,22 +288,26 @@ class AsteroidGame
   */
   void nextLevel()
   {
-    if (newLevel && !textTiming)
+    if (startAsteroids)
     {
-      // start a timer to display a message for a specific interval
-      textTimer = millis();
-      textTiming = true;
-    }
-    else if((millis() - textTimer) / 1000  < textInterval)
-    {
-      fill(#24DE14);
-      textSize(55);
-      text("LEVEL: " + level, width/5, height/2);
-    }
-    else
-    {
-      newLevel = false;
-      textTiming = false;
+      if (newLevel && !textTiming)
+      {
+        // start a timer to display a message for a specific interval
+        textTimer = millis();
+        textTiming = true;
+      }
+      else if((millis() - textTimer) / 1000  < textInterval)
+      {
+        fill(#24DE14);
+        textSize(55);
+        textAlign(CENTER, CENTER);
+        text("LEVEL: " + level, 0, 0, width, height);
+      }
+      else
+      {
+        newLevel = false;
+        textTiming = false;
+      }
     }
   }
 
@@ -382,6 +465,64 @@ class AsteroidGame
   {
     keyIsPressed[keyCode] = false;
   }
+  
+  /*
+  Method called from the built-in mousePressed() method. Monitors mouse clicks on 
+  the menu page
+   */
+  void mousePress() 
+  {
+    if(menuMainVisible)
+    {
+      if(myMenu.difficultyMenu())
+      {
+        menuMainVisible = false;
+        menuDifficultyVisible = true;
+        menuInstructionsVisible = false;
+      }
+      else if(myMenu.menuInstructions())
+      {
+        menuMainVisible = false;
+        menuDifficultyVisible = false;
+        menuInstructionsVisible = true;
+      }
+      else if(myMenu.menuExit())
+      {
+        myMenu.gameExit();
+      }
+    }  
+    else if(menuDifficultyVisible)
+    {
+      if(myMenu.difficultyEasy())
+      {
+        level = 1;
+        startAsteroids = true;
+      }
+      else if(myMenu.difficultyMedium())
+      {
+        //TODO
+      }
+      else if(myMenu.difficultyHard())
+      {
+        //TODO
+      }
+      else if(myMenu.menuReturn())
+      {
+        menuMainVisible = true;
+        menuDifficultyVisible = false;
+        menuInstructionsVisible = false;
+      }  
+    }
+    else if(menuInstructionsVisible)
+    {
+      if(myMenu.menuReturn())
+      {
+        menuMainVisible = true;
+        menuDifficultyVisible = false;
+        menuInstructionsVisible = false;
+      }
+    }
+  } 
 }
 
 // Declare AsteroidGame object
@@ -406,8 +547,9 @@ The draw loop controls the calls for Asteroid game play
  */
 void draw()
 {
-  background(0); // this will go in layout() method
-
+  // layout and menu
+  myAsteroidGame.layout();
+  
   //asteroid
   myAsteroidGame.addAsteroid();
   myAsteroidGame.updateAsteroids();
@@ -446,10 +588,16 @@ void keyPressed()
 }
 
 /*
-Built in function.
- */
+  Initially mousedPressed() is the players only way to interact with the game. Options
+  on the main menu can be selected by clicking on the selectable areas. As options are
+  selected the boolean flags are updated to relevant position in the menu.
+*/
 void mousePressed()
 {
+  if(!myAsteroidGame.startAsteroids)
+  {
+    myAsteroidGame.mousePress();
+  }
 }
 
 /*
