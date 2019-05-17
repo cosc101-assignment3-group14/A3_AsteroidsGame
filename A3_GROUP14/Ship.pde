@@ -101,7 +101,7 @@ class Ship
     fill(150);
     textSize(15);
     textAlign(LEFT, TOP);
-    text("Score: " + score, sWidth, sLength*3, width, height);
+    text("Score: " + score, sWidth, sLength*2, width, height);
   }
 
   /*
