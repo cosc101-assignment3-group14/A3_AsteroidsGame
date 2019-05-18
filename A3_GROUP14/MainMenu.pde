@@ -10,7 +10,9 @@ The MainMenu class creates starting page interface for the Asteroids game.
  */
 class MainMenu
 {
-
+  
+  PImage expl;
+  
   String title,
     newLabel, //
     instructionsLabel, //
@@ -64,6 +66,8 @@ class MainMenu
     
     bright = 255;
     dim = 120;
+    
+    expl = loadImage("pngkey.com-pixel-explosion-png-3017570.png");
 
     //initialise boolean variables
     gameOver = false;  // boolean flag used to state if the game is over
@@ -135,19 +139,23 @@ class MainMenu
    */
   void displayEndGame()
   { 
+    // explosion image
+    image(expl, 0, 0, width, height/2.5);  
+    
+    // game over text
     textAlign(CENTER, TOP);
-    fill(150, 0, 0);
+    fill(100, 0, 0);
     textSize(115);
-    text(gameoverLabel, 0, 40, width, height);
+    text(gameoverLabel, 0, 50, width, height);
 
     // displays score
-    fill(255);
+    fill(180);
     textSize(40);
-    text("Your score:   " + myAsteroidGame.myShip.score, 0, height/2.2, width, height);
+    text("Your score:   " + myAsteroidGame.myShip.score, 0, height/2.1, width, height);
 
     // play again button
     fill(0, 255, 0, aPA);
-    textSize(30);
+    textSize(35);
     textAlign(CENTER, CENTER);
     text(playAgainLabel, 400, 500);
     
