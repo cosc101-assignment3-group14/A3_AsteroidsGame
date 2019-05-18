@@ -624,7 +624,7 @@ Setup initialises the AsteroidGame and sets the screen size.
 void setup()
 {
   // set screen size
-  fullScreen();
+  size(800, 800);
 
   // Initialise objects
   myAsteroidGame = new AsteroidGame();
