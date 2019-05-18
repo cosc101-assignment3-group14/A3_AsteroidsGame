@@ -539,7 +539,7 @@ class AsteroidGame
           startAsteroids = true;
         } 
         // return to main menu selection
-        else if (myMenu.buttonDetect(281, 517, 671, 700))
+        else if (myMenu.buttonDetect(281, 450, 671, 700))
         {
           myAudio.playMenuClick();
           menuMainVisible = true;
@@ -569,12 +569,12 @@ class AsteroidGame
         reset(prevLevel, true);
       }
       // detect exit option
-      else if (myMenu.buttonDetect(337, 456, 604, 639))
+      else if (myMenu.buttonDetect(337, 456, 590, 639))
       {
         myMenu.gameExit();
       }
       // return to main menu selection
-      else if (myMenu.buttonDetect(264, 531, 704, 739))
+      else if (myMenu.buttonDetect(264, 531, 680, 739))
       {
         myAudio.playMenuClick();
         menuMainVisible = true;

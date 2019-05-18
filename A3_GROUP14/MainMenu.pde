@@ -11,7 +11,8 @@ The MainMenu class creates starting page interface for the Asteroids game.
 class MainMenu
 {
 
-  String newLabel, //
+  String title,
+    newLabel, //
     instructionsLabel, //
     exitLabel, //
     easyLabel, // 
@@ -28,9 +29,9 @@ class MainMenu
     selected;  // boolean flag used to state the mouse was pressed
 
   int score,
-    bright,
-    dim,
-    aPA, // variable for changing text opacity
+    bright,   // text opacity at its highest
+    dim,      // text opacity at half way
+    aPA,      // the following are variables for alpha (text opacity)
     aExit1,
     aExit2,
     aRet1,
@@ -39,8 +40,7 @@ class MainMenu
     aInst,
     aEasy,
     aMed,
-    aHard,
-    alpha = 255;
+    aHard;
 
   /*
   MainMenu constructor initialises varibles
@@ -48,6 +48,7 @@ class MainMenu
   MainMenu()
   {
     //initialise string variables
+    title = "asteroids";
     newLabel = "NEW GAME";
     instructionsLabel = "HOW TO PLAY";
     exitLabel = "EXIT";
@@ -62,7 +63,7 @@ class MainMenu
     instructionsTitle = "THIS IS HOW YOU PLAY";
     
     bright = 255;
-    dim = 150;
+    dim = 120;
 
     //initialise boolean variables
     gameOver = false;  // boolean flag used to state if the game is over
@@ -72,8 +73,19 @@ class MainMenu
   Method
    */
   void displayMenu()
-  {
+  {    
+    // title with zooming out effect
     textAlign(CENTER);
+    for (int x = 1; x < 111; x += 5)
+    {
+      fill(x);
+      textSize(x);
+      text(title, 0, height/7, width, height);
+    }
+    textSize(110);
+    fill(255);
+    text(title, 0, height/7, width, height);
+    
     textSize(35);
     fill(255, aNG);
     text(newLabel, 400, 400); 
@@ -91,7 +103,7 @@ class MainMenu
     background(0);
     textAlign(CENTER);
     textSize(40);
-    fill(255);
+    fill(0, 150, 0);
     text(chooseLabel, 400, 150);
     textSize(35);
     fill(255, aEasy);
@@ -109,7 +121,7 @@ class MainMenu
    */
   void displayInstructions()
   {
-    fill(255);
+    fill(0, 150, 0);
     textAlign(CENTER);
     text(instructionsTitle, 400, 150);
     fill(255);
@@ -122,27 +134,16 @@ class MainMenu
   Method to display the game over screen with options to play again or return to menu
    */
   void displayEndGame()
-  {
-    // creates zooming in effect
-    for (int x = 1; x < 101; x += 5)
-    {
-      fill(x);
-      textSize(x);
-      textAlign(CENTER, TOP);
-      text(gameoverLabel, 0, height/8, width, height);
-    }
-    
-    // displays the 'game over' message
-    fill(255, 0, 0);
-    textSize(100);
+  { 
     textAlign(CENTER, TOP);
-    text(gameoverLabel, 0, height/8, width, height);
-    
+    fill(150, 0, 0);
+    textSize(115);
+    text(gameoverLabel, 0, 40, width, height);
+
     // displays score
     fill(255);
     textSize(40);
-    textAlign(CENTER, TOP);
-    text("Your score:   " + myAsteroidGame.myShip.score, 0, height/3, width, height);
+    text("Your score:   " + myAsteroidGame.myShip.score, 0, height/2.2, width, height);
 
     // play again button
     fill(0, 255, 0, aPA);
@@ -151,15 +152,13 @@ class MainMenu
     text(playAgainLabel, 400, 500);
     
     // exit button
-    fill(180, aExit2);
+    fill(255, aExit2);
     textSize(40);
-    textAlign(CENTER, TOP);
     text(exitLabel, 400, 600);
     
     // return to menu button
-    fill(180, aRet2);
+    fill(255, aRet2);
     textSize(40);
-    textAlign(CENTER, TOP);
     text(returnLabel, 400, 700);
   }
   
@@ -180,7 +179,9 @@ class MainMenu
     return false;
   }
 
-
+  /*
+  Method to highlight text when mouse hovers over, using the buttonDetect method
+  */
   void textHighlight()
   {
     // new game button
@@ -248,7 +249,7 @@ class MainMenu
         aPA = dim;
       }
     // exit button from game over screen
-    if (buttonDetect(337, 456, 604, 639))
+    if (buttonDetect(337, 456, 590, 639))
     {
       aExit2 = bright;
     } else
