@@ -27,7 +27,20 @@ class MainMenu
   Boolean gameOver, // boolean flag used to state if the game is over
     selected;  // boolean flag used to state the mouse was pressed
 
-  int score; //
+  int score,
+    bright,
+    dim,
+    aPA, // variable for changing text opacity
+    aExit1,
+    aExit2,
+    aRet1,
+    aRet2,
+    aNG,
+    aInst,
+    aEasy,
+    aMed,
+    aHard,
+    alpha = 255;
 
   /*
   MainMenu constructor initialises varibles
@@ -47,6 +60,9 @@ class MainMenu
     returnLabel = "MAIN MENU";
     instructionsBlurb = "WE WILL MAKE THIS ALL UP LATER";
     instructionsTitle = "THIS IS HOW YOU PLAY";
+    
+    bright = 255;
+    dim = 150;
 
     //initialise boolean variables
     gameOver = false;  // boolean flag used to state if the game is over
@@ -57,11 +73,13 @@ class MainMenu
    */
   void displayMenu()
   {
-    fill(255);
     textAlign(CENTER);
     textSize(35);
+    fill(255, aNG);
     text(newLabel, 400, 400); 
+    fill(255, aInst);
     text(instructionsLabel, 400, 500);
+    fill(255, aExit1);
     text(exitLabel, 400, 600);
   }
 
@@ -71,14 +89,18 @@ class MainMenu
   void displayDifficultyMenu()
   {
     background(0);
-    fill(255);
-    textSize(40);
     textAlign(CENTER);
+    textSize(40);
+    fill(255);
     text(chooseLabel, 400, 150);
     textSize(35);
+    fill(255, aEasy);
     text(easyLabel, 400, 300);
+    fill(255, aMed);
     text(mediumLabel, 400, 400);
+    fill(255, aHard);
     text(hardLabel, 400, 500);
+    fill(255, aRet1);
     text(returnLabel, 400, 700);
   }
   
@@ -87,10 +109,12 @@ class MainMenu
    */
   void displayInstructions()
   {
-    fill(225);
+    fill(255);
     textAlign(CENTER);
     text(instructionsTitle, 400, 150);
+    fill(255);
     text(instructionsBlurb, 400, 300);
+    fill(255, aRet1);
     text(returnLabel, 400, 700);
   }
   
@@ -114,20 +138,26 @@ class MainMenu
     textAlign(CENTER, TOP);
     text(gameoverLabel, 0, height/8, width, height);
     
+    // displays score
+    fill(255);
+    textSize(40);
+    textAlign(CENTER, TOP);
+    text("Your score:   " + myAsteroidGame.myShip.score, 0, height/3, width, height);
+
     // play again button
-    fill(0, 255, 0, 100);
+    fill(0, 255, 0, aPA);
     textSize(30);
     textAlign(CENTER, CENTER);
     text(playAgainLabel, 400, 500);
     
     // exit button
-    fill(180);
+    fill(180, aExit2);
     textSize(40);
     textAlign(CENTER, TOP);
     text(exitLabel, 400, 600);
     
     // return to menu button
-    fill(180);
+    fill(180, aRet2);
     textSize(40);
     textAlign(CENTER, TOP);
     text(returnLabel, 400, 700);
@@ -150,6 +180,92 @@ class MainMenu
     return false;
   }
 
+
+  void textHighlight()
+  {
+    // new game button
+    if (buttonDetect(291, 505, 371, 403))
+    {
+      aNG = bright;
+    } else
+      {
+        aNG = dim;
+      }  
+    // instructions button  
+    if (buttonDetect(256, 536, 471, 501))
+    {
+      aInst = bright;
+    } else
+      {
+        aInst = dim;
+      }  
+    // exit button from main menu
+    if (buttonDetect(344, 447, 571, 602))
+    {
+      aExit1 = bright;
+    } else
+      {
+        aExit1 = dim;
+      }
+    // easy option button
+    if (buttonDetect(341, 457, 271, 303))
+    { 
+      aEasy = bright;
+    } else
+      {
+        aEasy = dim;
+      }
+    // medium option button
+    if (buttonDetect(314, 480, 372, 402))
+    {
+      aMed = bright;
+    } else
+      {
+        aMed = dim;
+      }
+    // hard option button
+    if (buttonDetect(341, 455, 472, 501))
+    {
+      aHard = bright;
+    } else
+      {
+        aHard = dim;
+      }
+    // return button 
+    if (buttonDetect(281, 450, 671, 700)) 
+    { 
+      aRet1 = bright;
+    } else
+      { 
+        aRet1 = dim;
+      }
+    // play again button
+    if (buttonDetect(275, 524, 491, 517))
+    { 
+      aPA = bright;
+    } else
+      {
+        aPA = dim;
+      }
+    // exit button from game over screen
+    if (buttonDetect(337, 456, 604, 639))
+    {
+      aExit2 = bright;
+    } else
+      {
+        aExit2 = dim;
+      }  
+    // return to main menu button
+    if (buttonDetect(264, 531, 680, 739)) 
+    {
+      aRet2 = bright;
+    } else
+      {
+        aRet2 = dim;
+      }
+      
+  }  
+  
   /*
   Method
    */
@@ -158,45 +274,4 @@ class MainMenu
     exit();
   }
 
-  ///*
-  //Method to display the menu message and if selected takes user to the menu
-  // */
-  //boolean backToMenu()
-  //{
-  // if ((mouseX>350) && (mouseY<550) && (mouseX<450) && (mouseY>450)) 
-  //  {
-  //    // text highlights
-  //    fill(240);
-  //    textSize(40);
-  //    textAlign(CENTER, TOP);
-  //    text("MENU", 0, height*3/4, width, height);
-
-  //    // go back to main menu
-  //    if (mousePressed)
-  //    {
-  //      // TODO boolean for the main menu screen?
-  //    }
-  //  }
-  //}   
-
-  ///*
-  //Method to display the 'play again' message and if selected restarts the game
-  // */
-  //boolean PlayAgain()
-  //{    
-  //  if ((mouseX>400) && (mouseY<450) && (mouseX<500) && (mouseY>550)) 
-  //  {
-  //    // text highlights
-  //    fill(0, 255, 0);
-  //    textSize(30);
-  //    textAlign(CENTER, CENTER);
-  //    text("Play again?", 0, 0, width, height);
-
-  //    // restart game
-  //    if (mousePressed)
-  //    {
-  //      // TODO restart game
-  //    }
-  //  }
-  //}
 }

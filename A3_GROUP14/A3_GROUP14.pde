@@ -497,6 +497,7 @@ class AsteroidGame
           menuDifficultyVisible = true;
           menuInstructionsVisible = false;
         }
+
         // detect instructions option
         else if (myMenu.buttonDetect(256, 536, 471, 501))
         {
@@ -600,7 +601,6 @@ class AsteroidGame
     ufoExists = false;
     ufoTiming = false;
     shipHit = false;
-    newLevel = false;
     gameOver = false;
     textTiming = false;
     newLevel = true;
@@ -610,8 +610,7 @@ class AsteroidGame
     // reset ship
     myShip.setLives(3);
     myShip.setScore(0);
-    myShip.shipCoord = new PVector(width/2, height/2);
-    myShip.shipDirection = new PVector(0, 0);
+    keyIsPressed = new boolean[256];
   }
 }
 
@@ -625,7 +624,7 @@ Setup initialises the AsteroidGame and sets the screen size.
 void setup()
 {
   // set screen size
-  size(800, 800);
+  fullScreen();
 
   // Initialise objects
   myAsteroidGame = new AsteroidGame();
@@ -658,6 +657,8 @@ void draw()
   myAsteroidGame.addUfo();
   myAsteroidGame.updateUfo();
   myAsteroidGame.collisionUfoShot_Ship();
+  
+  myAsteroidGame.myMenu.textHighlight();
 }
 
 /*
