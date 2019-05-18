@@ -18,6 +18,9 @@ class Audio
     shot, //Audioplayer object for shot 
     ufoHit, //Audioplayer object for ufo hit
     ufo, //Audioplayer object for ufo
+    gameOver, //Audioplayer object for gameover
+    menuClick, //Audioplayer object for menu click
+    menuMusic, //Audioplayer object for menu music
     levelUp; //Audioplayer object for next level
 
   /*
@@ -37,6 +40,9 @@ class Audio
     astHit = minim.loadFile("asteroidexplode.wav");
     ufoHit = minim.loadFile("ufohit.wav");
     levelUp = minim.loadFile("levelup.wav");
+    gameOver = minim.loadFile("gameover.wav");
+    menuClick = minim.loadFile("menuclick.wav");
+    menuMusic = minim.loadFile("menu.wav");
   }
 
   /*
@@ -83,6 +89,24 @@ class Audio
     ufoHit.rewind();
     ufoHit.play();
   }
+  
+  /*
+  Method to play gameover sound 
+   */
+  void playGameOver() 
+  {
+    gameOver.rewind();
+    gameOver.play();
+  }
+  
+  /*
+  Method to play menu click sound 
+   */
+  void playMenuClick() 
+  {
+    menuClick.rewind();
+    menuClick.play();
+  }
 
   /*
   Method to loop ufo sound
@@ -98,5 +122,21 @@ class Audio
   void pauseLoopUfoSound()
   {
     ufo.pause();
+  }
+  
+  /*
+  Method to loop menu sound
+   */
+  void loopMenuSound()
+  {
+    menuMusic.loop();
+  }
+
+  /*
+  Method to pause looping sound
+   */
+  void pauseLoopMenuSound()
+  {
+     menuMusic.pause();
   }
 }

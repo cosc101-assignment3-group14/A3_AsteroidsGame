@@ -31,10 +31,12 @@ class AsteroidGame
     shipHit, // boolean status flag to track if the ship has been hit and is dead or alive
     textTiming, // boolean status flag to track display time of level message
     newLevel, // boolean status flag to show a new level has been reached
-    menuMainVisible, //
-    menuDifficultyVisible, //
-    menuInstructionsVisible, //
-    gameOver; //
+    menuLooping, // boolean status flag to control game menu audio
+    menuMainVisible, // boolean status flag to set main menu screen visible
+    menuDifficultyVisible, // boolean status flag to set difficulty screen visible
+    menuInstructionsVisible, // boolean status flag to set instructions screen visible
+    gameEnded, // boolean status flag to control game over audio
+    gameOver; // boolean status flag to direct game flow to game over screen
 
 
   ArrayList<Asteroid> myAsteroids = 
@@ -82,6 +84,8 @@ class AsteroidGame
     gameOver = false;
     textTiming = false;
     newLevel = true;
+    menuLooping = false;
+    gameEnded = false;
 
     // set menu boolean variables.
 
@@ -122,6 +126,13 @@ class AsteroidGame
     // set to start on main menu
     if (!startAsteroids && !gameOver)
     {
+      // loop audio on menu
+      if(!menuLooping)
+      {
+        myAudio.loopMenuSound();
+        menuLooping = true;
+      }
+      
       if (menuMainVisible)
       {
         myMenu.displayMenu();
@@ -142,6 +153,9 @@ class AsteroidGame
     // enter game 
     else
     {
+      // pause menu audio
+      myAudio.pauseLoopMenuSound();
+      
       //Draw moving background
       for (int i = 0; i < starsBackground.length; i++)
       {
@@ -254,15 +268,18 @@ class AsteroidGame
     {
       myShip.shipLives();
     }
-    if (myShip.lives == 0)
+    if (myShip.lives == 0 && !gameEnded)
     {
-      startAsteroids = false;
-      gameOver = true;
+      // call audio object to play game over sound
+      myAudio.playGameOver();
       // pause ufo audio if playing
       if (ufoExists)
       {
         myAudio.pauseLoopUfoSound();
       }
+      gameEnded = true;
+      startAsteroids = false;
+      gameOver = true;
     }
   }
 
@@ -475,6 +492,7 @@ class AsteroidGame
         // dectect difficulty options
         if (myMenu.buttonDetect(291, 505, 371, 403))
         {
+          myAudio.playMenuClick();
           menuMainVisible = false;
           menuDifficultyVisible = true;
           menuInstructionsVisible = false;
@@ -482,6 +500,7 @@ class AsteroidGame
         // detect instructions option
         else if (myMenu.buttonDetect(256, 536, 471, 501))
         {
+          myAudio.playMenuClick();
           menuMainVisible = false;
           menuDifficultyVisible = false;
           menuInstructionsVisible = true;
@@ -497,6 +516,7 @@ class AsteroidGame
         // easy level selection
         if (myMenu.buttonDetect(341, 457, 271, 303))
         {
+          myAudio.playMenuClick();
           level = 1;
           prevLevel = level;
           startAsteroids = true;
@@ -504,13 +524,15 @@ class AsteroidGame
         // medium level selection
         else if (myMenu.buttonDetect(314, 480, 372, 402))
         {
-         level = 3;
-         prevLevel = level;
-         startAsteroids = true;
+          myAudio.playMenuClick();
+          level = 3;
+          prevLevel = level;
+          startAsteroids = true;
         } 
         // hard level selection
         else if (myMenu.buttonDetect(341, 455, 472, 501))
         {
+          myAudio.playMenuClick();
           level = 5;
           prevLevel = level;
           startAsteroids = true;
@@ -518,6 +540,7 @@ class AsteroidGame
         // return to main menu selection
         else if (myMenu.buttonDetect(281, 517, 671, 700))
         {
+          myAudio.playMenuClick();
           menuMainVisible = true;
           menuDifficultyVisible = false;
           menuInstructionsVisible = false;
@@ -528,6 +551,7 @@ class AsteroidGame
         // return to main menu selection
         if (myMenu.buttonDetect(281, 517, 671, 700))
         {
+          myAudio.playMenuClick();
           menuMainVisible = true;
           menuDifficultyVisible = false;
           menuInstructionsVisible = false;
@@ -540,7 +564,8 @@ class AsteroidGame
       // detect play again option
       if (myMenu.buttonDetect(275, 524, 491, 517))
       {
-        reset(prevLevel);
+        myAudio.playMenuClick();
+        reset(prevLevel, true);
       }
       // detect exit option
       else if (myMenu.buttonDetect(337, 456, 604, 639))
@@ -550,23 +575,27 @@ class AsteroidGame
       // return to main menu selection
       else if (myMenu.buttonDetect(264, 531, 704, 739))
       {
+        myAudio.playMenuClick();
         menuMainVisible = true;
         menuDifficultyVisible = false;
         menuInstructionsVisible = false;
-        reset();
+        reset(1, false);
       }
     }
   }
   
   /*
-  method to reset and start the game again at the selected dificulty level
+  Method to reset the game again at a selected dificulty level. Game will either
+  restart at the selected level or return to menu screen depending on boolean start
+  parameter.
   @PARAM: level is an int of the previously choosen level
+  @PARAM: start is a boolean to tell the game to start playing or not 
   */
-  void reset(int storedLevel)
+  void reset(int storedLevel, boolean start)
   {
     level = storedLevel;
     myAsteroids = new ArrayList<Asteroid>();
-    startAsteroids = true;
+    startAsteroids = start;
     asteroidsExist = false;
     ufoExists = false;
     ufoTiming = false;
@@ -575,29 +604,8 @@ class AsteroidGame
     gameOver = false;
     textTiming = false;
     newLevel = true;
-    
-    // reset ship
-    myShip.setLives(3);
-    myShip.setScore(0);
-    myShip.shipCoord = new PVector(width/2, height/2);
-    myShip.shipDirection = new PVector(0, 0);
-  }
-  /*
-  Overloaded no arg reset method to reset and start the game again at the 
-  main menu
-  */
-  void reset()
-  {
-    myAsteroids = new ArrayList<Asteroid>();
-    startAsteroids = false;
-    asteroidsExist = false;
-    ufoExists = false;
-    ufoTiming = false;
-    shipHit = false;
-    newLevel = false;
-    gameOver = false; 
-    textTiming = false;
-    newLevel = true;
+    menuLooping = false;
+    gameEnded = false;
     
     // reset ship
     myShip.setLives(3);
