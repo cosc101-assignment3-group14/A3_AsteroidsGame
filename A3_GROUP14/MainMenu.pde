@@ -144,12 +144,12 @@ class MainMenu
     
     // game over text
     textAlign(CENTER, TOP);
-    fill(100, 0, 0);
+    fill(130, 0, 0);
     textSize(115);
     text(gameoverLabel, 0, 50, width, height);
 
     // displays score
-    fill(180);
+    fill(200);
     textSize(40);
     text("Your score:   " + myAsteroidGame.myShip.score, 0, height/2.1, width, height);
 
