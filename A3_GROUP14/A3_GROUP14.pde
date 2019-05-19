@@ -482,22 +482,19 @@ class AsteroidGame
   }
 
   /*
-  Method to create cursor image and hide the cursor during game play
+  Method to call drawShip to create cursor image and hide the cursor during game play
   */  
   void hideCursor()
   {
     noCursor();
     if (!startAsteroids)
       {
-        image(shipCursor, mouseX, mouseY, 32, 32);
-        /*
-        noFill();
-        stroke(200);
-        strokeWeight(2);
-        triangle(mouseX, mouseY, mouseX+(myShip.sWidth*1.3), mouseY+(myShip.sWidth/3), 
-                 mouseX+(myShip.sLength/1.5), mouseY+myShip.sWidth);
-    */}
-    
+        pushMatrix();
+        translate(mouseX, mouseY);
+        rotate(-PI/4);
+        shape(myShip.drawShip, 0, 0);
+        popMatrix();
+    }
   }
   /*
   Method called from the built-in mousePressed() method. Monitors mouse clicks on 
