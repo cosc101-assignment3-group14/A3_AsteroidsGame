@@ -58,7 +58,7 @@ class AsteroidGame
   String start;                      // Sting to store the game start messege
 
   PFont font; // declare a Pfont object
-  PImage shipCursor;
+
   /*
   AsteroidGame Constructor initialises objects, variables and loads media files.
    */
@@ -101,9 +101,6 @@ class AsteroidGame
     // load font
     font = createFont("Pixel-Miners.otf", 32);
     textFont(font);
-
-    // load cursor image
-    shipCursor = loadImage("Epic-Blue-and-Gray-Cursor.png");
 
     // CREATE A MOVING BACKGROUND
 
@@ -482,7 +479,7 @@ class AsteroidGame
   }
 
   /*
-  Method to call drawShip to create cursor image and hide the cursor during game play
+  Method to create cursor image and hide the cursor during game play
   */  
   void hideCursor()
   {

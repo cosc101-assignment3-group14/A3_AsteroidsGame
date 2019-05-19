@@ -31,6 +31,6 @@
 
  * Font is sourced from [fontspace.com](https://www.fontspace.com)
 
- * Images are sourced from [pngkey.com](https://www.pngkey.com) and [rw-designer.com](http://www.rw-designer.com)
+ * Image is sourced from [pngkey.com](https://www.pngkey.com) 
 
  * Any code developed assisted by online sources is commented in method or class headings.
