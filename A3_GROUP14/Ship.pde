@@ -70,7 +70,23 @@ class Ship
     shipShots.add(oneShot = new Shot( new PVector(-200, -200), 
       new PVector(0, 0), 0, shotColour));
   }
-
+  
+  /*
+  Method to set ship score
+  */
+   void setScore(int sc)
+   {
+     score = sc;
+   }
+   
+   /*
+  Method to set ship lives
+  */
+   void setLives(int liv)
+   {
+     lives = liv;
+   }
+   
   /*
   Method the display the amount of lives left
    */
@@ -92,9 +108,7 @@ class Ship
   }
 
   /*
-  Method the display score. 
-  The text is in this location to counter the effect of translation
-  in the shipLives function.
+  Method to display score. 
    */
   void gameScore()
   {
@@ -102,7 +116,7 @@ class Ship
     textSize(15);
     textAlign(LEFT, TOP);
     text("Score: " + score, sWidth, sLength*2, width, height);
-  }
+  }  
 
   /*
   Method to update the movement of the ship relative to the players ship current 
