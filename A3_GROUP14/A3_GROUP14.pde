@@ -36,6 +36,7 @@ class AsteroidGame
     menuDifficultyVisible, // boolean status flag to set difficulty screen visible
     menuInstructionsVisible, // boolean status flag to set instructions screen visible
     gameEnded, // boolean status flag to control game over audio
+    launching, // boolean status flag to control launch audio
     gameOver; // boolean status flag to direct game flow to game over screen
 
 
@@ -87,6 +88,7 @@ class AsteroidGame
     newLevel = true;
     menuLooping = false;
     gameEnded = false;
+    launching = true;
 
     // set menu boolean variables.
 
@@ -170,6 +172,14 @@ class AsteroidGame
         starsBackground[i].sub(new PVector(starSpeed[i] / 2, 0));
         strokeWeight(starSpeed[i]);
         point(starsBackground[i].x, starsBackground[i].y);
+      }
+      
+      if(launching)
+      {
+        // play launching audio
+        myAudio.playLaunch();
+        launching = false;
+      
       }
     }
   }
@@ -626,6 +636,7 @@ class AsteroidGame
     newLevel = true;
     menuLooping = false;
     gameEnded = false;
+    launching = true;
     
     // reset ship
     myShip.setLives(3);
