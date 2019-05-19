@@ -103,7 +103,7 @@ class AsteroidGame
     textFont(font);
 
     // load cursor image
-    shipCursor = loadImage("cursor.png");
+    shipCursor = loadImage("Epic-Blue-and-Gray-Cursor.png");
 
     // CREATE A MOVING BACKGROUND
 
@@ -489,12 +489,14 @@ class AsteroidGame
     noCursor();
     if (!startAsteroids)
       {
+        image(shipCursor, mouseX, mouseY, 32, 32);
+        /*
         noFill();
         stroke(200);
         strokeWeight(2);
         triangle(mouseX, mouseY, mouseX+(myShip.sWidth*1.3), mouseY+(myShip.sWidth/3), 
                  mouseX+(myShip.sLength/1.5), mouseY+myShip.sWidth);
-    }
+    */}
     
   }
   /*
