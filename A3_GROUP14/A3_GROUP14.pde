@@ -59,7 +59,7 @@ class AsteroidGame
   String start;                      // Sting to store the game start messege
 
   PFont font; // declare a Pfont object
-  PImage shipCursor;
+
   /*
   AsteroidGame Constructor initialises objects, variables and loads media files.
    */
@@ -103,9 +103,6 @@ class AsteroidGame
     // load font
     font = createFont("Pixel-Miners.otf", 32);
     textFont(font);
-
-    // load cursor image
-    shipCursor = loadImage("cursor.png");
 
     // CREATE A MOVING BACKGROUND
 
@@ -499,13 +496,12 @@ class AsteroidGame
     noCursor();
     if (!startAsteroids)
       {
-        noFill();
-        stroke(200);
-        strokeWeight(2);
-        triangle(mouseX, mouseY, mouseX+(myShip.sWidth*1.3), mouseY+(myShip.sWidth/3), 
-                 mouseX+(myShip.sLength/1.5), mouseY+myShip.sWidth);
+        pushMatrix();
+        translate(mouseX, mouseY);
+        rotate(-PI/4);
+        shape(myShip.drawShip, 0, 0);
+        popMatrix();
     }
-    
   }
   /*
   Method called from the built-in mousePressed() method. Monitors mouse clicks on 
