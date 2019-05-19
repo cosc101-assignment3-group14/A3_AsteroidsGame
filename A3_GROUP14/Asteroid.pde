@@ -117,15 +117,15 @@ class Asteroid
     drawAsteroid.setStroke(#24DE14);
     drawAsteroid.beginShape();
 
-    float rand = random(5, 12); // random number used to determine number of vertices
+    float points = random(5, 12); // random number used to determine number of vertices
 
     // for loop iterrates over a random number which corresponds to number of vertices
-    for (int i = 0; i < rand; i++)
+    for (int i = 0; i < points; i++)
     {
       // random number used to determine a random offset to each vertices
       float offset = random(-12, 12); 
       // uses map function to generate the anle between vertices
-      float angle = map(i, 0, rand, 0, TWO_PI);
+      float angle = map(i, 0, points, 0, TWO_PI);
       // use trigonometry to generate polar to catesian coordinates (x,y) 
       // and set to a vertex point of the PShape
       drawAsteroid.vertex((radius + offset) * cos(angle), (radius + offset) * sin(angle));

@@ -42,6 +42,9 @@ class AsteroidGame
 
   ArrayList<Asteroid> myAsteroids = 
     new ArrayList<Asteroid>(); // declare Asteroid object ArrayList
+    
+  ArrayList<Explosion> myExplosions = 
+    new ArrayList<Explosion>(); // declare Explosion object ArrayList
 
   int level, // tracks the level of the game reached
     prevLevel, // stores the starting level of the current game
@@ -393,12 +396,18 @@ class AsteroidGame
           if (myAsteroids.get(i).hits < 2)
           {
             myAsteroids.addAll(myAsteroids.get(i).splitAsteroid());
+            
             myAsteroids.remove(myAsteroids.get(i));
+
             // call audio object to ship hit sound
             myAudio.playAstHit();
           } else
           {
+            // add explosion object to creat explosion 
+            myExplosions.add(new Explosion(myAsteroids.get(i).asteroidLocation));
+            
             myAsteroids.remove(myAsteroids.get(i));
+   
             // call audio object to ship hit sound
             myAudio.playAstHit();
           }
@@ -432,6 +441,9 @@ class AsteroidGame
     {
       if (myShip.equalsUfo(myUfo))
       {
+        // add explosion object to creat explosion 
+        myExplosions.add(new Explosion(myUfo.ufoLocation));
+            
         myUfo = null;
         ufoExists = false;
         ufoTiming = false;
@@ -461,6 +473,30 @@ class AsteroidGame
           myShip.shipCoord.x = width/2;
           myShip.shipCoord.y = height/2;
         }
+      }
+    }
+  }
+  
+  /*
+  
+  */
+  void updateExplosion()
+  {
+    if (startAsteroids && asteroidsExist)
+    {
+      if(myExplosions.size() >= 1)
+      {
+         for (int i = 0; i < myExplosions.size(); i ++)
+         {
+           if(myExplosions.get(i).explosionExists)
+           {
+             myExplosions.get(i).moveTrails();
+           }
+           else
+           {
+             myExplosions.remove(i);
+           }
+         }
       }
     }
   }
@@ -673,6 +709,7 @@ void draw()
   myAsteroidGame.updateAsteroids();
   myAsteroidGame.collisionAsteroids();
   myAsteroidGame.collisionShip_Asteroid();
+  myAsteroidGame.updateExplosion();
 
   //ship
   myAsteroidGame.updateShip();
