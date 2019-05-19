@@ -21,6 +21,7 @@ class Audio
     gameOver, //Audioplayer object for gameover
     menuClick, //Audioplayer object for menu click
     menuMusic, //Audioplayer object for menu music
+    shipLaunch, //Audioplayer object for ship launch audio
     levelUp; //Audioplayer object for next level
 
   /*
@@ -43,6 +44,7 @@ class Audio
     gameOver = minim.loadFile("gameover.wav");
     menuClick = minim.loadFile("menuclick.wav");
     menuMusic = minim.loadFile("menu.wav");
+    shipLaunch = minim.loadFile("launch.wav");
   }
 
   /*
@@ -61,6 +63,15 @@ class Audio
   {
     shipHit.rewind();
     shipHit.play();
+  }
+  
+  /*
+  Method to play launch sound
+   */
+  void playLaunch()
+  {
+    shipLaunch.rewind();
+    shipLaunch.play();
   }
 
   /*
