@@ -30,9 +30,9 @@ class Asteroid
 
   /*
   Constructor sets the Asteroid objects initial values and generates a random PShape
-   @PARAMS: location is a PVector for the starting point of the object
-   @PARAMS: scal is a random float to define the size of the image drawn to screen
-   @PARAMS: hit is an int to track number of hits each Asteroid object has sustained
+   @PARAM: location is a PVector for the starting point of the object
+   @PARAM: scal is a random float to define the size of the image drawn to screen
+   @PARAM: hit is an int to track number of hits each Asteroid object has sustained
    */
   Asteroid(PVector location, float scal, int hit)
   {
@@ -117,15 +117,15 @@ class Asteroid
     drawAsteroid.setStroke(#24DE14);
     drawAsteroid.beginShape();
 
-    float rand = random(5, 12); // random number used to determine number of vertices
+    float points = random(5, 12); // random number used to determine number of vertices
 
     // for loop iterrates over a random number which corresponds to number of vertices
-    for (int i = 0; i < rand; i++)
+    for (int i = 0; i < points; i++)
     {
       // random number used to determine a random offset to each vertices
       float offset = random(-12, 12); 
       // uses map function to generate the anle between vertices
-      float angle = map(i, 0, rand, 0, TWO_PI);
+      float angle = map(i, 0, points, 0, TWO_PI);
       // use trigonometry to generate polar to catesian coordinates (x,y) 
       // and set to a vertex point of the PShape
       drawAsteroid.vertex((radius + offset) * cos(angle), (radius + offset) * sin(angle));
@@ -149,7 +149,7 @@ class Asteroid
   Method to update the velocity and change direction of two
    Asteroid objects on collision. The code has been sourced from
    https://forum.processing.org and updated to use PVectors.
-   @PARAMS: An Asteroid object to compare the calling object to.
+   @PARAM: An Asteroid object to compare the calling object to.
    */
   void collisionAsteroid(Asteroid ast)
   {
@@ -171,7 +171,7 @@ class Asteroid
   /*
   Method to check if asteroid locations are equal. It does this by using
    a circular collision detection algorithm.
-   @PARAMS: ast is an Asteroid object to compare against the object calling.
+   @PARAM: ast is an Asteroid object to compare against the object calling.
    @Return: A boolean true if equal false if not.  
    */
   boolean equals(Asteroid ast)
@@ -195,7 +195,7 @@ class Asteroid
   /*
   Overloaded method to check if asteroid locations is equal to ship location. It does this by using
    a circular collision detection algorithm.
-   @PARAMS: is the ship object to compare against the object calling.
+   @PARAM: is the ship object to compare against the object calling.
    @Return: A boolean true if equal false if not.  
    */
   boolean equals(Ship myShip)

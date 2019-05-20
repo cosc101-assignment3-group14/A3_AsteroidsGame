@@ -84,7 +84,7 @@ class Ufo
 
   /*
   Method to update the movement of the ship relative to the players ship current location
-   @PARAMS: ship is a PVector with the ships location
+   @PARAM: ship is a PVector with the ships location
    */
   void moveUfo(PVector ship)
   {
@@ -237,7 +237,7 @@ class Ufo
   /*
   Method to check if ufoShot locations or the ufo location itself are equal to ship location. 
    It does this by using a circular collision detection algorithm.
-   @PARAMS: x and y are locations
+   @PARAM: x and y are locations
    @Return: A boolean true if equal false if not.  
    */
   boolean equals(Ship myShip)

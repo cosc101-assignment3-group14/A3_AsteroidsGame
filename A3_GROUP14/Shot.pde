@@ -24,10 +24,10 @@ class Shot
    the current ship location. The shot velocity is set to be shot speed * cos/sin (x/y)
    of the direction + the velocity of the ship
    It also intitilises variables and creates the PShape object.
-   @PARAMS pos: A PVector object containing ship's location
-   @PARAMS vel:  A PVector object containing ship's velocity
-   @PARAMS direction: The direction of the ship
-   @PARAMS col: The colour of the shot.
+   @PARAM pos: A PVector object containing ship's location
+   @PARAM vel:  A PVector object containing ship's velocity
+   @PARAM direction: The direction of the ship
+   @PARAM col: The colour of the shot.
    */
   Shot(PVector pos, PVector vel, float direction, String col)
   {
@@ -53,10 +53,10 @@ class Shot
    the current ship location. The shot velocity is set to be shot speed * cos/sin (x/y)
    of the direction + the velocity of the ship.
    It also intitilises variables and creates the PShape object.
-   @PARAMS pos: A PVector object containing ufo's location
-   @PARAMS vel:  A PVector object containing ufo's velocity
-   @PARAMS ship: A PVector object containing ship's location 
-   @PARAMS col: The colour of the shot.
+   @PARAM pos: A PVector object containing ufo's location
+   @PARAM vel:  A PVector object containing ufo's velocity
+   @PARAM ship: A PVector object containing ship's location 
+   @PARAM col: The colour of the shot.
    */
   Shot(PVector ufoPos, PVector vel, PVector ship, String col)
   {

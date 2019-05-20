@@ -15,7 +15,7 @@ AsteroidGame class accesses the clases required to build up the Asteroids
  play status is moitored with boolean flags and game flow is directed in the 
  relevent direction. Collision detection is monitored.
  */
-
+ 
 class AsteroidGame
 {
 
@@ -42,6 +42,9 @@ class AsteroidGame
 
   ArrayList<Asteroid> myAsteroids = 
     new ArrayList<Asteroid>(); // declare Asteroid object ArrayList
+    
+  ArrayList<Explosion> myExplosions = 
+    new ArrayList<Explosion>(); // declare Explosion object ArrayList
 
   int level, // tracks the level of the game reached
     prevLevel, // stores the starting level of the current game
@@ -56,7 +59,7 @@ class AsteroidGame
   PVector[] starsBackground; // PVector array to store locations of stars for moving background.
   float[] starSpeed; // float array to set the speed of the star
 
-  String start;                      // Sting to store the game start messege
+  String start; // Sting to store the game start messege
 
   PFont font; // declare a Pfont object
 
@@ -67,6 +70,7 @@ class AsteroidGame
   {
     // initialise Ship object
     myShip = new Ship();
+    
     // initialise menu object
     myMenu = new MainMenu();
 
@@ -393,12 +397,18 @@ class AsteroidGame
           if (myAsteroids.get(i).hits < 2)
           {
             myAsteroids.addAll(myAsteroids.get(i).splitAsteroid());
+            
             myAsteroids.remove(myAsteroids.get(i));
+
             // call audio object to ship hit sound
             myAudio.playAstHit();
           } else
           {
+            // add explosion object to creat explosion 
+            myExplosions.add(new Explosion(myAsteroids.get(i).asteroidLocation));
+            
             myAsteroids.remove(myAsteroids.get(i));
+   
             // call audio object to ship hit sound
             myAudio.playAstHit();
           }
@@ -412,9 +422,11 @@ class AsteroidGame
         level += 1;
         // call audio object to play next level sound
         myAudio.playLevelUp();
+        
         // ship restarts in the center
         myShip.shipCoord.x = width/2;
         myShip.shipCoord.y = height/2;
+        
         // level up points added to score
         myShip.score += 500;
         newLevel = true;
@@ -432,6 +444,9 @@ class AsteroidGame
     {
       if (myShip.equalsUfo(myUfo))
       {
+        // add explosion object to creat explosion 
+        myExplosions.add(new Explosion(myUfo.ufoLocation));
+            
         myUfo = null;
         ufoExists = false;
         ufoTiming = false;
@@ -461,6 +476,30 @@ class AsteroidGame
           myShip.shipCoord.x = width/2;
           myShip.shipCoord.y = height/2;
         }
+      }
+    }
+  }
+  
+  /*
+  Method to update the Explosion objects created in the myExplosions ArrayList
+  */
+  void updateExplosion()
+  {
+    if (startAsteroids && asteroidsExist)
+    {
+      if(myExplosions.size() >= 1)
+      {
+         for (int i = 0; i < myExplosions.size(); i ++)
+         {
+           if(myExplosions.get(i).explosionExists)
+           {
+             myExplosions.get(i).moveTrails();
+           }
+           else
+           {
+             myExplosions.remove(i);
+           }
+         }
       }
     }
   }
@@ -637,6 +676,8 @@ class AsteroidGame
     // reset ship
     myShip.setLives(3);
     myShip.setScore(0);
+    myShip.shipDirection.x = 0;
+    myShip.shipDirection.y = 0;
     keyIsPressed = new boolean[256];
   }
 }
@@ -673,6 +714,7 @@ void draw()
   myAsteroidGame.updateAsteroids();
   myAsteroidGame.collisionAsteroids();
   myAsteroidGame.collisionShip_Asteroid();
+  myAsteroidGame.updateExplosion();
 
   //ship
   myAsteroidGame.updateShip();
