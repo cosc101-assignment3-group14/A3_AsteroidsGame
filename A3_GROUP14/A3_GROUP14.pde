@@ -15,7 +15,7 @@ AsteroidGame class accesses the clases required to build up the Asteroids
  play status is moitored with boolean flags and game flow is directed in the 
  relevent direction. Collision detection is monitored.
  */
-
+ 
 class AsteroidGame
 {
 
@@ -59,7 +59,7 @@ class AsteroidGame
   PVector[] starsBackground; // PVector array to store locations of stars for moving background.
   float[] starSpeed; // float array to set the speed of the star
 
-  String start;                      // Sting to store the game start messege
+  String start; // Sting to store the game start messege
 
   PFont font; // declare a Pfont object
 
@@ -70,6 +70,7 @@ class AsteroidGame
   {
     // initialise Ship object
     myShip = new Ship();
+    
     // initialise menu object
     myMenu = new MainMenu();
 
@@ -421,9 +422,11 @@ class AsteroidGame
         level += 1;
         // call audio object to play next level sound
         myAudio.playLevelUp();
+        
         // ship restarts in the center
         myShip.shipCoord.x = width/2;
         myShip.shipCoord.y = height/2;
+        
         // level up points added to score
         myShip.score += 500;
         newLevel = true;
@@ -478,7 +481,7 @@ class AsteroidGame
   }
   
   /*
-  
+  Method to update the Explosion objects created in the myExplosions ArrayList
   */
   void updateExplosion()
   {
@@ -673,6 +676,8 @@ class AsteroidGame
     // reset ship
     myShip.setLives(3);
     myShip.setScore(0);
+    myShip.shipDirection.x = 0;
+    myShip.shipDirection.y = 0;
     keyIsPressed = new boolean[256];
   }
 }

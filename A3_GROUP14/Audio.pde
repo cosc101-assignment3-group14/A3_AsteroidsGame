@@ -27,6 +27,7 @@ class Audio
   /*
   Constructor takes in PApplet argument to get minim class to load 
    files within this class. Code sourced from https://forum.processing.org
+   @PARAM: p is a PApplet object
    */
   Audio(PApplet p)
   {
