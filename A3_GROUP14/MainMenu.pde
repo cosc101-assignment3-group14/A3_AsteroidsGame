@@ -65,7 +65,7 @@ class MainMenu
     returnLabel = "MAIN MENU";
     instructionsMission = "Mission:  Destory all asteroids and alien spaceships.";
     instructionsLives = " Lives:  Each player has 3 lives. Collision with an" +
-    asteriod looses a life. But be careful!  Collision with an alien" +
+    "asteriod looses a life. But be careful!  Collision with an alien" +
     "spaceship means game over!";
     instructionsControls = "Controls:  Right Turn: Right arrow. " +
     "Left Turn: Left arrow.  Move Upwards: Up arrow.  Move Downwards: Down arrow.";
