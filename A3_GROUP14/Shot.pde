@@ -19,8 +19,8 @@ class Shot
   float shotSpeed; // speed of the shot
 
   /*
-  This Shot constructor can be used by the spaceShip. It takes in three parameters.
-   Two PVector objects and a float. The initial shot location is set to be
+  This Shot constructor can be used by the spaceShip. It takes in four parameters.
+   Two PVector objects, a float and a string. The initial shot location is set to be
    the current ship location. The shot velocity is set to be shot speed * cos/sin (x/y)
    of the direction + the velocity of the ship
    It also intitilises variables and creates the PShape object.
@@ -48,8 +48,8 @@ class Shot
   }
 
   /*
-  This Shot constructor can be used by the Ufo class, it takes in three parameters. 
-   Two PVector objects and a float. The initial shot location is set to be
+  This Shot constructor can be used by the Ufo class, it takes in four parameters. 
+   Two PVector objects, a float and a string. The initial shot location is set to be
    the current ship location. The shot velocity is set to be shot speed * cos/sin (x/y)
    of the direction + the velocity of the ship.
    It also intitilises variables and creates the PShape object.
