@@ -133,10 +133,13 @@ class MainMenu
   void displayInstructions()
   {
     fill(0, 150, 0);
-    textAlign(CENTER);
-    text(instructionsTitle, 400, 150);
+    textAlign(CENTER);    textSize(55);
+    text(instructionsTitle, 400, 100);
     fill(255);
-    text(instructionsBlurb, 400, 300);
+    textSize(25);
+    text(instructionsMission, 50, 200,650, 600);
+    text(instructionsLives, 50, 300, 650, 600);
+    text(instructionsControls,50, 450, 650, 600);
     fill(255, aRet1);
     text(returnLabel, 400, 700);
   }
