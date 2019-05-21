@@ -23,9 +23,11 @@ class MainMenu
     chooseLabel, //
     returnLabel, //
     gameoverLabel, //
-    playAgainLabel, //
-    instructionsTitle, //
-    instructionsBlurb; //
+    playAgainLabel, //   
+    instructionsTitle, // 
+    instructionsMission, //
+    instructionsLives, // 
+    instructionsControls;
 
   Boolean gameOver, // boolean flag used to state if the game is over
     selected;  // boolean flag used to state the mouse was pressed
