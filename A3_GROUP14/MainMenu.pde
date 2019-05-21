@@ -63,8 +63,13 @@ class MainMenu
     playAgainLabel ="PLAY AGAIN?";
     chooseLabel = "CHOOSE YOUR DIFFICULTY";
     returnLabel = "MAIN MENU";
-    instructionsBlurb = "WE WILL MAKE THIS ALL UP LATER";
-    instructionsTitle = "THIS IS HOW YOU PLAY";
+    instructionsMission = "Mission:  Destory all asteroids and alien spaceships.";
+    instructionsLives = " Lives:  Each player has 3 lives. Collision with an" +
+    asteriod looses a life. But be careful!  Collision with an alien" +
+    "spaceship means game over!";
+    instructionsControls = "Controls:  Right Turn: Right arrow. " +
+    "Left Turn: Left arrow.  Move Upwards: Up arrow.  Move Downwards: Down arrow.";
+    instructionsTitle = "YOUR MISSION";
     
     bright = 255;
     dim = 120;
