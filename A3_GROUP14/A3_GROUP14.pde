@@ -9,7 +9,7 @@
 import ddf.minim.*;
 
 /*
-AsteroidGame class accesses the clases required to build up the Asteroids
+AsteroidGame class accesses the classes required to build up the Asteroids
  game implementation. User input events are monitored and passed to the relevent
  classes requiring this information. Sound files are called at input events. Game 
  play status is moitored with boolean flags and game flow is directed in the 
@@ -25,7 +25,7 @@ class AsteroidGame
   MainMenu myMenu; // declare MainMenu object
 
   boolean startAsteroids, // boolean status flag to control the start of the asteroids/game
-    ufoExists, // boolean status flag to track the existance of ufo.
+    ufoExists, // boolean status flag to track the existance of ufo
     asteroidsExist, // boolean status flag to monitor when asteroid arraylist equals zero
     ufoTiming, // boolean status flag to track when the timer between ufos has been set
     shipHit, // boolean status flag to track if the ship has been hit and is dead or alive
@@ -49,17 +49,17 @@ class AsteroidGame
   int level, // tracks the level of the game reached
     prevLevel, // stores the starting level of the current game
     ufoTimer, // stores the time starting at the point of when a ufo is destroyed till next ufo released
-    textTimer, // stores starting tie to display level messege
-    border;  // sets the border off screen to accomaodate shapes beyond edges
+    textTimer, // stores starting time to display level message
+    border;  // sets the border off screen to accommodate shapes beyond edges
 
   float ufoInterval, // stores a random interval to time between ufo releases
     textInterval; // stores an interval to display the next level message
 
-  boolean[] keyIsPressed; // boolean array to store a boolean corrosponding to keypress event.
-  PVector[] starsBackground; // PVector array to store locations of stars for moving background.
+  boolean[] keyIsPressed; // boolean array to store a boolean corresponding to keypress event
+  PVector[] starsBackground; // PVector array to store locations of stars for moving background
   float[] starSpeed; // float array to set the speed of the star
 
-  String start; // Sting to store the game start messege
+  String start; // String to store the game start messege
 
   PFont font; // declare a Pfont object
 
@@ -71,16 +71,14 @@ class AsteroidGame
     // initialise Ship object
     myShip = new Ship();
     
-    // initialise menu object
+    // initialise Menu object
     myMenu = new MainMenu();
 
     // set variables
-
     border = 15;
     textInterval = 2;
 
     // set game boolean variables. 
-
     startAsteroids = false;
     asteroidsExist = false;
     ufoExists = false;
@@ -95,13 +93,12 @@ class AsteroidGame
     launching = true;
 
     // set menu boolean variables.
-
     menuMainVisible = true;
     menuDifficultyVisible = false;
     menuInstructionsVisible = false;
 
-    // create a boolean array to monitor which keys are pressed. 256 corrosponds to the
-    // number of ASCII characters
+    // create a boolean array to monitor which keys are pressed 
+    // 256 corrosponds to the number of ASCII characters
     keyIsPressed = new boolean[256];
 
     // load font
@@ -115,7 +112,7 @@ class AsteroidGame
     // create a float array with corrosponding speed values for each star
     starSpeed = new float[100] ;
 
-    // use a for loop to construct the stars Background and starsSpeed arrays
+    // use a for loop to construct the stars background and starsSpeed arrays
     for (int i = 0; i < starsBackground.length; i++)
     {
       starsBackground[i] = new PVector(random(0, width), random(0, height));
@@ -179,8 +176,7 @@ class AsteroidGame
       {
         // play launching audio
         myAudio.playLaunch();
-        launching = false;
-      
+        launching = false;     
       }
     }
   }
@@ -194,8 +190,8 @@ class AsteroidGame
     {
       for (int i = 0; i < level; i ++)
       {
-        myAsteroids.add(oneAsteroid = new Asteroid(new PVector(random(width), 0 - (2 * border)), 
-          random(1, 1.5), 0));
+        myAsteroids.add(oneAsteroid = new Asteroid(new PVector(random(width), 
+          0 - (2 * border)), random(1, 1.5), 0));
       }                                            
       asteroidsExist = true;
     }
@@ -232,7 +228,8 @@ class AsteroidGame
         ufoTimer = millis();
         ufoInterval = random(30, 40);
         ufoTiming = true;
-      } else if ((millis() - ufoTimer) / 1000  > ufoInterval)
+      } 
+      else if ((millis() - ufoTimer) / 1000  > ufoInterval)
       {
         // initialise Ufo object
         myUfo = new Ufo();
@@ -244,7 +241,7 @@ class AsteroidGame
   }
 
   /*
-  Method to update the ufo 
+  Method to update the ufo.
    */
   void updateUfo()
   {
@@ -259,7 +256,7 @@ class AsteroidGame
   }
 
   /*
-  Method to update the ship
+  Method to update the ship.
    */
   void updateShip()
   {
