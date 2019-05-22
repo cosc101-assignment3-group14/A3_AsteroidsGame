@@ -22,9 +22,11 @@ class MainMenu
     chooseLabel, //
     returnLabel, //
     gameoverLabel, //
-    playAgainLabel, //
-    instructionsTitle, //
-    instructionsBlurb; //
+    playAgainLabel, //   
+    instructionsTitle, // 
+    instructionsMission, //
+    instructionsLives, // 
+    instructionsControls;
 
   Boolean gameOver, // boolean flag used to state if the game is over
     selected;  // boolean flag used to state the mouse was pressed
@@ -64,9 +66,15 @@ class MainMenu
     playAgainLabel ="PLAY AGAIN?";
     chooseLabel = "CHOOSE YOUR DIFFICULTY";
     returnLabel = "MAIN MENU";
-    instructionsBlurb = "WE WILL MAKE THIS ALL UP LATER";
-    instructionsTitle = "THIS IS HOW YOU PLAY";
 
+    instructionsMission = "Mission:  Destory all asteroids and alien spaceships.";
+    instructionsLives = " Lives:  Each player has 3 lives. Collision with an" +
+    "asteriod looses a life. But be careful!  Collision with an alien" +
+    "spaceship means game over!";
+    instructionsControls = "Controls:  Right Turn: Right arrow. " +
+    "Left Turn: Left arrow.  Move Upwards: Up arrow.  Move Downwards: Down arrow.";
+    instructionsTitle = "YOUR MISSION";
+    
     bright = 255;
     dim = 120;
     headerY = 150;
@@ -133,10 +141,21 @@ class MainMenu
   void displayInstructions()
   {
     fill(0, 150, 0);
+//frrom branch
+    textAlign(CENTER);    textSize(55);
+    text(instructionsTitle, 400, 100);
+    fill(255);
+    textSize(25);
+    text(instructionsMission, 50, 200,650, 600);
+    text(instructionsLives, 50, 300, 650, 600);
+    text(instructionsControls,50, 450, 650, 600);
+
+//from master
     textAlign(CENTER);
     text(instructionsTitle, width/2, headerY);
     fill(255);
     text(instructionsBlurb, width/2, (height/2)-txtH);
+
     fill(255, aRet1);
     text(returnLabel, width/2, (height/2)+(3*txtH));
   }
