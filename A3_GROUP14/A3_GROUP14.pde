@@ -554,8 +554,9 @@ class AsteroidGame
       // Main menu mouse handling
       if (menuMainVisible)
       {
-        // dectect difficulty options
-        if (myMenu.buttonDetect(291, 505, 371, 403))
+        // detect difficulty options
+        if (myMenu.buttonDetect(myMenu.button[0][0], myMenu.button[0][1], 
+            myMenu.button[0][2], myMenu.button[0][3]))
         {
           myAudio.playMenuClick();
           menuMainVisible = false;
@@ -564,7 +565,8 @@ class AsteroidGame
         }
 
         // detect instructions option
-        else if (myMenu.buttonDetect(256, 536, 471, 501))
+        else if (myMenu.buttonDetect(myMenu.button[1][0], myMenu.button[1][1], 
+                 myMenu.button[1][2], myMenu.button[1][3]))
         {
           myAudio.playMenuClick();
           menuMainVisible = false;
@@ -572,7 +574,8 @@ class AsteroidGame
           menuInstructionsVisible = true;
         } 
         // detect exit option
-        else if (myMenu.buttonDetect(344, 447, 571, 602))
+        else if (myMenu.buttonDetect(myMenu.button[2][0], myMenu.button[2][1], 
+                 myMenu.button[2][2], myMenu.button[2][3]))
         {
           myMenu.gameExit();
         }
@@ -580,7 +583,8 @@ class AsteroidGame
       } else if (menuDifficultyVisible)
       {
         // easy level selection
-        if (myMenu.buttonDetect(341, 457, 271, 303))
+        if (myMenu.buttonDetect(myMenu.button[3][0], myMenu.button[3][1], 
+            myMenu.button[3][2], myMenu.button[3][3]))
         {
           myAudio.playMenuClick();
           level = 1;
@@ -588,7 +592,8 @@ class AsteroidGame
           startAsteroids = true;
         } 
         // medium level selection
-        else if (myMenu.buttonDetect(314, 480, 372, 402))
+        else if (myMenu.buttonDetect(myMenu.button[4][0], myMenu.button[4][1], 
+            myMenu.button[4][2], myMenu.button[4][3]))
         {
           myAudio.playMenuClick();
           level = 3;
@@ -596,7 +601,8 @@ class AsteroidGame
           startAsteroids = true;
         } 
         // hard level selection
-        else if (myMenu.buttonDetect(341, 455, 472, 501))
+        else if (myMenu.buttonDetect(myMenu.button[5][0], myMenu.button[5][1], 
+            myMenu.button[5][2], myMenu.button[5][3]))
         {
           myAudio.playMenuClick();
           level = 5;
@@ -604,7 +610,8 @@ class AsteroidGame
           startAsteroids = true;
         } 
         // return to main menu selection
-        else if (myMenu.buttonDetect(281, 450, 671, 700))
+        else if (myMenu.buttonDetect(myMenu.button[6][0], myMenu.button[6][1], 
+            myMenu.button[6][2], myMenu.button[6][3]))
         {
           myAudio.playMenuClick();
           menuMainVisible = true;
@@ -615,7 +622,8 @@ class AsteroidGame
       } else if (menuInstructionsVisible)
       {
         // return to main menu selection
-        if (myMenu.buttonDetect(281, 517, 671, 700))
+        if (myMenu.buttonDetect(myMenu.button[6][0], myMenu.button[6][1], 
+            myMenu.button[6][2], myMenu.button[6][3]))
         {
           myAudio.playMenuClick();
           menuMainVisible = true;
@@ -628,18 +636,21 @@ class AsteroidGame
     else if (!startAsteroids && gameOver)
     {
       // detect play again option
-      if (myMenu.buttonDetect(275, 524, 491, 517))
+      if (myMenu.buttonDetect(myMenu.button[7][0], myMenu.button[7][1], 
+            myMenu.button[7][2], myMenu.button[7][3]))
       {
         myAudio.playMenuClick();
         reset(prevLevel, true);
       }
       // detect exit option
-      else if (myMenu.buttonDetect(337, 456, 590, 639))
+      else if (myMenu.buttonDetect(myMenu.button[8][0], myMenu.button[8][1], 
+            myMenu.button[8][2], myMenu.button[8][3]))
       {
         myMenu.gameExit();
       }
       // return to main menu selection
-      else if (myMenu.buttonDetect(264, 531, 680, 739))
+      else if (myMenu.buttonDetect(myMenu.button[9][0], myMenu.button[9][1], 
+            myMenu.button[9][2], myMenu.button[9][3]))
       {
         myAudio.playMenuClick();
         menuMainVisible = true;
