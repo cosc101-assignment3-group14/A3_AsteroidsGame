@@ -113,16 +113,16 @@ class AsteroidGame
     // 2D Array to store coordinates for menu button detect.
     // Each array has a x min, x max, y min y max. Using this stategy allows there to
     // be tight edge detection just surrounding the text.
-    int[][] button = {{291, 505, 371, 403}, // "NEW GAME"
-                     {256, 536, 471, 501},  // "HOW TO PLAY"
-                     {344, 447, 571, 602},  // "EXIT"
-                     {341, 457, 271, 303},  // "EASY"
-                     {314, 480, 372, 402},  // "MEDIUM"
-                     {341, 455, 472, 501},  // "HARD"
-                     {281, 450, 671, 700},  // "MAIN MENU"
-                     {275, 524, 491, 517},  // "PLAY AGAIN?"
-                     {337, 456, 590, 639},  // "EXIT"
-                     {264, 531, 680, 739}}; // "MAIN MENU"
+    button = new int [][]{{291, 505, 371, 403}, // "NEW GAME"
+                          {256, 536, 471, 501},  // "HOW TO PLAY"
+                          {344, 447, 571, 602},  // "EXIT"
+                          {341, 457, 271, 303},  // "EASY"
+                          {314, 480, 372, 402},  // "MEDIUM"
+                          {341, 455, 472, 501},  // "HARD"
+                          {281, 450, 671, 700},  // "MAIN MENU"
+                          {275, 524, 491, 517},  // "PLAY AGAIN?"
+                          {337, 456, 590, 639},  // "EXIT"
+                          {264, 531, 680, 739}}; // "MAIN MENU"
 
     // CREATE A MOVING BACKGROUND
 
@@ -174,6 +174,9 @@ class AsteroidGame
     } 
     else if (!startAsteroids && gameOver)
     {
+      // activate text highlighting
+      myMenu.textHighlight(button);
+       
       myMenu.displayEndGame();
     }
     // enter game 

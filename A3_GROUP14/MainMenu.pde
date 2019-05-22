@@ -199,96 +199,93 @@ class MainMenu
    */
   void textHighlight(int[][] button)
   {
-    for (int index = 0; index < button.length; index ++)
+    // new game button
+    if (buttonDetect(button, 0))
     {
-      // new game button
-      if (buttonDetect(button, index))
-      {
-        aNG = bright;
-      } else {
-        aNG = dim;
-      } 
-      
-      // instructions button  
-      if (buttonDetect(button, index))
-      {
-        aInst = bright;
-      } else {
-        aInst = dim;
-      }  
-      
-      // exit button from main menu
-      if (buttonDetect(button, index))
-      {
-        aExit1 = bright;
-      } else {
-        aExit1 = dim;
-      }
-      
-      // easy option button
-      if (buttonDetect(button, index))
-      { 
-        aEasy = bright;
-      } else {
-        aEasy = dim;
-      }
-      
-      // medium option button
-      if (buttonDetect(button, index))
-      {
-        aMed = bright;
-      } else {
-        aMed = dim;
-      }
-      
-      // hard option button
-      if (buttonDetect(button, index))
-      {
-        aHard = bright;
-      } else {
-        aHard = dim;
-      }
-      
-      // return button 
-      if (buttonDetect(button, index)) 
-      { 
-        aRet1 = bright;
-      } else { 
-        aRet1 = dim;
-      }
-      
-      // play again button
-      if (buttonDetect(button, index))
-      { 
-        aPA = bright;
-      } else {
-        aPA = dim;
-      }
-      
-      // exit button from game over screen
-      if (buttonDetect(button, index))
-      {
-        aExit2 = bright;
-      } else {
-        aExit2 = dim;
-      }  
-      
-      // return to main menu button
-      if (buttonDetect(button, index)) 
-      {
-        aRet2 = bright;
-      } else
-      {
-        aRet2 = dim;
-      }
-    }
-  }  
+      aNG = bright;
+    } else 
+    {
+      aNG = dim;
+    }  
+    // instructions button  
+    if (buttonDetect(button, 1))
+    {
+      aInst = bright;
+    } else {
+      aInst = dim;
+    }  
 
-    /*
-  Method
-     */
-    void gameExit()
+    // exit button from main menu
+    if (buttonDetect(button, 2))
     {
-      exit();
+      aExit1 = bright;
+    } else {
+      aExit1 = dim;
+    }
+
+    // easy option button
+    if (buttonDetect(button, 3))
+    { 
+      aEasy = bright;
+    } else {
+      aEasy = dim;
+    }
+
+    // medium option button
+    if (buttonDetect(button, 4))
+    {
+      aMed = bright;
+    } else {
+      aMed = dim;
+    }
+
+    // hard option button
+    if (buttonDetect(button, 5))
+    {
+      aHard = bright;
+    } else {
+      aHard = dim;
+    }
+
+    // return button 
+    if (buttonDetect(button, 6)) 
+    { 
+      aRet1 = bright;
+    } else { 
+      aRet1 = dim;
+    }
+
+    // play again button
+    if (buttonDetect(button, 7))
+    { 
+      aPA = bright;
+    } else {
+      aPA = dim;
+    }
+
+    // exit button from game over screen
+    if (buttonDetect(button, 8))
+    {
+      aExit2 = bright;
+    } else {
+      aExit2 = dim;
+    }  
+
+    // return to main menu button
+    if (buttonDetect(button, 9)) 
+    {
+      aRet2 = bright;
+    } else
+    {
+      aRet2 = dim;
     }
   }
+
+  /*
+  Method
+   */
+  void gameExit()
+  {
+    exit();
+  }
+}  
