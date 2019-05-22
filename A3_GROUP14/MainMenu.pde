@@ -186,7 +186,7 @@ class MainMenu
    */
   boolean buttonDetect(int[][] button, int index)
   {
-    if ((mouseX > button[index][0]) && (mouseX < button[index][1]) && 
+    if ((mouseX > button[index][0]) && (mouseX < button[index][1]) &&  //<>//
       ( mouseY > button[index][2]) && ( mouseY < button[index][3])) 
     {
       return true;
@@ -194,7 +194,7 @@ class MainMenu
     return false;
   }
 
-  /*
+   /*
   Method to highlight text when mouse hovers over, using the buttonDetect method
    */
   void textHighlight(int[][] button)
@@ -214,7 +214,6 @@ class MainMenu
     } else {
       aInst = dim;
     }  
-
     // exit button from main menu
     if (buttonDetect(button, 2))
     {
@@ -222,7 +221,6 @@ class MainMenu
     } else {
       aExit1 = dim;
     }
-
     // easy option button
     if (buttonDetect(button, 3))
     { 
@@ -230,7 +228,6 @@ class MainMenu
     } else {
       aEasy = dim;
     }
-
     // medium option button
     if (buttonDetect(button, 4))
     {
@@ -238,7 +235,6 @@ class MainMenu
     } else {
       aMed = dim;
     }
-
     // hard option button
     if (buttonDetect(button, 5))
     {
@@ -246,7 +242,6 @@ class MainMenu
     } else {
       aHard = dim;
     }
-
     // return button 
     if (buttonDetect(button, 6)) 
     { 
@@ -254,7 +249,6 @@ class MainMenu
     } else { 
       aRet1 = dim;
     }
-
     // play again button
     if (buttonDetect(button, 7))
     { 
@@ -262,7 +256,6 @@ class MainMenu
     } else {
       aPA = dim;
     }
-
     // exit button from game over screen
     if (buttonDetect(button, 8))
     {
@@ -270,7 +263,6 @@ class MainMenu
     } else {
       aExit2 = dim;
     }  
-
     // return to main menu button
     if (buttonDetect(button, 9)) 
     {
@@ -281,11 +273,11 @@ class MainMenu
     }
   }
 
-  /*
-  Method
-   */
-  void gameExit()
-  {
-    exit();
-  }
+    /*
+      Method to call the built in exit function
+     */
+    void gameExit()
+    {
+      exit();
+    }
 }  

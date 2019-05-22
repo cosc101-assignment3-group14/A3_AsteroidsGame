@@ -15,7 +15,7 @@ AsteroidGame class accesses the clases required to build up the Asteroids
  play status is moitored with boolean flags and game flow is directed in the 
  relevent direction. Collision detection is monitored.
  */
- 
+
 class AsteroidGame
 {
 
@@ -42,7 +42,7 @@ class AsteroidGame
 
   ArrayList<Asteroid> myAsteroids = 
     new ArrayList<Asteroid>(); // declare Asteroid object ArrayList
-    
+
   ArrayList<Explosion> myExplosions = 
     new ArrayList<Explosion>(); // declare Explosion object ArrayList
 
@@ -58,7 +58,7 @@ class AsteroidGame
   boolean[] keyIsPressed; // boolean array to store a boolean corrosponding to keypress event.
   PVector[] starsBackground; // PVector array to store locations of stars for moving background.
   float[] starSpeed; // float array to set the speed of the star
-  
+
   int[][] button; // 2D int array to store menu button detect coorinates
 
   String start; // Sting to store the game start messege
@@ -72,7 +72,7 @@ class AsteroidGame
   {
     // initialise Ship object
     myShip = new Ship();
-    
+
     // initialise menu object
     myMenu = new MainMenu();
 
@@ -109,20 +109,20 @@ class AsteroidGame
     // load font
     font = createFont("Pixel-Miners.otf", 32);
     textFont(font);
-    
+
     // 2D Array to store coordinates for menu button detect.
     // Each array has a x min, x max, y min y max. Using this stategy allows there to
     // be tight edge detection just surrounding the text.
-    button = new int [][]{{291, 505, 371, 403}, // "NEW GAME"
-                          {256, 536, 471, 501},  // "HOW TO PLAY"
-                          {344, 447, 571, 602},  // "EXIT"
-                          {341, 457, 271, 303},  // "EASY"
-                          {314, 480, 372, 402},  // "MEDIUM"
-                          {341, 455, 472, 501},  // "HARD"
-                          {281, 450, 671, 700},  // "MAIN MENU"
-                          {275, 524, 491, 517},  // "PLAY AGAIN?"
-                          {337, 456, 590, 639},  // "EXIT"
-                          {264, 531, 680, 739}}; // "MAIN MENU"
+    button = new int [][] {{291, 505, 371, 403}, // "NEW GAME"
+      {256, 536, 471, 501}, // "HOW TO PLAY"
+      {344, 447, 571, 602}, // "EXIT"
+      {341, 457, 271, 303}, // "EASY"
+      {314, 480, 372, 402}, // "MEDIUM"
+      {341, 455, 472, 501}, // "HARD"
+      {281, 450, 671, 700}, // "MAIN MENU"
+      {275, 524, 491, 517}, // "PLAY AGAIN?"
+      {337, 456, 590, 639}, // "EXIT"
+      {264, 531, 680, 739}}; // "MAIN MENU"
 
     // CREATE A MOVING BACKGROUND
 
@@ -150,33 +150,30 @@ class AsteroidGame
     if (!startAsteroids && !gameOver)
     {
       // activate text highlighting
-       myMenu.textHighlight(button);
-       
+      myMenu.textHighlight(button);
+
       // loop audio on menu
-      if(!menuLooping)
+      if (!menuLooping)
       {
         myAudio.loopMenuSound();
         menuLooping = true;
       }
-      
+
       if (menuMainVisible)
       {
         myMenu.displayMenu();
-      }
-      else if (menuDifficultyVisible)
+      } else if (menuDifficultyVisible)
       {
         myMenu.displayDifficultyMenu();
-      }
-      else if (menuInstructionsVisible)
+      } else if (menuInstructionsVisible)
       {
         myMenu.displayInstructions();
       }
-    } 
-    else if (!startAsteroids && gameOver)
+    } else if (!startAsteroids && gameOver)
     {
       // activate text highlighting
       myMenu.textHighlight(button);
-       
+
       myMenu.displayEndGame();
     }
     // enter game 
@@ -184,7 +181,7 @@ class AsteroidGame
     {
       // pause menu audio
       myAudio.pauseLoopMenuSound();
-      
+
       //Draw moving background
       for (int i = 0; i < starsBackground.length; i++)
       {
@@ -196,13 +193,12 @@ class AsteroidGame
         strokeWeight(starSpeed[i]);
         point(starsBackground[i].x, starsBackground[i].y);
       }
-      
-      if(launching)
+
+      if (launching)
       {
         // play launching audio
         myAudio.playLaunch();
         launching = false;
-      
       }
     }
   }
@@ -419,7 +415,7 @@ class AsteroidGame
           if (myAsteroids.get(i).hits < 2)
           {
             myAsteroids.addAll(myAsteroids.get(i).splitAsteroid());
-            
+
             myAsteroids.remove(myAsteroids.get(i));
 
             // call audio object to ship hit sound
@@ -428,9 +424,9 @@ class AsteroidGame
           {
             // add explosion object to creat explosion 
             myExplosions.add(new Explosion(myAsteroids.get(i).asteroidLocation));
-            
+
             myAsteroids.remove(myAsteroids.get(i));
-   
+
             // call audio object to ship hit sound
             myAudio.playAstHit();
           }
@@ -444,11 +440,11 @@ class AsteroidGame
         level += 1;
         // call audio object to play next level sound
         myAudio.playLevelUp();
-        
+
         // ship restarts in the center
         myShip.shipCoord.x = width/2;
         myShip.shipCoord.y = height/2;
-        
+
         // level up points added to score
         myShip.score += 500;
         newLevel = true;
@@ -468,7 +464,7 @@ class AsteroidGame
       {
         // add explosion object to creat explosion 
         myExplosions.add(new Explosion(myUfo.ufoLocation));
-            
+
         myUfo = null;
         ufoExists = false;
         ufoTiming = false;
@@ -501,27 +497,26 @@ class AsteroidGame
       }
     }
   }
-  
+
   /*
   Method to update the Explosion objects created in the myExplosions ArrayList
-  */
+   */
   void updateExplosion()
   {
     if (startAsteroids && asteroidsExist)
     {
-      if(myExplosions.size() >= 1)
+      if (myExplosions.size() >= 1)
       {
-         for (int i = 0; i < myExplosions.size(); i ++)
-         {
-           if(myExplosions.get(i).explosionExists)
-           {
-             myExplosions.get(i).moveTrails();
-           }
-           else
-           {
-             myExplosions.remove(i);
-           }
-         }
+        for (int i = 0; i < myExplosions.size(); i ++)
+        {
+          if (myExplosions.get(i).explosionExists)
+          {
+            myExplosions.get(i).moveTrails();
+          } else
+          {
+            myExplosions.remove(i);
+          }
+        }
       }
     }
   }
@@ -551,17 +546,17 @@ class AsteroidGame
 
   /*
   Method to create cursor image and hide the cursor during game play
-  */  
+   */
   void hideCursor()
   {
     noCursor();
     if (!startAsteroids)
-      {
-        pushMatrix();
-        translate(mouseX, mouseY);
-        rotate(-PI/4);
-        shape(myShip.drawShip, 0, 0);
-        popMatrix();
+    {
+      pushMatrix();
+      translate(mouseX, mouseY);
+      rotate(-PI/4);
+      shape(myShip.drawShip, 0, 0);
+      popMatrix();
     }
   }
   /*
@@ -671,14 +666,14 @@ class AsteroidGame
       }
     }
   }
-  
+
   /*
   Method to reset the game again at a selected dificulty level. Game will either
-  restart at the selected level or return to menu screen depending on boolean start
-  parameter.
-  @PARAM: level is an int of the previously choosen level
-  @PARAM: start is a boolean to tell the game to start playing or not 
-  */
+   restart at the selected level or return to menu screen depending on boolean start
+   parameter.
+   @PARAM: level is an int of the previously choosen level
+   @PARAM: start is a boolean to tell the game to start playing or not 
+   */
   void reset(int storedLevel, boolean start)
   {
     level = storedLevel;
@@ -694,7 +689,7 @@ class AsteroidGame
     menuLooping = false;
     gameEnded = false;
     launching = true;
-    
+
     // reset ship
     myShip.setLives(3);
     myShip.setScore(0);
@@ -749,7 +744,6 @@ void draw()
   myAsteroidGame.addUfo();
   myAsteroidGame.updateUfo();
   myAsteroidGame.collisionUfoShot_Ship();
-  
 }
 
 /*
