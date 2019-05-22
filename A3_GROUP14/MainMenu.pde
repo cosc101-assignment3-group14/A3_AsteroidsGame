@@ -24,9 +24,10 @@ class MainMenu
     gameoverLabel, //
     playAgainLabel, //   
     instructionsTitle, // 
-    instructionsMission, //
-    instructionsLives, // 
-    instructionsControls;
+    instructionsDetail;
+    //instructionsMission, //
+    //instructionsLives, // 
+    //instructionsControls;
 
   Boolean gameOver, // boolean flag used to state if the game is over
     selected;  // boolean flag used to state the mouse was pressed
@@ -67,13 +68,14 @@ class MainMenu
     chooseLabel = "CHOOSE YOUR DIFFICULTY";
     returnLabel = "MAIN MENU";
 
-    instructionsMission = "Mission:  Destory all asteroids and alien spaceships.";
-    instructionsLives = " Lives:  Each player has 3 lives. Collision with an" +
-    "asteriod looses a life. But be careful!  Collision with an alien" +
-    "spaceship means game over!";
-    instructionsControls = "Controls:  Right Turn: Right arrow. " +
-    "Left Turn: Left arrow.  Move Upwards: Up arrow.  Move Downwards: Down arrow.";
     instructionsTitle = "YOUR MISSION";
+    
+    instructionsDetail = "Mission: \n Destory all asteroids and alien spaceships.\n" 
+    + "\nLives: \n Each player has 3 lives. Collision with an \n asteriod looses a life." 
+    + " But be careful!  Collision \n with an alien spaceship means game over!\n" 
+    + "\nControls: \n Right Turn: Right arrow. \n Left Turn: Left arrow. \n" 
+    + "Move Upwards: Up arrow. \n Move Downwards: Down arrow.";
+   
     
     bright = 255;
     dim = 120;
@@ -141,21 +143,15 @@ class MainMenu
   void displayInstructions()
   {
     fill(0, 150, 0);
-//frrom branch
-    textAlign(CENTER);    textSize(55);
-    text(instructionsTitle, 400, 100);
-    fill(255);
-    textSize(25);
-    text(instructionsMission, 50, 200,650, 600);
-    text(instructionsLives, 50, 300, 650, 600);
-    text(instructionsControls,50, 450, 650, 600);
-
-//from master
-    textAlign(CENTER);
+    // title and instrructions text
+    textAlign(CENTER);    
+    textSize(55);
     text(instructionsTitle, width/2, headerY);
     fill(255);
-    text(instructionsBlurb, width/2, (height/2)-txtH);
-
+    textSize(25);
+    text(instructionsDetail, width/2, (height/3));
+    
+    // menu button text
     fill(255, aRet1);
     text(returnLabel, width/2, (height/2)+(3*txtH));
   }
