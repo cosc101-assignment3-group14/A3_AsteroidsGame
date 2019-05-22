@@ -6,8 +6,8 @@
  ***************************************************************/
 
 /*
-Explosion class creates an explosion object to be used when the asteroids and ufo gets
- destroyed.
+Explosion class creates an explosion object to be used when the asteroids and 
+ ufo get destroyed.
  */
  
 class Explosion
@@ -20,12 +20,12 @@ class Explosion
   PVector[] pointsVelocity; // PVector array to store the points velocities
   PVector[] pointsLocation; // PVector array to store the points locations
  
-  boolean explosionExists; // boolean flag to monitor the state of the Explosion object
+  boolean explosionExists; // boolean flag to monitor state of Explosion object
 
   /*
-  The Explosion constructor initialises variables and sets the angles for the PVector
-  motion
-  @PARAM: location is a PVector of the location of the object that has been destroyed
+  The Explosion constructor initialises variables and sets the angles for 
+   the PVector motion.
+   @PARAM: location is a PVector of the location of the object that has been destroyed
    */
   Explosion(PVector location)
   {
@@ -38,24 +38,24 @@ class Explosion
     pointsVelocity = new PVector[trails];
     pointsLocation = new PVector[trails];
 
-    // set the angles for Pvector motion
+    // set the angles for PVector motion
     for (int i = 0; i < trails; i ++)
     {
-      // uses map function to generate the anle between PVectors
+      // uses map function to generate the angle between PVectors
       float angle = map(i, 0, trails, 0, TWO_PI);
       pointsVelocity[i] = PVector.fromAngle(angle);
       pointsLocation[i] = new PVector(location.x, location.y);
     }
 
-    // the explosions existance is set in the constructor and monitored till the shape 
-    // disappears
+    // The explosions existence is set in the constructor and monitored 
+    //  till the shape disappears.
     explosionExists = true;
   }
 
   /*
   Method to move the points along each PVector in the array. The stroke slowly 
-  disappears until the stroke is < 1 at this point the explosionExists boolean is 
-  changed to false.
+   disappears until the stroke is < 1. At this point the explosionExists boolean 
+   is changed to false.
    */
   void moveTrails()
   {
@@ -75,8 +75,8 @@ class Explosion
   }
 
   /*
-  Method to display the explosion to the screen
-  @PARAM: x and y are floats for the corresponding x and y loactions to draw the points
+  Method to display the explosion to the screen.
+  @PARAM: x and y are floats for the corresponding x and y loactions to draw points
    */
   void drawexplosion(float x, float y)
   {
