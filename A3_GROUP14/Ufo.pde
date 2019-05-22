@@ -7,14 +7,14 @@
  
 /*
 The Ufo class is used to add a ufo object that attacks the space ship in the 
- AsteroidsGame class
+ AsteroidsGame class.
  */
 class Ufo
 {
-  Shot oneShot; // declares a Shot object
+  Shot oneShot; // declare a Shot object
 
-  PVector ufoLocation, // declare PVector object for ship's location
-    ufoVelocity; // declare PVector object for ship's velocity
+  PVector ufoLocation, // declare PVector object for ufo's location
+    ufoVelocity; // declare PVector object for ufo's velocity
 
   ArrayList<Shot> ufoShots = 
     new ArrayList<Shot>(); // declare Shots object ArrayList
@@ -27,23 +27,23 @@ class Ufo
     detail4, // declare PShape object to hold detail in group
     top; // declare PShape object to hold detail in group
 
-  float topspeed, // the speed to increase by when ship moves
+  float topspeed, // the speed to increase by when ufo moves
     direction, // angle to rotate the image by
-    attackZone, // sets the inner boundary around ship
-    retreatZone, // sets the outer boundary around ship
+    attackZone, // sets the inner boundary around ufo
+    retreatZone, // sets the outer boundary around ufo
     shotInterval; // time interval between shots
 
 
   int startTime, // stores the millisecond starting point of timer
     totalTime, // time accumulator
-    delay; // sets a delay of the ship exiting and reentering the screen 
+    delay; // sets a delay of the ufo exiting and reentering the screen 
 
 
-  boolean ufoDeployed, // boolean flag to state if the ufo has been deployed to attack 
-    shotFired, // boolean flag to state if a shot has been fired on not
+  boolean ufoDeployed, // boolean flag to state if ufo has been deployed to attack 
+    shotFired, // boolean flag to state if a shot has been fired or not
     ufoHit, // boolean flag to state if the ufo has been hit
     timing, // boolean flag to state if the shot timer has started
-    status; // boolean flag used to state if locations are equal to space ship
+    status; // boolean flag to state if locations are equal to space ship
 
   String shotColour; // hexidecimal for colour of shot
 
@@ -83,13 +83,14 @@ class Ufo
   }
 
   /*
-  Method to update the movement of the ship relative to the players ship current location
-   @PARAM: ship is a PVector with the ships location
+  Method to update the movement of the ufo relative to the player's ship's 
+   current location.
+   @PARAM: ship is a PVector with the ship's location
    */
   void moveUfo(PVector ship)
   {
-    // if the distance between ship location and ufo is greater then the attack zone 
-    // the ufo moves towards the ship to attack
+    // If the distance between ship location and ufo is greater then the attack zone, 
+    //  the ufo moves towards the ship to attack.
     if ((abs(ship.x - ufoLocation.x) > attackZone) || 
       (abs(ship.y - ufoLocation.y) > attackZone))
     {
@@ -102,8 +103,8 @@ class Ufo
       // Location changes by velocity
       ufoLocation.add(ufoVelocity);
     }
-    // if the distance between ship location and ufo is less then attack zone 
-    // then the ufo moves away from ship
+    // If the distance between ship location and ufo is less then attack zone 
+    //  then the ufo moves away from ship.
     else
     {
       PVector acceleration = PVector.sub(ship, ufoLocation);
@@ -130,7 +131,7 @@ class Ufo
   }
 
   /*
-  Method to wrap the ufo around the edges of the screen
+  Method to wrap the ufo around the edges of the screen.
    */
   void ufoEdgeDetect()
   {
@@ -152,7 +153,7 @@ class Ufo
   }
 
   /*
-  Method called from the constructor to generate the drawUfo PShape object group
+  Method called from the constructor to generate the drawUfo PShape object group.
    */
   void generateUfoShape()
   {
@@ -181,7 +182,7 @@ class Ufo
   }
 
   /*
-  Method to rotate the drawUfo PShape object and display it to screen
+  Method to rotate the drawUfo PShape object and display it to screen.
    */
   void displayUfo()
   {
@@ -192,8 +193,8 @@ class Ufo
   }
 
   /*
-  Method to fire shots at random intervals
-   @PARAMS: PVector containing players ship location
+  Method to fire shots at random intervals.
+   @PARAMS: PVector containing player's ship location
    */
   void addShot(PVector ship)
   {
@@ -220,7 +221,7 @@ class Ufo
   }
 
   /*
-  Method to update the shot trajectory once fired
+  Method to update the shot trajectory once fired.
    */
   void updateShot()
   {
@@ -235,10 +236,10 @@ class Ufo
   }
 
   /*
-  Method to check if ufoShot locations or the ufo location itself are equal to ship location. 
-   It does this by using a circular collision detection algorithm.
+  Method to check if ufoShot locations or the ufo location itself are equal to 
+   ship location. It does this by using a circular collision detection algorithm.
    @PARAM: x and y are locations
-   @Return: A boolean true if equal false if not.  
+   @Return: A boolean true if equal, false if not.  
    */
   boolean equals(Ship myShip)
   {
@@ -257,7 +258,8 @@ class Ufo
       }
     }
     // then check ufo location
-    if ((abs(myShip.shipCoord.x - ufoLocation.x)) < 30 && (abs(myShip.shipCoord.y - ufoLocation.y)) < 30)
+    if ((abs(myShip.shipCoord.x - ufoLocation.x)) < 30 && 
+        (abs(myShip.shipCoord.y - ufoLocation.y)) < 30)
     {
       status = true;
     }

@@ -6,7 +6,7 @@
  ***************************************************************/
 
 /*
-The MainMenu class creates starting page interface for the Asteroids game. 
+The MainMenu class creates the starting page interface for the Asteroids game. 
  */
 class MainMenu
 {
