@@ -6,7 +6,7 @@
  ***************************************************************/
 
 /*
-The Astoids class creates the asteroids in the Asteroids game. 
+The Asteroid class creates the asteroids in the Asteroids game. 
  */
 class Asteroid
 {
@@ -18,10 +18,8 @@ class Asteroid
     scale, // scale of the asteroid PShape
     asteroidCreation;  // time stamp at the point of asteroid creation
 
-
-
-  int delay, // sets a delay of asteroids exiting and reentering the screen
-    hits; // int to track number of hits sustained by iterations of Asteroid
+  int delay, // sets a delay of asteroids exiting and re-entering the screen
+    hits; // tracks the number of hits sustained by iterations of Asteroid
 
   PVector asteroidLocation, // declare PVector object to track current location
     asteroidVelocity;  // declare PVector object to track velocity
@@ -43,7 +41,6 @@ class Asteroid
     hits = hit; // Sets the initial hit status
 
     // Sets a random starting velocity
-
     speed = random(1, 2);
     angle = random(TWO_PI);
     asteroidVelocity = new PVector(cos(angle), sin(angle));
@@ -63,11 +60,11 @@ class Asteroid
 
 
   /*
-  This method controls the Asteroids motion. Firstly it monitors the 
-   asteroids location and wraps the objects to re enter the opposite side
-   of screen of the screen. Then adds the velocity PVector to the location.
-   Finally the asteroids collision status is switched on after a short
-   time period after the object creation.
+  This method controls the Asteroids' motion. Firstly it monitors the 
+   asteroids' locations and wraps the objects to re-enter the opposite side
+   of the screen. Then adds the velocity PVector to the location. Finally 
+   the asteroids collision status is switched on after a short time period 
+   after the object creation.
    */
   void updateAsteroid()
   {
@@ -93,9 +90,9 @@ class Asteroid
 
     asteroidLocation.add(asteroidVelocity);
 
-    // switches asteroidCollision status to true after a short
-    // time period after object creation this prevents asteroids 
-    // all colliding upon creation at the same location
+    // Switches asteroidCollision status to true after a short time period 
+    //  after object creation. This prevents asteroids all colliding upon 
+    //  creation at the same location.
     if (millis() - asteroidCreation > 2500)
     {
       collisionActive = true;
@@ -103,10 +100,9 @@ class Asteroid
   }
 
   /*
-  Method that is called from the constructor and generates a random
-   PShape for each Asteroid object. Strategy to generate the random shape
-   has been developed using the example: 
-   https://processing.org/examples/polartocartesian.html 
+  Method that is called from the constructor and generates a random PShape for 
+   each Asteroid object. Strategy to generate the random shape has been developed 
+   using the example: https://processing.org/examples/polartocartesian.html 
    and from -The Coding Train: code challenge #46.1.
    */
   void generateAsteroidShape()
@@ -117,18 +113,20 @@ class Asteroid
     drawAsteroid.setStroke(#24DE14);
     drawAsteroid.beginShape();
 
-    float points = random(5, 12); // random number used to determine number of vertices
+    // random number used to determine number of vertices
+    float points = random(5, 12); 
 
     // for loop iterrates over a random number which corresponds to number of vertices
     for (int i = 0; i < points; i++)
     {
       // random number used to determine a random offset to each vertices
       float offset = random(-12, 12); 
-      // uses map function to generate the anle between vertices
+      // uses map function to generate the angle between vertices
       float angle = map(i, 0, points, 0, TWO_PI);
       // use trigonometry to generate polar to catesian coordinates (x,y) 
-      // and set to a vertex point of the PShape
-      drawAsteroid.vertex((radius + offset) * cos(angle), (radius + offset) * sin(angle));
+      //  and set to a vertex point of the PShape
+      drawAsteroid.vertex((radius + offset) * cos(angle), 
+                          (radius + offset) * sin(angle));
     }
     drawAsteroid.endShape(CLOSE);
 
@@ -137,7 +135,7 @@ class Asteroid
   }
 
   /*
-  Method to dislay the asteroid image to screen
+  Method to dislay the asteroid image to screen.
    */
   void displayAsteroid()
   {
@@ -149,7 +147,7 @@ class Asteroid
   Method to update the velocity and change direction of two
    Asteroid objects on collision. The code has been sourced from
    https://forum.processing.org and updated to use PVectors.
-   @PARAM: An Asteroid object to compare the calling object to.
+   @PARAM: An Asteroid object to compare to the calling object.
    */
   void collisionAsteroid(Asteroid ast)
   {
@@ -172,15 +170,17 @@ class Asteroid
   Method to check if asteroid locations are equal. It does this by using
    a circular collision detection algorithm.
    @PARAM: ast is an Asteroid object to compare against the object calling.
-   @Return: A boolean true if equal false if not.  
+   @Return: A boolean true if equal, false if not.  
    */
   boolean equals(Asteroid ast)
   {
     boolean status = false;
     if (collisionActive)
     {
-      if (abs(asteroidLocation.x - ast.asteroidLocation.x) < (radius * scale + (ast.radius * ast.scale))
-        && abs(asteroidLocation.y - ast.asteroidLocation.y) < (radius * scale + (ast.radius * ast.scale)))
+      if (abs(asteroidLocation.x - ast.asteroidLocation.x) < 
+          (radius * scale + (ast.radius * ast.scale)) && 
+          abs(asteroidLocation.y - ast.asteroidLocation.y) < 
+          (radius * scale + (ast.radius * ast.scale)))
       {
         status = true;
       } else
@@ -193,10 +193,10 @@ class Asteroid
   }
 
   /*
-  Overloaded method to check if asteroid locations is equal to ship location. It does this by using
-   a circular collision detection algorithm.
-   @PARAM: is the ship object to compare against the object calling.
-   @Return: A boolean true if equal false if not.  
+  Overloaded method to check if asteroid locations are equal to ship location. 
+   It does this by using a circular collision detection algorithm.
+   @PARAM: is the ship object to compare against the object calling
+   @Return: A boolean true if equal, false if not.  
    */
   boolean equals(Ship myShip)
   {
@@ -213,9 +213,9 @@ class Asteroid
   }
 
   /*
-  Method to create a random number of smaller Asteroids upon each impact
+  Method to create a random number of smaller Asteroids upon each impact.
    @Return: An Asteroid ArrayList containing the new Asteroid objects to replace
-   the exising larger one.
+   the existing larger one.
    */
   ArrayList<Asteroid> splitAsteroid()
   {
@@ -224,13 +224,13 @@ class Asteroid
     {
       if (hits == 0)
       {
-        Asteroid newAsteroid = new Asteroid(new PVector(asteroidLocation.x, asteroidLocation.y), 
-          random(0.7, 1), 1);
-        splitAsteroids.add(newAsteroid);
+        Asteroid newAsteroid = new Asteroid(new PVector(asteroidLocation.x, 
+          asteroidLocation.y), random(0.7, 1), 1);          
+        splitAsteroids.add(newAsteroid);        
       } else if (hits == 1)
       {
-        Asteroid newAsteroid = new Asteroid(new PVector(asteroidLocation.x, asteroidLocation.y), 
-          random(0.5, 0.7), 2);
+        Asteroid newAsteroid = new Asteroid(new PVector(asteroidLocation.x, 
+          asteroidLocation.y), random(0.5, 0.7), 2);
         splitAsteroids.add(newAsteroid);
       }
     }

@@ -94,7 +94,7 @@ class Audio
   }
 
   /*
-  Method to playufo hit sound
+  Method to play ufo hit sound
    */
   void playUfoHit()
   {
@@ -103,7 +103,7 @@ class Audio
   }
   
   /*
-  Method to play gameover sound 
+  Method to play game over sound 
    */
   void playGameOver() 
   {
@@ -129,7 +129,7 @@ class Audio
   }
 
   /*
-  Method to pause looping sound
+  Method to pause looping ufo sound
    */
   void pauseLoopUfoSound()
   {
@@ -145,7 +145,7 @@ class Audio
   }
 
   /*
-  Method to pause looping sound
+  Method to pause looping menu sound
    */
   void pauseLoopMenuSound()
   {

@@ -7,7 +7,7 @@
  
 /*
 This shot class creates a shot object. It is an overloaded class used by both the
- spaceShip class and the Ufo class.
+ Ship class and the Ufo class.
  */
 class Shot
 {
@@ -19,15 +19,15 @@ class Shot
   float shotSpeed; // speed of the shot
 
   /*
-  This Shot constructor can be used by the spaceShip. It takes in three parameters.
-   Two PVector objects and a float. The initial shot location is set to be
-   the current ship location. The shot velocity is set to be shot speed * cos/sin (x/y)
-   of the direction + the velocity of the ship
-   It also intitilises variables and creates the PShape object.
+  This Shot constructor can be used by the Ship class. It takes in four 
+   parameters: two PVector objects, a float and a string. The initial shot 
+   location is set to be the current ship location. The shot velocity is 
+   set to be shot speed * cos/sin (x/y) of the direction + the velocity of 
+   the ship. It also initilises variables and creates the PShape object.
    @PARAM pos: A PVector object containing ship's location
-   @PARAM vel:  A PVector object containing ship's velocity
+   @PARAM vel: A PVector object containing ship's velocity
    @PARAM direction: The direction of the ship
-   @PARAM col: The colour of the shot.
+   @PARAM col: The colour of the shot
    */
   Shot(PVector pos, PVector vel, float direction, String col)
   {
@@ -48,15 +48,15 @@ class Shot
   }
 
   /*
-  This Shot constructor can be used by the Ufo class, it takes in three parameters. 
-   Two PVector objects and a float. The initial shot location is set to be
-   the current ship location. The shot velocity is set to be shot speed * cos/sin (x/y)
-   of the direction + the velocity of the ship.
-   It also intitilises variables and creates the PShape object.
+  This Shot constructor can be used by the Ufo class. It takes in four 
+   parameters: two PVector objects, a float and a string. The initial shot 
+   location is set to be the current ship location. The shot velocity is 
+   set to be shot speed * cos/sin (x/y) of the direction + the velocity of 
+   the ship. It also initilises variables and creates the PShape object.
    @PARAM pos: A PVector object containing ufo's location
-   @PARAM vel:  A PVector object containing ufo's velocity
+   @PARAM vel: A PVector object containing ufo's velocity
    @PARAM ship: A PVector object containing ship's location 
-   @PARAM col: The colour of the shot.
+   @PARAM col: The colour of the shot
    */
   Shot(PVector ufoPos, PVector vel, PVector ship, String col)
   {

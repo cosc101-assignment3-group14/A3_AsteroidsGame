@@ -6,12 +6,12 @@
  ***************************************************************/
  
 /*
-The Ship class is creates the ship object for the AsteroidsGame class.
+The Ship class creates the ship object for the AsteroidsGame class.
  */
 
 class Ship
 {
-  Shot oneShot; // declares a Shot object
+  Shot oneShot; // declare a Shot object
 
   PVector shipCoord, // declare PVector object for ship's location
     shipDirection; // declare PVector object for ship's direction
@@ -24,14 +24,14 @@ class Ship
   float speed, // the speed to increase by when ship moves
     maxSpeed, // maximum speed for the ship
     angle, // angle to rotate the image by
-    direction; // direction that ship is heading
+    direction; // direction the ship is heading
 
   int sWidth = 14, // ship width
     sLength = 18, // ship length
-    lives = 3, //number of lives
+    lives = 3, // number of lives
     score = 0; // score accumulator
 
-  boolean shotFired, // boolean flag to state if a shot has been fired on not
+  boolean shotFired, // boolean flag to state if a shot has been fired or not
     shipHit, // boolean flag to state if the ship has been hit
     shipStatus, // boolean flag used to state if locations are equal to ufo
     shotReady; // boolean flag to control the status of the user input events
@@ -47,7 +47,7 @@ class Ship
     shipCoord = new PVector(width/2, height/2);
     shipDirection = new PVector(0, 0);
 
-    // create PShape object
+    // create PShape object and display lives and score
     generateShipShape();
     shipLives();
     gameScore();
@@ -65,14 +65,15 @@ class Ship
     //shot colour
     shotColour = "FF006699";
 
-    // This line fixes a bug where the initial player shot was causing all asteroids to
-    // vanish.
+    // The following code adds one shot to the array from the start, far off screen. 
+    //  This fixed a bug of the initial shot occasionally causing all asteroids to 
+    //  vanish at once.
     shipShots.add(oneShot = new Shot( new PVector(-200, -200), 
       new PVector(0, 0), 0, shotColour));
   }
   
   /*
-  Method to set ship score
+  Method to set ship score.
   */
    void setScore(int sc)
    {
@@ -88,7 +89,8 @@ class Ship
    }
    
   /*
-  Method the display the amount of lives left
+  Method the display the amount of lives left. A triangle is displayed for 
+   every life left, translated two times the width of the triangle.
    */
   void shipLives()
   {
@@ -108,7 +110,7 @@ class Ship
   }
 
   /*
-  Method to display score. 
+  Method to display score. Score is aligned below the displayed lives.
    */
   void gameScore()
   {
@@ -119,9 +121,9 @@ class Ship
   }  
 
   /*
-  Method to update the movement of the ship relative to the players ship current 
-   location
-   @PARAM keypress: boolean array storing a boolean at each keypressed events
+  Method to update the movement of the ship relative to the player's ship current 
+   location. The direction is added to the ship's coordinates.
+   @PARAM keypress: boolean array storing a boolean at each keypressed event's
    corrosponding ASCII value.
    */
   void moveShip(boolean [] keypress)
@@ -132,19 +134,20 @@ class Ship
     if (keypress[DOWN]) {
       shipDirection.add(new PVector(0, speed));
     }
-    if (keypress[RIGHT]) {
-      shipDirection.add(new PVector(speed, 0));
-    }
     if (keypress[LEFT]) {
       shipDirection.add(new PVector(-speed, 0));
     }
-
+    if (keypress[RIGHT]) {
+      shipDirection.add(new PVector(speed, 0));
+    }
+    
+    // The amount of speed added to direction is limited by maxSpeed.
     shipDirection.limit(maxSpeed);
     shipCoord.add(shipDirection);
   }
 
   /*
-  Method to wrap the ship around the edges of the screen
+  Method to wrap the ship around the edges of the screen.
    */
   void shipEdgeDetect()
   {
@@ -154,7 +157,6 @@ class Ship
     else if (shipCoord.x < 0) {
       shipCoord.x = width;
     }
-
     if (shipCoord.y > height) {
       shipCoord.y = 0;
     } 
@@ -164,7 +166,7 @@ class Ship
   }
 
   /*
-  Method called from the constructor to generate the drawShip PShape object group
+  Method called from the constructor to generate the drawShip PShape object.
    */
   void generateShipShape()
   {
@@ -176,7 +178,7 @@ class Ship
   }
 
   /*
-  Method to rotate the drawShip PShape object and display it to screen
+  Method to rotate the drawShip PShape object and display it to screen.
    */
   void displayShip()
   {
@@ -190,15 +192,16 @@ class Ship
   }
 
   /*
-  Method to fire shots at random intervals
-   @PARAM keypress: boolean array storing a boolean at each keypressed events
+  Method to fire shots at random intervals.
+   @PARAM keypress: boolean array storing a boolean at each keypressed event's
    corrosponding ASCII value.
    */
   void addShot(boolean[] keypress)
   {
     if (keypress[' '] && shotReady) 
     {
-      shipShots.add(oneShot = new Shot(shipCoord, shipDirection, shipDirection.heading(), shotColour));
+      shipShots.add(oneShot = new Shot(shipCoord, shipDirection, 
+                    shipDirection.heading(), shotColour));
       shotFired = true;
       shotReady = false;
       // call audio object to play shot sound
@@ -210,7 +213,7 @@ class Ship
   } 
 
   /*
-  Method to update the shot trajectory once fired
+  Method to update the shot trajectory once fired.
    */
   void updateShot()
   {
@@ -228,19 +231,22 @@ class Ship
   Method to check if asteroid locations are equal to ship shot location. 
    It does this by using a circular collision detection algorithm.
    @PARAMS: ast is an Asteroid object
-   @Return: A boolean true if equal false if not.  
+   @Return: A boolean true if equal, false if not.  
    */
   boolean equalsAsteroid(Asteroid ast)
   {
     // First check shot locations
     for (int i = 0; i <  shipShots.size(); i++)
     {
-      if ((abs(ast.asteroidLocation.x - shipShots.get(i).shotLocation.x) < (ast.radius * ast.scale)) 
-        && (abs(ast.asteroidLocation.y - shipShots.get(i).shotLocation.y)) < (ast.radius * ast.scale))
+      if ((abs(ast.asteroidLocation.x - shipShots.get(i).shotLocation.x) < 
+          (ast.radius * ast.scale)) && 
+          (abs(ast.asteroidLocation.y - shipShots.get(i).shotLocation.y)) < 
+          (ast.radius * ast.scale))
       {
         shipStatus = true;
         // remove shot from array once used
         shipShots.remove(i);
+        // score increases 10 points for hitting the asteroid
         score += 10;
       } else
       {
@@ -254,7 +260,7 @@ class Ship
   Method to check if the ship's shot locations are equal to the ufo location. 
    It does this by using a circular collision detection algorithm.
    @PARAMS: myUfo is a ufo object
-   @Return: A boolean true if equal false if not.  
+   @Return: A boolean true if equal, false if not.  
    */
   boolean equalsUfo(Ufo myUfo)
   {
@@ -267,6 +273,7 @@ class Ship
         shipStatus = true;
         // remove shot from array once used
         shipShots.remove(i);
+        // score increases 100 points for hitting the ufo
         score += 100;
       } else
       {
