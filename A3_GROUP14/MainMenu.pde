@@ -33,20 +33,11 @@ class MainMenu
 
   int bright, // text opacity at its highest
     dim, // text opacity at half way
-    aPA, // for play again button
-    aExit1, //    
-    aExit2, //
-    aRet1, //
-    aRet2, //
-    aNG, //
-    aInst, //
-    aEasy, //
-    aMed, //
-    aHard, //
     headerY, //
     txtH, //
     txtL; //
-
+    
+    int[] highlighting;
   /*
   MainMenu constructor initialises varibles
    */
@@ -73,7 +64,6 @@ class MainMenu
       + "\nControls: \n Right Turn: Right arrow. \n Left Turn: Left arrow. \n" 
       + "Move Upwards: Up arrow. \n Move Downwards: Down arrow.";
 
-
     bright = 255;
     dim = 120;
     headerY = 150;
@@ -85,6 +75,8 @@ class MainMenu
 
     //initialise boolean variables
     gameOver = false;  // boolean flag used to state if the game is over
+    
+    highlighting = new int[10];
   }
 
   /*
@@ -105,11 +97,11 @@ class MainMenu
     text(title, 0, height/7, width, height);
 
     textSize(35);
-    fill(255, aNG);
+    fill(255, highlighting[0]);
     text(newLabel, width/2, height/2); 
-    fill(255, aInst);
+    fill(255, highlighting[1]);
     text(instructionsLabel, width/2, (height/2)+txtH);
-    fill(255, aExit1);
+    fill(255, highlighting[2]);
     text(exitLabel, width/2, (height/2)+(2*txtH));
   }
 
@@ -124,13 +116,13 @@ class MainMenu
     fill(0, 150, 0);
     text(chooseLabel, width/2, headerY);
     textSize(35);
-    fill(255, aEasy);
+    fill(255, highlighting[3]);
     text(easyLabel, width/2, (height/2)-txtH);
-    fill(255, aMed);
+    fill(255, highlighting[4]);
     text(mediumLabel, width/2, height/2);
-    fill(255, aHard);
+    fill(255, highlighting[5]);
     text(hardLabel, width/2, (height/2)+txtH);
-    fill(255, aRet1);
+    fill(255, highlighting[9]);
     text(returnLabel, width/2, (height/2)+(3*txtH));
   }
 
@@ -149,7 +141,7 @@ class MainMenu
     text(instructionsDetail, width/2, (height/3));
 
     // menu button text
-    fill(255, aRet1);
+    fill(255, highlighting[9]);
     text(returnLabel, width/2, (height/2)+(3*txtH));
   }
 
@@ -174,18 +166,18 @@ class MainMenu
       + myAsteroidGame.myShip.score, 0, height/2.1, width, height);
 
     // play again button
-    fill(0, 255, 0, aPA);
+    fill(0, 255, 0, highlighting[7]);
     textSize(35);
     textAlign(CENTER, CENTER);
     text(playAgainLabel, width/2, (height/2)+txtH);
 
     // exit button
-    fill(255, aExit2);
+    fill(255, highlighting[8]);
     textSize(40);
     text(exitLabel, width/2, (height/2)+(2*txtH));
 
     // return to menu button
-    fill(255, aRet2);
+    fill(255, highlighting[9]);
     textSize(40);
     text(returnLabel, width/2, (height/2)+(3*txtH));
   }
@@ -211,77 +203,17 @@ class MainMenu
    */
   void textHighlight(int[][] button)
   {
-    // new game button
-    if (buttonDetect(button, 0))
+    for(int i = 0; i < button.length; i ++)
     {
-      aNG = bright;
-    } else 
-    {
-      aNG = dim;
-    }  
-    // instructions button  
-    if (buttonDetect(button, 1))
-    {
-      aInst = bright;
-    } else {
-      aInst = dim;
-    }  
-    // exit button from main menu
-    if (buttonDetect(button, 2))
-    {
-      aExit1 = bright;
-    } else {
-      aExit1 = dim;
-    }
-    // easy option button
-    if (buttonDetect(button, 3))
-    { 
-      aEasy = bright;
-    } else {
-      aEasy = dim;
-    }
-    // medium option button
-    if (buttonDetect(button, 4))
-    {
-      aMed = bright;
-    } else {
-      aMed = dim;
-    }
-    // hard option button
-    if (buttonDetect(button, 5))
-    {
-      aHard = bright;
-    } else {
-      aHard = dim;
-    }
-    // return button 
-    if (buttonDetect(button, 6)) 
-    { 
-      aRet1 = bright;
-    } else { 
-      aRet1 = dim;
-    }
-    // play again button
-    if (buttonDetect(button, 7))
-    { 
-      aPA = bright;
-    } else {
-      aPA = dim;
-    }
-    // exit button from game over screen
-    if (buttonDetect(button, 8))
-    {
-      aExit2 = bright;
-    } else {
-      aExit2 = dim;
-    }  
-    // return to main menu button
-    if (buttonDetect(button, 9)) 
-    {
-      aRet2 = bright;
-    } else
-    {
-      aRet2 = dim;
+      // new game button
+      if (buttonDetect(button, i))
+      {
+        highlighting[i] = bright;
+      }
+      else
+      {
+         highlighting[i] = dim;
+      }
     }
   }
 
