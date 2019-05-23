@@ -15,10 +15,8 @@ AsteroidGame class accesses the classes required to build up the Asteroids
  play status is moitored with boolean flags and game flow is directed in the 
  relevent direction. Collision detection is monitored.
  */
-
 class AsteroidGame
 {
-
   Ship myShip; // declare Ship object
   Ufo myUfo; // declare Ufo object
   Asteroid oneAsteroid; // declare Asteroid object
@@ -63,7 +61,6 @@ class AsteroidGame
   int[][] button; // 2D int array to store menu button detect coorinates
 
   String start; // Sting to store the game start messege
-
 
   PFont font; // declare a Pfont object
 
@@ -123,8 +120,8 @@ class AsteroidGame
       {337, 456, 590, 639}, // "EXIT"
       {264, 531, 680, 739}}; // "MAIN MENU"
 
-    // CREATE A MOVING BACKGROUND
 
+    // CREATE A MOVING BACKGROUND
     // create a PVector array to store locations of stars in game background
     starsBackground = new PVector[100];
     // create a float array with corrosponding speed values for each star
@@ -175,7 +172,7 @@ class AsteroidGame
 
       myMenu.displayEndGame();
     }
-    // enter game 
+    // ENTER GAME
     else
     {
       // pause menu audio
@@ -192,7 +189,6 @@ class AsteroidGame
         strokeWeight(starSpeed[i]);
         point(starsBackground[i].x, starsBackground[i].y);
       }
-
       if (launching)
       {
         // play launching audio
@@ -391,10 +387,13 @@ class AsteroidGame
     {
       if (myUfo.equals(myShip))
       {
-        // the ship loses a life and restarts in the center
-        myShip.lives -= 1;
+        // the ship loses a life 
+        myShip.setLives(1, true);
+
+        // ship restarts in the center
         myShip.shipCoord.x = width/2;
         myShip.shipCoord.y = height/2;
+
         // call audio object to ship hit sound
         myAudio.playShipHit();
       }
@@ -443,6 +442,7 @@ class AsteroidGame
         // Once all asteroids are destroyed, more are deployed 
         //   increasing by 1 asteriod for each level.
         level += 1;
+
         // call audio object to play next level sound
         myAudio.playLevelUp();
 
@@ -452,7 +452,7 @@ class AsteroidGame
 
         // level up points added to score and lives are replenished
 
-        myShip.score += 500;
+        myShip.setScore(500, true);
         newLevel = true;
         myShip.setLives(3);
       }
@@ -471,9 +471,11 @@ class AsteroidGame
         // add explosion object to creat explosion 
         myExplosions.add(new Explosion(myUfo.ufoLocation));
 
+        // remove ufo object
         myUfo = null;
         ufoExists = false;
         ufoTiming = false;
+
         // call audio object to pause ufo sound and sound explosion
         myAudio.pauseLoopUfoSound();
         myAudio.playUfoHit();
@@ -495,8 +497,11 @@ class AsteroidGame
           // call audio object to ship hit sound
           myAudio.playShipHit();
           shipHit = true;
-          // the ship loses a life and restarts in the center
-          myShip.lives -= 1;
+
+          // the ship loses a life 
+          myShip.setLives(1, true);
+
+          //ship restarts in the center
           myShip.shipCoord.x = width/2;
           myShip.shipCoord.y = height/2;
         }
@@ -575,6 +580,7 @@ class AsteroidGame
     // Controls flow of mouse clicks through the main menu
     if (!startAsteroids && !gameOver)
     {
+
       // Main menu mouse handling
       if (menuMainVisible)
       {

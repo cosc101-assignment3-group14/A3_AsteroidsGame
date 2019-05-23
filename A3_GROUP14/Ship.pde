@@ -8,7 +8,6 @@
 /*
 The Ship class creates the ship object for the AsteroidsGame class.
  */
-
 class Ship
 {
   Shot oneShot; // declare a Shot object
@@ -72,6 +71,7 @@ class Ship
 
   /*
   Method to set ship score.
+   @PARAM liv: is an int to set score to
    */
   void setScore(int sc)
   {
@@ -79,11 +79,38 @@ class Ship
   }
 
   /*
+  Overloaded setScore Method to update ship score in game play.
+   @PARAM liv: is an int to increase score by
+   @PARAM playing: is a boolean to state if in game play
+   */
+  void setScore(int sc, boolean playing)
+  {
+    if (playing)
+    {
+      score += sc;
+    }
+  }
+
+  /*
   Method to set ship lives
+   @PARAM liv: is an int to set lives to
    */
   void setLives(int liv)
   {
     lives = liv;
+  }
+
+  /*
+  Overloaded set lives method to set ship lives in game play
+   @PARAM liv: is an int to reduce lives by
+   @PARAM playing: is a boolean to state if in game play
+   */
+  void setLives(int liv, boolean playing)
+  {
+    if (playing)
+    {
+      lives -= liv;
+    }
   }
 
   /*
@@ -134,16 +161,20 @@ class Ship
    */
   void moveShip(boolean [] keypress)
   {
-    if (keypress[UP]) {
+    if (keypress[UP])
+    {
       shipDirection.add(new PVector(0, -speed));
     }
-    if (keypress[DOWN]) {
+    if (keypress[DOWN])
+    {
       shipDirection.add(new PVector(0, speed));
     }
-    if (keypress[LEFT]) {
+    if (keypress[LEFT]) 
+    {
       shipDirection.add(new PVector(-speed, 0));
     }
-    if (keypress[RIGHT]) {
+    if (keypress[RIGHT]) 
+    {
       shipDirection.add(new PVector(speed, 0));
     }
 
@@ -157,14 +188,18 @@ class Ship
    */
   void shipEdgeDetect()
   {
-    if (shipCoord.x > width) {
+    if (shipCoord.x > width)
+    {
       shipCoord.x = 0;
-    } else if (shipCoord.x < 0) {
+    } else if (shipCoord.x < 0) 
+    {
       shipCoord.x = width;
     }
-    if (shipCoord.y > height) {
+    if (shipCoord.y > height)
+    {
       shipCoord.y = 0;
-    } else if (shipCoord.y < 0) {
+    } else if (shipCoord.y < 0)
+    {
       shipCoord.y = height;
     }
   }
