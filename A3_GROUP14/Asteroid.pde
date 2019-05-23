@@ -35,7 +35,7 @@ class Asteroid
   Asteroid(PVector location, float scal, int hit)
   {
     //assign parameters to instance variables
-    
+
     asteroidLocation = location; // Set the starting location
     scale = scal; // sets the scale of the PShape
     hits = hit; // Sets the initial hit status
@@ -126,7 +126,7 @@ class Asteroid
       // use trigonometry to generate polar to catesian coordinates (x,y) 
       //  and set to a vertex point of the PShape
       drawAsteroid.vertex((radius + offset) * cos(angle), 
-                          (radius + offset) * sin(angle));
+        (radius + offset) * sin(angle));
     }
     drawAsteroid.endShape(CLOSE);
 
@@ -178,9 +178,9 @@ class Asteroid
     if (collisionActive)
     {
       if (abs(asteroidLocation.x - ast.asteroidLocation.x) < 
-          (radius * scale + (ast.radius * ast.scale)) && 
-          abs(asteroidLocation.y - ast.asteroidLocation.y) < 
-          (radius * scale + (ast.radius * ast.scale)))
+        (radius * scale + (ast.radius * ast.scale)) && 
+        abs(asteroidLocation.y - ast.asteroidLocation.y) < 
+        (radius * scale + (ast.radius * ast.scale)))
       {
         status = true;
       } else
@@ -226,7 +226,7 @@ class Asteroid
       {
         Asteroid newAsteroid = new Asteroid(new PVector(asteroidLocation.x, 
           asteroidLocation.y), random(0.7, 1), 1);          
-        splitAsteroids.add(newAsteroid);        
+        splitAsteroids.add(newAsteroid);
       } else if (hits == 1)
       {
         Asteroid newAsteroid = new Asteroid(new PVector(asteroidLocation.x, 

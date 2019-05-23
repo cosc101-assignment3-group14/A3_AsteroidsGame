@@ -9,17 +9,17 @@
 Explosion class creates an explosion object to be used when the asteroids and 
  ufo get destroyed.
  */
- 
+
 class Explosion
 {
   float stroke, // variable to store the stroke value
-        angle; // variable to store a random angle from 0 to 2PI radians
-        
+    angle; // variable to store a random angle from 0 to 2PI radians
+
   int trails; // number of explosion trails from centre
 
   PVector[] pointsVelocity; // PVector array to store the points velocities
   PVector[] pointsLocation; // PVector array to store the points locations
- 
+
   boolean explosionExists; // boolean flag to monitor state of Explosion object
 
   /*
@@ -76,7 +76,7 @@ class Explosion
 
   /*
   Method to display the explosion to the screen.
-  @PARAM: x and y are floats for the corresponding x and y loactions to draw points
+   @PARAM: x and y are floats for the corresponding x and y loactions to draw points
    */
   void drawexplosion(float x, float y)
   {

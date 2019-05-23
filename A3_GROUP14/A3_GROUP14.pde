@@ -76,7 +76,6 @@ class AsteroidGame
     myShip = new Ship();
 
     // initialise menu object
-
     myMenu = new MainMenu();
 
     // set variables
@@ -198,9 +197,11 @@ class AsteroidGame
       {
         // play launching audio
         myAudio.playLaunch();
-        launching = false;     
-
+        launching = false;
       }
+      //display lives and score
+      myShip.shipLives();
+      myShip.gameScore();
     }
   }
 
@@ -251,8 +252,7 @@ class AsteroidGame
         ufoTimer = millis();
         ufoInterval = random(30, 40);
         ufoTiming = true;
-      } 
-      else if ((millis() - ufoTimer) / 1000  > ufoInterval)
+      } else if ((millis() - ufoTimer) / 1000  > ufoInterval)
       {
         // initialise Ufo object
         myUfo = new Ufo();
@@ -302,19 +302,19 @@ class AsteroidGame
     if (startAsteroids)
     {
       myShip.shipLives();
-    }
-    if (myShip.lives == 0 && !gameEnded)
-    {
-      // call audio object to play game over sound
-      myAudio.playGameOver();
-      // pause ufo audio if playing
-      if (ufoExists)
+      if (myShip.getLives() == 0 && !gameEnded)
       {
-        myAudio.pauseLoopUfoSound();
+        // call audio object to play game over sound
+        myAudio.playGameOver();
+        // pause ufo audio if playing
+        if (ufoExists)
+        {
+          myAudio.pauseLoopUfoSound();
+        }
+        gameEnded = true;
+        startAsteroids = false;
+        gameOver = true;
       }
-      gameEnded = true;
-      startAsteroids = false;
-      gameOver = true;
     }
   }
 
@@ -342,15 +342,15 @@ class AsteroidGame
         textTimer = millis();
         textTiming = true;
       } else if ((millis() - textTimer) / 1000  < textInterval)
-        {
-          fill(#24DE14);
-          textSize(55);
-          textAlign(CENTER, CENTER);
-          text("LEVEL: " + level, 0, 0, width, height);
-        } else
-          {
-            newLevel = false;
-            textTiming = false;
+      {
+        fill(#24DE14);
+        textSize(55);
+        textAlign(CENTER, CENTER);
+        text("LEVEL: " + level, 0, 0, width, height);
+      } else
+      {
+        newLevel = false;
+        textTiming = false;
       }
     }
   }
@@ -408,8 +408,8 @@ class AsteroidGame
   {
     if (startAsteroids && asteroidsExist)
     {
-    // Iterate over asteroid list in reverse. This way if new asteroids are added to 
-    //  the list mid-iterate, they are not included in the current collision detect.
+      // Iterate over asteroid list in reverse. This way if new asteroids are added to 
+      //  the list mid-iterate, they are not included in the current collision detect.
       for (int i = myAsteroids.size()-1; i >= 0; i--)
       {
         if (myShip.equalsAsteroid(myAsteroids.get(i)))
@@ -553,7 +553,7 @@ class AsteroidGame
 
   /*
   Method to create cursor image and hide the cursor during game play.
-   */  
+   */
   void hideCursor()
   {
     noCursor();

@@ -4,7 +4,7 @@
  * Date: 12/04/2018
  * Course: COSC101 - Software Development Studio 1
  ***************************************************************/
- 
+
 /*
 The Ship class creates the ship object for the AsteroidsGame class.
  */
@@ -47,10 +47,8 @@ class Ship
     shipCoord = new PVector(width/2, height/2);
     shipDirection = new PVector(0, 0);
 
-    // create PShape object and display lives and score
+    // create PShape object
     generateShipShape();
-    shipLives();
-    gameScore();
 
     // set motion control variables 
     speed = 0.5;
@@ -71,23 +69,31 @@ class Ship
     shipShots.add(oneShot = new Shot( new PVector(-200, -200), 
       new PVector(0, 0), 0, shotColour));
   }
-  
+
   /*
   Method to set ship score.
-  */
-   void setScore(int sc)
-   {
-     score = sc;
-   }
-   
-   /*
+   */
+  void setScore(int sc)
+  {
+    score = sc;
+  }
+
+  /*
   Method to set ship lives
-  */
-   void setLives(int liv)
-   {
-     lives = liv;
-   }
-   
+   */
+  void setLives(int liv)
+  {
+    lives = liv;
+  }
+
+  /*
+  Method to get ship lives
+   */
+  int getLives()
+  {
+    return lives;
+  }
+
   /*
   Method the display the amount of lives left. A triangle is displayed for 
    every life left, translated two times the width of the triangle.
@@ -103,7 +109,7 @@ class Ship
         stroke(255);
         strokeWeight(2);
         fill(0);
-        triangle(-sWidth/2, sLength, 0, 0, sWidth/2, sLength);        
+        triangle(-sWidth/2, sLength, 0, 0, sWidth/2, sLength);
       }
       popMatrix();
     }
@@ -140,7 +146,7 @@ class Ship
     if (keypress[RIGHT]) {
       shipDirection.add(new PVector(speed, 0));
     }
-    
+
     // The amount of speed added to direction is limited by maxSpeed.
     shipDirection.limit(maxSpeed);
     shipCoord.add(shipDirection);
@@ -153,14 +159,12 @@ class Ship
   {
     if (shipCoord.x > width) {
       shipCoord.x = 0;
-    } 
-    else if (shipCoord.x < 0) {
+    } else if (shipCoord.x < 0) {
       shipCoord.x = width;
     }
     if (shipCoord.y > height) {
       shipCoord.y = 0;
-    } 
-    else if (shipCoord.y < 0) {
+    } else if (shipCoord.y < 0) {
       shipCoord.y = height;
     }
   }
@@ -201,7 +205,7 @@ class Ship
     if (keypress[' '] && shotReady) 
     {
       shipShots.add(oneShot = new Shot(shipCoord, shipDirection, 
-                    shipDirection.heading(), shotColour));
+        shipDirection.heading(), shotColour));
       shotFired = true;
       shotReady = false;
       // call audio object to play shot sound
@@ -239,9 +243,9 @@ class Ship
     for (int i = 0; i <  shipShots.size(); i++)
     {
       if ((abs(ast.asteroidLocation.x - shipShots.get(i).shotLocation.x) < 
-          (ast.radius * ast.scale)) && 
-          (abs(ast.asteroidLocation.y - shipShots.get(i).shotLocation.y)) < 
-          (ast.radius * ast.scale))
+        (ast.radius * ast.scale)) && 
+        (abs(ast.asteroidLocation.y - shipShots.get(i).shotLocation.y)) < 
+        (ast.radius * ast.scale))
       {
         shipStatus = true;
         // remove shot from array once used

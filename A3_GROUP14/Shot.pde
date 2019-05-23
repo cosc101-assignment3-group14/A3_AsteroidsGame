@@ -4,7 +4,7 @@
  * Date: 12/04/2018
  * Course: COSC101 - Software Development Studio 1
  ***************************************************************/
- 
+
 /*
 This shot class creates a shot object. It is an overloaded class used by both the
  Ship class and the Ufo class.

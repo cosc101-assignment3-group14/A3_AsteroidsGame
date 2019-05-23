@@ -1,4 +1,4 @@
-/**************************************************************
+/************************************************************** //<>//
  * File: MainMenu.pde
  * Group: 14; {Tegan Lee Barnes, Alison Bryce, Josh Le Gresley}.
  * Date: 12/04/2018
@@ -25,9 +25,9 @@ class MainMenu
     playAgainLabel, //   
     instructionsTitle, // 
     instructionsDetail;
-    //instructionsMission, //
-    //instructionsLives, // 
-    //instructionsControls;
+  //instructionsMission, //
+  //instructionsLives, // 
+  //instructionsControls;
 
   Boolean gameOver, // boolean flag used to state if the game is over
     selected;  // boolean flag used to state the mouse was pressed
@@ -69,14 +69,14 @@ class MainMenu
     returnLabel = "MAIN MENU";
 
     instructionsTitle = "YOUR MISSION";
-    
+
     instructionsDetail = "Mission: \n Destory all asteroids and alien spaceships.\n" 
-    + "\nLives: \n Each player has 3 lives. Collision with an \n asteriod looses a life." 
-    + " But be careful!  Collision \n with an alien spaceship means game over!\n" 
-    + "\nControls: \n Right Turn: Right arrow. \n Left Turn: Left arrow. \n" 
-    + "Move Upwards: Up arrow. \n Move Downwards: Down arrow.";
-   
-    
+      + "\nLives: \n Each player has 3 lives. Collision with an \n asteriod looses a life." 
+      + " But be careful!  Collision \n with an alien spaceship means game over!\n" 
+      + "\nControls: \n Right Turn: Right arrow. \n Left Turn: Left arrow. \n" 
+      + "Move Upwards: Up arrow. \n Move Downwards: Down arrow.";
+
+
     bright = 255;
     dim = 120;
     headerY = 150;
@@ -150,7 +150,7 @@ class MainMenu
     fill(255);
     textSize(25);
     text(instructionsDetail, width/2, (height/3));
-    
+
     // menu button text
     fill(255, aRet1);
     text(returnLabel, width/2, (height/2)+(3*txtH));
@@ -201,7 +201,7 @@ class MainMenu
    */
   boolean buttonDetect(int[][] button, int index)
   {
-    if ((mouseX > button[index][0]) && (mouseX < button[index][1]) &&  //<>//
+    if ((mouseX > button[index][0]) && (mouseX < button[index][1]) && 
       ( mouseY > button[index][2]) && ( mouseY < button[index][3])) 
     {
       return true;
@@ -209,7 +209,7 @@ class MainMenu
     return false;
   }
 
-   /*
+  /*
   Method to highlight text when mouse hovers over, using the buttonDetect method
    */
   void textHighlight(int[][] button)
@@ -288,11 +288,11 @@ class MainMenu
     }
   }
 
-    /*
+  /*
       Method to call the built in exit function
-     */
-    void gameExit()
-    {
-      exit();
-    }
+   */
+  void gameExit()
+  {
+    exit();
+  }
 }  

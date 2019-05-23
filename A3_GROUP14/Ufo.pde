@@ -4,7 +4,7 @@
  * Date: 12/04/2018
  * Course: COSC101 - Software Development Studio 1
  ***************************************************************/
- 
+
 /*
 The Ufo class is used to add a ufo object that attacks the space ship in the 
  AsteroidsGame class.
@@ -259,7 +259,7 @@ class Ufo
     }
     // then check ufo location
     if ((abs(myShip.shipCoord.x - ufoLocation.x)) < 30 && 
-        (abs(myShip.shipCoord.y - ufoLocation.y)) < 30)
+      (abs(myShip.shipCoord.y - ufoLocation.y)) < 30)
     {
       status = true;
     }

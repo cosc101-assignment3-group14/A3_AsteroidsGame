@@ -65,7 +65,7 @@ class Audio
     shipHit.rewind();
     shipHit.play();
   }
-  
+
   /*
   Method to play launch sound
    */
@@ -101,7 +101,7 @@ class Audio
     ufoHit.rewind();
     ufoHit.play();
   }
-  
+
   /*
   Method to play game over sound 
    */
@@ -110,7 +110,7 @@ class Audio
     gameOver.rewind();
     gameOver.play();
   }
-  
+
   /*
   Method to play menu click sound 
    */
@@ -135,7 +135,7 @@ class Audio
   {
     ufo.pause();
   }
-  
+
   /*
   Method to loop menu sound
    */
@@ -149,6 +149,6 @@ class Audio
    */
   void pauseLoopMenuSound()
   {
-     menuMusic.pause();
+    menuMusic.pause();
   }
 }
