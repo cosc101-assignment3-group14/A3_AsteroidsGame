@@ -58,7 +58,6 @@ class Asteroid
     generateAsteroidShape();
   }
 
-
   /*
   This method controls the Asteroids' motion. Firstly it monitors the 
    asteroids' locations and wraps the objects to re-enter the opposite side
@@ -93,6 +92,7 @@ class Asteroid
     // Switches asteroidCollision status to true after a short time period 
     //  after object creation. This prevents asteroids all colliding upon 
     //  creation at the same location.
+
     if (millis() - asteroidCreation > 2500)
     {
       collisionActive = true;

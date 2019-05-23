@@ -9,7 +9,6 @@
 Explosion class creates an explosion object to be used when the asteroids and 
  ufo get destroyed.
  */
-
 class Explosion
 {
   float stroke, // variable to store the stroke value
