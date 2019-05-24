@@ -145,9 +145,6 @@ class AsteroidGame
     // set to start on main menu
     if (!startAsteroids && !gameOver)
     {
-      // activate text highlighting
-      myMenu.textHighlight(button);
-
       // loop audio on menu
       if (!menuLooping)
       {
@@ -167,10 +164,7 @@ class AsteroidGame
       }
     } else if (!startAsteroids && gameOver)
     {
-      // activate text highlighting
-      myMenu.textHighlight(button);
-
-      myMenu.displayEndGame();
+      myMenu.displayEndGame(myShip.getScore());
     }
     // ENTER GAME
     else

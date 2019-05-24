@@ -120,6 +120,14 @@ class Ship
   {
     return lives;
   }
+  
+  /*
+  Method to get ship score
+   */
+  int getScore()
+  {
+    return score;
+  }
 
   /*
   Method the display the amount of lives left. A triangle is displayed for 
