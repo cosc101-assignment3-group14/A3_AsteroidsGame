@@ -1,4 +1,4 @@
-/**************************************************************
+/************************************************************** //<>//
  * File: A3_Group14.pde
  * Group: 14; {Tegan Lee Barnes, Alison Bryce, Josh Le Gresley}.
  * Date: 12/04/2018
@@ -560,112 +560,110 @@ class AsteroidGame
    */
   void mousePress() 
   {
-    for (int i = 0; i < myMenu.myButtons.size(); i ++)
+    // Controls flow of mouse clicks through the main menu
+    if (!startAsteroids && !gameOver)
     {
-        // Controls flow of mouse clicks through the main menu
-        if (!startAsteroids && !gameOver)
+      // Main menu mouse handling
+      if (menuMainVisible)
+      {
+        // detect difficulty options
+        if (myMenu.myButtons.get(0).get(0).buttonDetect())
         {
-          // Main menu mouse handling
-          if (menuMainVisible)
-          {
-            // detect difficulty options
-            if (myMenu.myButtons.get(i).get(0).buttonDetect())
-            {
-              myAudio.playMenuClick();
-              menuMainVisible = false;
-              menuDifficultyVisible = true;
-              menuInstructionsVisible = false;
-            }
-            // detect instructions option
-            else if (myMenu.myButtons.get(i).get(1).buttonDetect())
-            {
-              myAudio.playMenuClick();
-              menuMainVisible = false;
-              menuDifficultyVisible = false;
-              menuInstructionsVisible = true;
-            } 
-            // detect exit option
-            else if (myMenu.myButtons.get(i).get(2).buttonDetect())
-            {
-              myMenu.gameExit();
-            }
-          }
+          myAudio.playMenuClick();
+          menuMainVisible = false;
+          menuDifficultyVisible = true;
+          menuInstructionsVisible = false;
+        }
+        // detect instructions option
+        else if (myMenu.myButtons.get(0).get(1).buttonDetect())
+        {
+          myAudio.playMenuClick();
+          menuMainVisible = false;
+          menuDifficultyVisible = false;
+          menuInstructionsVisible = true;
+        } 
+        // detect exit option
+        else if (myMenu.myButtons.get(0).get(2).buttonDetect())
+        {
+          myMenu.gameExit();
+        }
+      }
 
-          // Difficulty screen mouse handling
-          else if (menuDifficultyVisible)
-          {
-            // easy level selection
-            if (myMenu.myButtons.get(i).get(0).buttonDetect())
-            {
-              myAudio.playMenuClick();
-              level = 1;
-              prevLevel = level;
-              startAsteroids = true;
-            } 
-            // medium level selection
-            else if (myMenu.myButtons.get(i).get(1).buttonDetect())
-            {
-              myAudio.playMenuClick();
-              level = 3;
-              prevLevel = level;
-              startAsteroids = true;
-            } 
-            // hard level selection
-            else if (myMenu.myButtons.get(i).get(2).buttonDetect())
-            {
-              myAudio.playMenuClick();
-              level = 5;
-              prevLevel = level;
-              startAsteroids = true;
-            } 
-            // return to main menu selection
-            else if (myMenu.myButtons.get(i).get(3).buttonDetect())
-            {
-              myAudio.playMenuClick();
-              menuMainVisible = true;
-              menuDifficultyVisible = false;
-              menuInstructionsVisible = false;
-            }
-          }
-          // Instructions screen mouse handling
-          else if (menuInstructionsVisible)
-          {
-            // return to main menu selection
-            if (myMenu.myButtons.get(i).get(0).buttonDetect())
-            {
-              myAudio.playMenuClick();
-              menuMainVisible = true;
-              menuDifficultyVisible = false;
-              menuInstructionsVisible = false;
-            }
-          }
-        }
-        // Controls flow of mouse clicks on the gameover screen
-        else if(!startAsteroids && gameOver)
+      // Difficulty screen mouse handling
+      else if (menuDifficultyVisible)
+      {
+        // easy level selection
+        if (myMenu.myButtons.get(1).get(0).buttonDetect())
         {
-          // detect play again option
-          if (myMenu.myButtons.get(i).get(0).buttonDetect())
-          {
-            myAudio.playMenuClick();
-            reset(prevLevel, true);
-          }
-          // detect exit option
-          else if (myMenu.myButtons.get(i).get(1).buttonDetect())
-          {
-            myMenu.gameExit();
-          }
-          // return to main menu selection
-          else if (myMenu.myButtons.get(i).get(2).buttonDetect())
-          {
-            myAudio.playMenuClick();
-            menuMainVisible = true;
-            menuDifficultyVisible = false;
-            menuInstructionsVisible = false;
-            reset(1, false);
-          }
+          myAudio.playMenuClick();
+          level = 1;
+          prevLevel = level;
+          startAsteroids = true;
+        } 
+        // medium level selection
+        else if (myMenu.myButtons.get(1).get(1).buttonDetect())
+        {
+          myAudio.playMenuClick();
+          level = 3;
+          prevLevel = level;
+          startAsteroids = true;
+        } 
+        // hard level selection
+        else if (myMenu.myButtons.get(1).get(2).buttonDetect())
+        {
+          myAudio.playMenuClick();
+          level = 5;
+          prevLevel = level;
+          startAsteroids = true;
+        } 
+        // return to main menu selection
+        else if (myMenu.myButtons.get(1).get(3).buttonDetect())
+        {
+          myAudio.playMenuClick();
+          menuMainVisible = true;
+          menuDifficultyVisible = false;
+          menuInstructionsVisible = false;
         }
+      }
+      // Instructions screen mouse handling
+      else if (menuInstructionsVisible)
+      {
+        // return to main menu selection
+        if (myMenu.myButtons.get(2).get(0).buttonDetect())
+        {
+          myAudio.playMenuClick();
+          menuMainVisible = true;
+          menuDifficultyVisible = false;
+          menuInstructionsVisible = false;
+        }
+      }
+    }
+    // Controls flow of mouse clicks on the gameover screen
+    else if (!startAsteroids && gameOver)
+    {
+      // detect play again option
+      if (myMenu.myButtons.get(3).get(0).buttonDetect())
+      {
+        myAudio.playMenuClick();
+        reset(prevLevel, true);
+      }
+      // detect exit option
+      else if (myMenu.myButtons.get(3).get(1).buttonDetect())
+      {
+        myMenu.gameExit();
+      }
+      // return to main menu selection
+      else if (myMenu.myButtons.get(3).get(2).buttonDetect())
+      {
+        myAudio.playMenuClick();
+        menuMainVisible = true;
+        menuDifficultyVisible = false;
+        menuInstructionsVisible = false;
+        reset(1, false);
+      }
     }
   }
+
 
   /*
   Method to reset the game again at a selected dificulty level. Game will 
