@@ -10,21 +10,31 @@ Button class adds a selectable button with a label to the menu screens
  */
 class Button
 {
-   int xorigin,
-     yorigin,
-     fontsize,
-     offset,
-     opacity,
-     bright, // text opacity at its highest
-     dim, // text opacity at half way
-     labelWidth;
-     
-   String label;
+  int xorigin, // variable for the x co-ordinate location
+    yorigin, // variable for the y co-ordinate location
+    fontsize, // variable for the size of the font for label text
+    offset, // variable for the gap between buttons
+    opacity, // variable for the brightness of the font
+    bright, // variable for the text opacity at its highest
+    dim; // variable for the text opacity at half way
+
+  float labelWidth; //variable for the on screen displayed width of label
+
+  String label; // variable for the title of the label
+
   /*
-  Button constructor
-  */
+  Button constructor initialises variables and calls the calculateDisplayWidth()
+   method to calculate the on screen displayed width of the label. This value is 
+   dependant on font size and is used to create acturate text only button detect.
+   @PARAM xorigin is an int value for the x cordinate location
+   @PARAM yorigin is an int value for the y cordinate location
+   @PARAM label is a String for the label text
+   @PARAM offset is the gap between buttons
+   @PARAM fontsize is the fontsize for buttons
+   */
   Button(int xorigin, int yorigin, String label, int offset, int fontsize)
   {
+    // initialise variables
     this.xorigin = xorigin;
     this.yorigin = yorigin;
     this.offset = offset;
@@ -32,44 +42,40 @@ class Button
     this.label = label;
     bright = 255;
     dim = 120;
-    
-    //label text opacity initialises as dim
-    opacity = dim;
-    
+
+    // calculate on screen display width of label
     labelWidth = calculateDisplayWidth();
   }
-  
+
   /*
-  
-  */
+  Method to display to button text
+   */
   void displayButton()
   {
+    textAlign(CENTER);
     textSize(fontsize);
     fill(255, opacity);
-    text(label, xorigin, yorigin + offset); 
+    text(label, xorigin, yorigin + offset);
   }
-  
+
   /*
-  Method to set button detection retangular area for mouse click.
+  Method to set button detection retangular area for mouse click. 
+   The algorithm use the labelWidth calculated in the constructor call.
    @RETURN: true if area is clicked false if not.
    */
   boolean buttonDetect()
   {
-    labelWidth = calculateDisplayWidth();
-    
     if ((mouseX > xorigin - labelWidth) && (mouseX < xorigin + labelWidth) && 
-      ( mouseY > yorigin + fontsize) && ( mouseY < yorigin)) 
+      ( mouseY > yorigin + offset - fontsize) && ( mouseY < yorigin + offset)) 
     {
       return true;
     }
     return false;
   }
-  
+
   /*
-  Method to highlight text when mouse hovers over, using the buttonDetect method. The 
-   for loop iterates though the arrays in the 2D array testing out each one using the
-   buttonDetect method. If true the value at the corresponding index in the highlighting 
-   array becomes bright else if remains dim.
+  Method to highlight text when mouse hovers over, using the buttonDetect method. 
+   If true the value at the opacity of the text becomes bright else if goes dim.
    */
   void textHighlight()
   {
@@ -81,15 +87,17 @@ class Button
       opacity = dim;
     }
   }
-  
+
   /*
-  
-  */
-  int calculateDisplayWidth()
+  Method to calculate the on screen display width of the button
+   text label
+   @ RETURN float value for the width
+   */
+  float calculateDisplayWidth()
   {
-    int strLen = label.length();
-    int charWidth = ;
-    
+    float strLen = label.length();
+    float charWidth = 0.8 * fontsize;
+
     return (strLen * charWidth)/2;
   }
 }

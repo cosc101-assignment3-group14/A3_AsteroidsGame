@@ -1,4 +1,4 @@
-/************************************************************** //<>//
+/************************************************************** //<>// //<>//
  * File: MainMenu.pde
  * Group: 14; {Tegan Lee Barnes, Alison Bryce, Josh Le Gresley}.
  * Date: 12/04/2018
@@ -6,7 +6,9 @@
  ***************************************************************/
 
 /*
-The MainMenu class creates the starting page interface for the Asteroids game. 
+The MainMenu class creates the starting page interface for the Asteroids game. It aso
+ creates a game over screen. This class accesses the button class to create an array list of
+ button objects.
  */
 class MainMenu
 {
@@ -17,7 +19,7 @@ class MainMenu
     gameoverTitle, // String variable to store gameover title
     instructionsTitle, // String variable to store instructions title
     instructionsDetail;// String variable to store intstructions description
-    
+
   String[][] myLabels; // 2D String array to store each pages button labels
 
   Boolean gameOver, // boolean flag used to state if the game is over
@@ -27,24 +29,23 @@ class MainMenu
     txtH, // variable to store value of the height of the text
     txtL, // variable to store the lenght of the text
     font; // button font size
-  
-  ArrayList<Button> menuButtons = 
-    new ArrayList<Button>(); // declare Button object ArrayList for current menu page
-    
+
+  // declare Button ArrayList object ArrayList to hole the buttons for each menu page;  
+  ArrayList<ArrayList<Button>> myButtons = 
+    new ArrayList<ArrayList<Button>>(); 
+
   /*
   MainMenu constructor initialises varibles
    */
   MainMenu()
   {
-    // initialise string 2D array
-    
-    myLabels = new String[][]{{"NEW GAME", "HOW TO PLAY", "EXIT"},
-                            {"EASY", "MEDIUM", "HARD", "MAIN MENU"},
-                            {"MAIN MENU"},
-                            {"PLAY AGAIN?", "EXIT", "MAIN MENU"}};
-    
-    //initialise string variables
+    // initialise string 2D array with button labels for each menu page
+    myLabels = new String[][]{{"NEW GAME", "HOW TO PLAY", "EXIT"}, // main menu
+      {"EASY", "MEDIUM", "HARD", "MAIN MENU"}, // difficulty screen
+      {"MAIN MENU"}, // instructions screen
+      {"PLAY AGAIN?", "EXIT", "MAIN MENU"}}; // gameover screen
 
+    //initialise string variables
     gameoverTitle = "GAME OVER";
     chooseTitle = "CHOOSE YOUR DIFFICULTY";
     title = "asteroids";
@@ -66,35 +67,79 @@ class MainMenu
 
     //initialise boolean variables
     gameOver = false;  // boolean flag used to state if the game is over
+
+    //creates Button objects add adds them to the Button Arraylist
+    createButtons();
   }
-  
+
   /*
   Method to create Button objects
-  @PARAM index the index value of the corresponing array in the 2D array of button labels
-  @PARAM fonsize is the size of the button label font
-  */
-  void createButtons(int index, int fontsize )
+   */
+  void createButtons()
   {
-    int offset = 0;
-    for(int i = 0; i < myLabels[index].length; i ++)
+    // initialise a local Array list
+    ArrayList<Button> menuButtons = new ArrayList<Button>(); 
+
+    // loop through arrays in 2D  String array
+    for (int i = 0; i < myLabels.length; i ++)
     {
-      Button newButton = new Button(height/2, width/2, myLabels[index][i], offset, fontsize);
-      
-      menuButtons.add(newButton);
-      
-      offset += txtH;
+      // for pages with three buttons
+      if (myLabels[i].length == 3)
+      {
+        int offset = 120;
+        for (int j = 0; j < myLabels[i].length; j ++)
+        {
+          Button newButton = new Button(height/2, width/2, myLabels[i][j], offset, font);
+          menuButtons.add(newButton);
+          offset += txtH;
+        }
+        
+        // add the ArrayList of buttons to the myButtons ArrayList
+        myButtons.add(menuButtons);
+        
+        // create a new local ArrayList for the next iteration
+        menuButtons = new ArrayList<Button>();
+        
+      } else if (myLabels[i].length == 4)
+      {
+        int offset = -txtH;
+        for (int j = 0; j < myLabels[i].length; j ++)
+        {
+          Button newButton = new Button(width/2, height/2, myLabels[i][j], offset, font);
+          menuButtons.add(newButton);
+          offset += txtH;
+        }
+        
+        // add the ArrayList of buttons to the myButtons ArrayList
+        myButtons.add(menuButtons);
+        
+        // create a new local ArrayList for the next iteration
+        menuButtons = new ArrayList<Button>();
+        
+      } else if (myLabels[i].length == 1)
+      {
+        int offset = 3*txtH;
+        Button newButton = new Button(height/2, width/2, myLabels[i][0], offset, font);
+        menuButtons.add(newButton);
+        
+        // add the ArrayList of buttons to the myButtons ArrayList
+        myButtons.add(menuButtons);
+        // create a new local ArrayList for the next iteration
+        menuButtons = new ArrayList<Button>();
+      }
     }
   }
-    
-    /*
+
+  /*
   Method to update Button objects Arraylist
-  */
-  void updateButtons()
+  @PARAM menuMum: is an int to correspond to the current menu page
+   */
+  void updateButtons(int menuNum)
   {
-    for(int i = 0; i < menuButtons.size(); i ++)
+    for (int i = 0; i < myButtons.get(menuNum).size(); i ++)
     {
-      menuButtons.get(i).displayButton();
-      menuButtons.get(i).textHighlight();
+      myButtons.get(menuNum).get(i).displayButton();
+      myButtons.get(menuNum).get(i).textHighlight();
     }
   }
 
@@ -114,23 +159,9 @@ class MainMenu
     textSize(110);
     fill(255);
     text(title, 0, height/7, width, height);
-
-    createButtons(0, font);
     
-    updateButtons();
-    
-    // display new game button label
-    //textSize(font);
-    //fill(255, highlighting[0]);
-    //text(newLabel, width/2, height/2); 
-
-    //// display instructions button label
-    //fill(255, highlighting[1]);
-    //text(instructionsLabel, width/2, (height/2)+txtH);
-
-    //// display exit button label
-    //fill(255, highlighting[2]);
-    //text(exitLabel, width/2, (height/2)+(2*txtH));
+    // displays and updates button highlighting
+    updateButtons(0);
   }
 
   /*
@@ -145,23 +176,9 @@ class MainMenu
 
     //display choose game label
     text(chooseTitle, width/2, headerY);
-    textSize(35);
-
-    //// display easy button label
-    //fill(255, highlighting[3]);
-    //text(easyLabel, width/2, (height/2)-txtH);
-
-    //// display medium button label
-    //fill(255, highlighting[4]);
-    //text(mediumLabel, width/2, height/2);
-
-    //// display hard button label
-    //fill(255, highlighting[5]);
-    //text(hardLabel, width/2, (height/2)+txtH);
-
-    //// display return button label
-    //fill(255, highlighting[9]);
-    //text(returnLabel, width/2, (height/2)+(3*txtH));
+    
+    // displays and updates button highlighting
+    updateButtons(1);
   }
 
   /*
@@ -177,10 +194,9 @@ class MainMenu
     fill(255);
     textSize(25);
     text(instructionsDetail, width/2, (height/3));
-
-    //// display return button label
-    //fill(255, highlighting[9]);
-    //text(returnLabel, width/2, (height/2)+(3*txtH));
+    
+    // displays and updates button highlighting
+    updateButtons(2);
   }
 
   /*
@@ -202,22 +218,9 @@ class MainMenu
     textSize(40);
     text("Your score:   " 
       + score, 0, height/2.1, width, height);
-
-    //// display play again button label
-    //fill(0, 255, 0, highlighting[7]);
-    //textSize(35);
-    //textAlign(CENTER, CENTER);
-    //text(playAgainLabel, width/2, (height/2)+txtH);
-
-    //// display exit button label
-    //fill(255, highlighting[8]);
-    //textSize(40);
-    //text(exitLabel, width/2, (height/2)+(2*txtH));
-
-    //// display return button label
-    //fill(255, highlighting[9]);
-    //textSize(40);
-    //text(returnLabel, width/2, (height/2)+(3*txtH));
+    
+    // displays and updates button highlighting
+    updateButtons(3);
   }
 
   /*
