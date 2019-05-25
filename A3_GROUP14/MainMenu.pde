@@ -118,7 +118,7 @@ class MainMenu
         menuButtons = new ArrayList<Button>();
       } else if (myLabels[i].length == 1)
       {
-        int offset = 3*txtH;
+        int offset = 3*txtH + font;
         Button newButton = new Button(height/2, width/2, myLabels[i][0], offset, font);
         menuButtons.add(newButton);
 
