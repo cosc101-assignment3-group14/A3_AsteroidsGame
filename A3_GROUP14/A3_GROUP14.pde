@@ -1,11 +1,36 @@
 /************************************************************** //<>//
- * File: A3_Group14.pde
+ * File: A3_GROUP14.pde
  * Group: 14; {Tegan Lee Barnes, Alison Bryce, Josh Le Gresley}.
  * Date: 12/04/2019
  * Course: COSC101 - Software Development Studio 1
- ***************************************************************/
+ *
+ * Description: 
+ Astroids is a classic multidirectional shooter arcade game. The player controls 
+ a space ship in an asteroid field, the aim being to survive as long as possible 
+ whilst shooting the asteroids to increase their score. UFO's will also attack the 
+ players space ship at random intervals. The game is divided into levels. The player 
+ starts with 3 lives. Upon reaching the next level the players ships lives are 
+ replenished if any have been lost. Points are awarded as follows:
+ *
+ * Usage: 
+ To compile and run the .pde file, download the Processing IDE from the 
+ processing website: https://processing.org/download/. The proceesing IDE will 
+ compilethe processing language to Java and run the program.
+ NOTE:The program requires the Minim audio library to be added to the processing
+ IDE.
+ *
+ * Notes: 
+ All audio samples sourced from https://freesound.org.
+ Font is sourced from https://www.fontspace.com.
+ Image is sourced from https://www.pngkey.com/
+ Any Code Sampled from online sources is commented in method or class headings.
+ 
+ * Video Presentation:
+ The Video presentation assosiated with this project can be found at 
+ https://www.youtube.com/watch?v=9_ykwS7ng1g
+ **************************************************************/
 
-//imoprt a java audio library (requirs prior installation to the processing ide)
+//imoprt a java audio library
 import ddf.minim.*;
 
 /*
