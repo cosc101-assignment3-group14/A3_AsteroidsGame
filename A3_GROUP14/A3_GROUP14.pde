@@ -1,7 +1,7 @@
 /************************************************************** //<>//
  * File: A3_Group14.pde
  * Group: 14; {Tegan Lee Barnes, Alison Bryce, Josh Le Gresley}.
- * Date: 12/04/2018
+ * Date: 12/04/2019
  * Course: COSC101 - Software Development Studio 1
  ***************************************************************/
 
@@ -54,13 +54,10 @@ class AsteroidGame
     textInterval; // stores an interval to display the next level message
 
   boolean[] keyIsPressed; // stores a boolean corresponding to keypress event
+  
   PVector[] starsBackground; // stores locations of stars for moving background
+  
   float[] starSpeed; // sets the speed of the star
-
-
-  int[][] button; // 2D int array to store menu button detect coorinates
-
-  String start; // Sting to store the game start messege
 
   PFont font; // declare a Pfont object
 
@@ -663,7 +660,6 @@ class AsteroidGame
       }
     }
   }
-
 
   /*
   Method to reset the game again at a selected dificulty level. Game will 
