@@ -1,7 +1,7 @@
-/**************************************************************
+/************************************************************** //<>//
  * File: A3_Group14.pde
  * Group: 14; {Tegan Lee Barnes, Alison Bryce, Josh Le Gresley}.
- * Date: 12/04/2018
+ * Date: 12/04/2019
  * Course: COSC101 - Software Development Studio 1
  ***************************************************************/
 
@@ -54,13 +54,10 @@ class AsteroidGame
     textInterval; // stores an interval to display the next level message
 
   boolean[] keyIsPressed; // stores a boolean corresponding to keypress event
+  
   PVector[] starsBackground; // stores locations of stars for moving background
+  
   float[] starSpeed; // sets the speed of the star
-
-
-  int[][] button; // 2D int array to store menu button detect coorinates
-
-  String start; // Sting to store the game start messege
 
   PFont font; // declare a Pfont object
 
@@ -106,21 +103,6 @@ class AsteroidGame
     font = createFont("Pixel-Miners.otf", 32);
     textFont(font);
 
-    // 2D Array to store coordinates for menu button detect.
-    // Each array has a x min, x max, y min y max. Using this stategy allows there to
-    // be tight edge detection just surrounding the text.
-    button = new int [][] {{291, 505, 371, 403}, // "NEW GAME"
-      {256, 536, 471, 501}, // "HOW TO PLAY"
-      {344, 447, 571, 602}, // "EXIT"
-      {341, 457, 271, 303}, // "EASY"
-      {314, 480, 372, 402}, // "MEDIUM"
-      {341, 455, 472, 501}, // "HARD"
-      {281, 450, 671, 700}, // "MAIN MENU"
-      {275, 524, 491, 517}, // "PLAY AGAIN?"
-      {337, 456, 590, 639}, // "EXIT"
-      {264, 531, 680, 739}}; // "MAIN MENU"
-
-
     // CREATE A MOVING BACKGROUND
     // create a PVector array to store locations of stars in game background
     starsBackground = new PVector[100];
@@ -145,9 +127,6 @@ class AsteroidGame
     // set to start on main menu
     if (!startAsteroids && !gameOver)
     {
-      // activate text highlighting
-      myMenu.textHighlight(button);
-
       // loop audio on menu
       if (!menuLooping)
       {
@@ -157,20 +136,21 @@ class AsteroidGame
 
       if (menuMainVisible)
       {
+        // displays the main menu
         myMenu.displayMenu();
       } else if (menuDifficultyVisible)
       {
+        // displays the difficulty menu
         myMenu.displayDifficultyMenu();
       } else if (menuInstructionsVisible)
       {
+        // displays the instructions menu
         myMenu.displayInstructions();
       }
     } else if (!startAsteroids && gameOver)
     {
-      // activate text highlighting
-      myMenu.textHighlight(button);
-
-      myMenu.displayEndGame();
+      // displays the gameover menu
+      myMenu.displayEndGame(myShip.getScore());
     }
     // ENTER GAME
     else
@@ -580,21 +560,19 @@ class AsteroidGame
     // Controls flow of mouse clicks through the main menu
     if (!startAsteroids && !gameOver)
     {
-
       // Main menu mouse handling
       if (menuMainVisible)
       {
         // detect difficulty options
-        if (myMenu.buttonDetect(button, 0))
+        if (myMenu.myButtons.get(0).get(0).buttonDetect())
         {
           myAudio.playMenuClick();
           menuMainVisible = false;
           menuDifficultyVisible = true;
           menuInstructionsVisible = false;
         }
-
         // detect instructions option
-        else if (myMenu.buttonDetect(button, 1))
+        else if (myMenu.myButtons.get(0).get(1).buttonDetect())
         {
           myAudio.playMenuClick();
           menuMainVisible = false;
@@ -602,15 +580,17 @@ class AsteroidGame
           menuInstructionsVisible = true;
         } 
         // detect exit option
-        else if (myMenu.buttonDetect(button, 2))
+        else if (myMenu.myButtons.get(0).get(2).buttonDetect())
         {
           myMenu.gameExit();
         }
-        // Difficulty screen mouse handling
-      } else if (menuDifficultyVisible)
+      }
+
+      // Difficulty screen mouse handling
+      else if (menuDifficultyVisible)
       {
         // easy level selection
-        if (myMenu.buttonDetect(button, 3))
+        if (myMenu.myButtons.get(1).get(0).buttonDetect())
         {
           myAudio.playMenuClick();
           level = 1;
@@ -618,7 +598,7 @@ class AsteroidGame
           startAsteroids = true;
         } 
         // medium level selection
-        else if (myMenu.buttonDetect(button, 4))
+        else if (myMenu.myButtons.get(1).get(1).buttonDetect())
         {
           myAudio.playMenuClick();
           level = 3;
@@ -626,7 +606,7 @@ class AsteroidGame
           startAsteroids = true;
         } 
         // hard level selection
-        else if (myMenu.buttonDetect(button, 5))
+        else if (myMenu.myButtons.get(1).get(2).buttonDetect())
         {
           myAudio.playMenuClick();
           level = 5;
@@ -634,18 +614,19 @@ class AsteroidGame
           startAsteroids = true;
         } 
         // return to main menu selection
-        else if (myMenu.buttonDetect(button, 6))
+        else if (myMenu.myButtons.get(1).get(3).buttonDetect())
         {
           myAudio.playMenuClick();
           menuMainVisible = true;
           menuDifficultyVisible = false;
           menuInstructionsVisible = false;
         }
-        // Instructions screen mouse handling
-      } else if (menuInstructionsVisible)
+      }
+      // Instructions screen mouse handling
+      else if (menuInstructionsVisible)
       {
         // return to main menu selection
-        if (myMenu.buttonDetect(button, 6))
+        if (myMenu.myButtons.get(2).get(0).buttonDetect())
         {
           myAudio.playMenuClick();
           menuMainVisible = true;
@@ -658,18 +639,18 @@ class AsteroidGame
     else if (!startAsteroids && gameOver)
     {
       // detect play again option
-      if (myMenu.buttonDetect(button, 7))
+      if (myMenu.myButtons.get(3).get(0).buttonDetect())
       {
         myAudio.playMenuClick();
         reset(prevLevel, true);
       }
       // detect exit option
-      else if (myMenu.buttonDetect(button, 8))
+      else if (myMenu.myButtons.get(3).get(1).buttonDetect())
       {
         myMenu.gameExit();
       }
       // return to main menu selection
-      else if (myMenu.buttonDetect(button, 9))
+      else if (myMenu.myButtons.get(3).get(2).buttonDetect())
       {
         myAudio.playMenuClick();
         menuMainVisible = true;
