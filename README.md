@@ -20,19 +20,21 @@
  To compile and run the .pde file, download the Processing editor from the processing website: [Processing3](https://processing.org/download/)
  The processing editor will compile the processing language to Java and run the program.
  ##### NOTE
- The program also requires the minim audio library to be added to the processing ide.
+ The program also requires the minim audio library to be added to the processing IDE.
 
 ### Game Play:
-#### Controls
+##### Controls
 * arrow keys to direct the ship
 * space bar to shoot
 
 
 ### Notes:
- * All audio samples sourced from [freesound.org](https://freesound.org)
+ * All audio samples sourced from [freesound.org](https://freesound.org).
 
- * Font is sourced from [fontspace.com](https://www.fontspace.com)
+ * Font is sourced from [fontspace.com](https://www.fontspace.com).
 
- * Image is sourced from [pngkey.com](https://www.pngkey.com)
+ * Image is sourced from [pngkey.com](https://www.pngkey.com).
 
  * Any code developed assisted by online sources is commented in method or class headings.
+
+ * The video presentation corresponding to the development of this project can be found at our  [Group 14](https://www.youtube.com/watch?v=9_ykwS7ng1g) presentation page.

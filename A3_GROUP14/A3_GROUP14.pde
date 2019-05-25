@@ -5,7 +5,7 @@
  * Course: COSC101 - Software Development Studio 1
  ***************************************************************/
 
-//imoprt a java audio library
+//imoprt a java audio library (requirs prior installation to the processing ide)
 import ddf.minim.*;
 
 /*

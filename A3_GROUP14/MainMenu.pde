@@ -63,7 +63,7 @@ class MainMenu
     font = 35;
 
     // game over image of an explosion
-    expl = loadImage("pngkey.com-pixel-explosion-png-3017570.png");
+    expl = loadImage("gameover.png");
 
     //initialise boolean variables
     gameOver = false;  // boolean flag used to state if the game is over
