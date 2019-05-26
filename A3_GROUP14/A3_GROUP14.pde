@@ -7,9 +7,9 @@
  * Description: 
  Astroids is a classic multidirectional shooter arcade game. The player controls 
  a space ship in an asteroid field, the aim being to survive as long as possible 
- whilst shooting the asteroids to increase their score. UFOs will also attack the 
- player's space ship at random intervals. The game is divided into levels. The player 
- starts with 3 lives. Upon reaching the next level the player's ship's lives are 
+ whilst shooting the asteroids to increase their score. UFO's will also attack the 
+ players space ship at random intervals. The game is divided into levels. The player 
+ starts with 3 lives. Upon reaching the next level the players ships lives are 
  replenished if any have been lost. Points are awarded as follows:
  * 10 points for an asteroid hit
  * 100 points for destroying a UFO
@@ -19,7 +19,9 @@
  To compile and run the .pde file, download the Processing IDE from the 
  processing website: https://processing.org/download/. The proceesing IDE will 
  compile the processing language to Java and run the program.
- NOTE: The program requires the Minim audio library to be added to the processing IDE.
+ *
+ NOTE:The program requires the Minim audio library to be added to the processing
+ IDE.
  *
  * Notes: 
  All audio samples sourced from https://freesound.org.
@@ -36,7 +38,7 @@
 import ddf.minim.*;
 
 /*
-AsteroidGame class accesses the classes required to build up the Asteroids
+The AsteroidGame class accesses the classes required to build up the Asteroids
  game implementation. User input events are monitored and passed to the relevent
  classes requiring this information. Sound files are called at input events. Game 
  play status is monitored with boolean flags and game flow is directed in the 
@@ -174,11 +176,13 @@ class AsteroidGame
         // displays the instructions menu
         myMenu.displayInstructions();
       }
+    // display end game screen if game over  
     } else if (!startAsteroids && gameOver)
     {
       // displays the gameover menu
       myMenu.displayEndGame(myShip.getScore());
     }
+    
     // ENTER GAME
     else
     {
@@ -215,6 +219,7 @@ class AsteroidGame
   {
     if (startAsteroids && !asteroidsExist)
     {
+      // 
       for (int i = 0; i < level; i ++)
       {
         myAsteroids.add(oneAsteroid = new Asteroid(new PVector(random(width), 
