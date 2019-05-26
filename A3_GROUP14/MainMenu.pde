@@ -187,7 +187,7 @@ class MainMenu
   void displayInstructions()
   {
     fill(0, 150, 0);
-    // title and instrructions text
+    // title and instructions text
     textAlign(CENTER);    
     textSize(55);
     text(instructionsTitle, width/2, headerY);
@@ -201,7 +201,7 @@ class MainMenu
 
   /*
   Method to display the game over screen with options to play again or return to menu
-   @PARAM score is the players score accessed from the Ship object
+   @PARAM score is the player's score accessed from the Ship object
    */
   void displayEndGame(int score)
   { 
