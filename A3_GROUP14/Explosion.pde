@@ -24,7 +24,7 @@ class Explosion
   /*
   The Explosion constructor initialises variables and sets the angles for 
    the PVector motion.
-   @PARAM: location is a PVector of the location of the object that has been destroyed
+   @PARAM location is a PVector of the location of the object that has been destroyed
    */
   Explosion(PVector location)
   {
@@ -75,7 +75,8 @@ class Explosion
 
   /*
   Method to display the explosion to the screen.
-   @PARAM: x and y are floats for the corresponding x and y loactions to draw points
+   @PARAM x is a float for the corresponding x loaction to draw points
+   @PARAM y is a float for the corresponding y loaction to draw points
    */
   void drawexplosion(float x, float y)
   {

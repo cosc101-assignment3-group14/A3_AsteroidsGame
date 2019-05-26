@@ -61,7 +61,7 @@ class Button
   /*
   Method to set button detection retangular area for mouse click. 
    The algorithm use the labelWidth calculated in the constructor call.
-   @RETURN: true if area is clicked false if not.
+   @RETURN boolean true if area is clicked false if not.
    */
   boolean buttonDetect()
   {

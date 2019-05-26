@@ -28,9 +28,9 @@ class Asteroid
 
   /*
   Constructor sets the Asteroid objects initial values and generates a random PShape
-   @PARAM: location is a PVector for the starting point of the object
-   @PARAM: scal is a random float to define the size of the image drawn to screen
-   @PARAM: hit is an int to track number of hits each Asteroid object has sustained
+   @PARAM location is a PVector for the starting point of the object
+   @PARAM scal is a random float to define the size of the image drawn to screen
+   @PARAM hit is an int to track number of hits each Asteroid object has sustained
    */
   Asteroid(PVector location, float scal, int hit)
   {
@@ -147,7 +147,7 @@ class Asteroid
   Method to update the velocity and change direction of two
    Asteroid objects on collision. The code has been sourced from
    https://forum.processing.org and updated to use PVectors.
-   @PARAM: An Asteroid object to compare to the calling object.
+   @PARAM An Asteroid object to compare to the calling object.
    */
   void collisionAsteroid(Asteroid ast)
   {
@@ -169,8 +169,8 @@ class Asteroid
   /*
   Method to check if asteroid locations are equal. It does this by using
    a circular collision detection algorithm.
-   @PARAM: ast is an Asteroid object to compare against the object calling.
-   @Return: A boolean true if equal, false if not.  
+   @PARAM ast is an Asteroid object to compare against the object calling.
+   @Return A boolean true if equal, false if not.  
    */
   boolean equals(Asteroid ast)
   {
@@ -195,8 +195,8 @@ class Asteroid
   /*
   Overloaded method to check if asteroid locations are equal to ship location. 
    It does this by using a circular collision detection algorithm.
-   @PARAM: is the ship object to compare against the object calling
-   @Return: A boolean true if equal, false if not.  
+   @PARAM myShip is the ship object to compare against the object calling
+   @Return A boolean true if equal, false if not.  
    */
   boolean equals(Ship myShip)
   {
@@ -214,7 +214,7 @@ class Asteroid
 
   /*
   Method to create a random number of smaller Asteroids upon each impact.
-   @Return: An Asteroid ArrayList containing the new Asteroid objects to replace
+   @Return An Asteroid ArrayList containing the new Asteroid objects to replace
    the existing larger one.
    */
   ArrayList<Asteroid> splitAsteroid()
