@@ -83,9 +83,9 @@ class AsteroidGame
     textInterval; // stores an interval to display the next level message
 
   boolean[] keyIsPressed; // stores a boolean corresponding to keypress event
-  
+
   PVector[] starsBackground; // stores locations of stars for moving background
-  
+
   float[] starSpeed; // sets the speed of the star
 
   PFont font; // declare a Pfont object
@@ -176,13 +176,13 @@ class AsteroidGame
         // displays the instructions menu
         myMenu.displayInstructions();
       }
-    // display end game screen if game over  
+      // display end game screen if game over
     } else if (!startAsteroids && gameOver)
     {
       // displays the gameover menu
       myMenu.displayEndGame(myShip.getScore());
     }
-    
+
     // ENTER GAME
     else
     {
@@ -219,7 +219,7 @@ class AsteroidGame
   {
     if (startAsteroids && !asteroidsExist)
     {
-      // 
+      //the number of Asteroid objects added depends on the vale of variable level
       for (int i = 0; i < level; i ++)
       {
         myAsteroids.add(oneAsteroid = new Asteroid(new PVector(random(width), 
@@ -272,7 +272,7 @@ class AsteroidGame
   }
 
   /*
-  Method to update the ufo.
+  Method to update the Ufo object when it exists.
    */
   void updateUfo()
   {
@@ -287,7 +287,7 @@ class AsteroidGame
   }
 
   /*
-  Method to update the ship.
+  Method to update the Ship object.
    */
   void updateShip()
   {
@@ -310,10 +310,12 @@ class AsteroidGame
     if (startAsteroids)
     {
       myShip.shipLives();
+
       if (myShip.getLives() == 0 && !gameEnded)
       {
         // call audio object to play game over sound
         myAudio.playGameOver();
+
         // pause ufo audio if playing
         if (ufoExists)
         {
@@ -338,7 +340,8 @@ class AsteroidGame
   }  
 
   /*
-  Method to display the next level change.
+  Method to display the next level change. Text appears at the change of levels
+   for a timed interval.
    */
   void nextLevel()
   {
@@ -573,7 +576,10 @@ class AsteroidGame
    */
   void hideCursor()
   {
+    //built in method to make cursor dissapear during game play
     noCursor();
+
+    // use ship shape as cursor during the menu
     if (!startAsteroids)
     {
       pushMatrix();
@@ -585,7 +591,10 @@ class AsteroidGame
   }
   /*
   Method called from the built-in mousePressed() method. Monitors mouse clicks on 
-   the menu and game over pages.
+   the menu and game over pages. An attempt was made to use nested for loops to iterate
+   through each button in the MainMenu objects Button ArrayList ArrayList however the 
+   buttons resulting behaviour was not consistance to the required behavior.
+   Therefore button actual index values were used as a temporary fix
    */
   void mousePress() 
   {
@@ -697,8 +706,8 @@ class AsteroidGame
   Method to reset the game again at a selected dificulty level. Game will 
    either restart at the selected level or return to menu screen depending 
    on boolean start parameter.
-   @PARAM: level is an int of the previously chosen level
-   @PARAM: start is a boolean to tell the game to start playing or not 
+   @PARAM level is an int of the previously chosen level
+   @PARAM start is a boolean to tell the game to start playing or not 
    */
   void reset(int storedLevel, boolean start)
   {
@@ -774,11 +783,8 @@ void draw()
 
 /*
 Built in function KeyPressed() initially has no functionality, until the player 
- mouse clicks to select play game. This action sets the startGame flag to true 
- and sets the game screen to 'ready to play'. Now the game waits for the player 
- to input any click to commence play (which starts the asteroids). Once in 
- 'game play' mode, any clicks invoke the keyPress() method which updates the 
- keyIsPressed boolean array.
+ mouse clicks to select play game. Once in 'game play' mode, any clicks invoke 
+ the keyPress() method which updates the keyIsPressed boolean array.
  */
 void keyPressed()
 {

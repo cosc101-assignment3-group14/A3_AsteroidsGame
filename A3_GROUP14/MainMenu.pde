@@ -201,6 +201,7 @@ class MainMenu
 
   /*
   Method to display the game over screen with options to play again or return to menu
+   @PARAM score is the players score accessed from the Ship object
    */
   void displayEndGame(int score)
   { 

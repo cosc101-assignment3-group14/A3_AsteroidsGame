@@ -85,7 +85,7 @@ class Ufo
   /*
   Method to update the movement of the ufo relative to the player's ship's 
    current location.
-   @PARAM: ship is a PVector with the ship's location
+   @PARAM ship is a PVector with the ship's location
    */
   void moveUfo(PVector ship)
   {
@@ -188,6 +188,7 @@ class Ufo
   {
     // rotates the PShape detail
     drawUfo.rotate(radians(direction)); 
+
     // draws the shape object to the current location
     shape(drawUfo, ufoLocation.x, ufoLocation.y);
   }
@@ -198,6 +199,7 @@ class Ufo
    */
   void addShot(PVector ship)
   {
+    // starts a timer to a random interval for the next shot
     if (ufoDeployed && !timing)
     {
       shotInterval = random(100, 500);
@@ -205,8 +207,11 @@ class Ufo
       timing = true;
     } else
     {
+      // checks the timer interval
       int split = (millis() - startTime)/1000;
       totalTime += split;
+
+      // once timer reaches the random interval a shot is fired
       if (totalTime > shotInterval)
       {
         ufoShots.add(oneShot = new Shot(ufoLocation, ufoVelocity, ship, shotColour));
@@ -214,6 +219,7 @@ class Ufo
         shotInterval = random(1, 100);
         startTime = millis();
         totalTime = 0;
+
         // call audio object to play shot sound
         myAudio.playShot();
       }
@@ -238,8 +244,8 @@ class Ufo
   /*
   Method to check if ufoShot locations or the ufo location itself are equal to 
    ship location. It does this by using a circular collision detection algorithm.
-   @PARAM: x and y are locations
-   @Return: A boolean true if equal, false if not.  
+   @PARAM x and y are locations
+   @Return boolean true if equal, false if not.  
    */
   boolean equals(Ship myShip)
   {

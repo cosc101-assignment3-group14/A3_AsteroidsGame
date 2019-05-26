@@ -71,7 +71,7 @@ class Ship
 
   /*
   Method to set ship score.
-   @PARAM liv: is an int to set score to
+   @PARAM sc is an int to set score to
    */
   void setScore(int sc)
   {
@@ -80,8 +80,8 @@ class Ship
 
   /*
   Overloaded setScore Method to update ship score in game play.
-   @PARAM liv: is an int to increase score by
-   @PARAM playing: is a boolean to state if in game play
+   @PARAM sc is an int to increase score
+   @PARAM playing is a boolean to state if in game play
    */
   void setScore(int sc, boolean playing)
   {
@@ -93,7 +93,7 @@ class Ship
 
   /*
   Method to set ship lives
-   @PARAM liv: is an int to set lives to
+   @PARAM liv is an int to set lives to
    */
   void setLives(int liv)
   {
@@ -102,8 +102,8 @@ class Ship
 
   /*
   Overloaded set lives method to set ship lives in game play
-   @PARAM liv: is an int to reduce lives by
-   @PARAM playing: is a boolean to state if in game play
+   @PARAM liv is an int to reduce lives by
+   @PARAM playing is a boolean to state if in game play
    */
   void setLives(int liv, boolean playing)
   {
@@ -164,7 +164,7 @@ class Ship
   /*
   Method to update the movement of the ship relative to the player's ship current 
    location. The direction is added to the ship's coordinates.
-   @PARAM keypress: boolean array storing a boolean at each keypressed event's
+   @PARAM keypress boolean array storing a boolean at each keypressed event's
    corrosponding ASCII value.
    */
   void moveShip(boolean [] keypress)
@@ -173,14 +173,17 @@ class Ship
     {
       shipDirection.add(new PVector(0, -speed));
     }
+
     if (keypress[DOWN])
     {
       shipDirection.add(new PVector(0, speed));
     }
+
     if (keypress[LEFT]) 
     {
       shipDirection.add(new PVector(-speed, 0));
     }
+
     if (keypress[RIGHT]) 
     {
       shipDirection.add(new PVector(speed, 0));
@@ -203,6 +206,7 @@ class Ship
     {
       shipCoord.x = width;
     }
+
     if (shipCoord.y > height)
     {
       shipCoord.y = 0;
@@ -240,7 +244,7 @@ class Ship
 
   /*
   Method to fire shots at random intervals.
-   @PARAM keypress: boolean array storing a boolean at each keypressed event's
+   @PARAM keypress boolean array storing a boolean at each keypressed event's
    corrosponding ASCII value.
    */
   void addShot(boolean[] keypress)
@@ -277,8 +281,8 @@ class Ship
   /*
   Method to check if asteroid locations are equal to ship shot location. 
    It does this by using a circular collision detection algorithm.
-   @PARAMS: ast is an Asteroid object
-   @Return: A boolean true if equal, false if not.  
+   @PARAMS ast is an Asteroid object
+   @Return boolean true if equal, false if not.  
    */
   boolean equalsAsteroid(Asteroid ast)
   {
@@ -306,8 +310,8 @@ class Ship
   /*
   Method to check if the ship's shot locations are equal to the ufo location. 
    It does this by using a circular collision detection algorithm.
-   @PARAMS: myUfo is a ufo object
-   @Return: A boolean true if equal, false if not.  
+   @PARAMS myUfo is a ufo object
+   @Return boolean true if equal, false if not.  
    */
   boolean equalsUfo(Ufo myUfo)
   {
