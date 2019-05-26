@@ -7,8 +7,8 @@
 
 /*
 The MainMenu class creates the starting page interface for the Asteroids game. It aso
- creates a game over screen. This class accesses the button class to create an array 
- list of button objects.
+ creates a game over screen. This class accesses the Button class to create an array 
+ list of Button objects.
  */
 class MainMenu
 {
@@ -31,8 +31,7 @@ class MainMenu
     font; // button font size
 
   // declare Button ArrayList object ArrayList to hole the buttons for each menu page;  
-  ArrayList<ArrayList<Button>> myButtons = 
-    new ArrayList<ArrayList<Button>>(); 
+  ArrayList<ArrayList<Button>> myButtons = new ArrayList<ArrayList<Button>>(); 
 
   /*
   MainMenu constructor initialises varibles
@@ -132,7 +131,7 @@ class MainMenu
 
   /*
   Method to update Button objects Arraylist
-   @PARAM menuMum: is an int to correspond to the current menu page
+   @PARAM menuMum is an int to correspond to the current menu page
    */
   void updateButtons(int menuNum)
   {
@@ -201,6 +200,7 @@ class MainMenu
 
   /*
   Method to display the game over screen with options to play again or return to menu
+   @PARAM score is the players score accessed from the Ship object
    */
   void displayEndGame(int score)
   { 
