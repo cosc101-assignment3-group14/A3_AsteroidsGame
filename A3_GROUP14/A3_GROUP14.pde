@@ -8,8 +8,8 @@
  Astroids is a classic multidirectional shooter arcade game. The player controls 
  a space ship in an asteroid field, the aim being to survive as long as possible 
  whilst shooting the asteroids to increase their score. UFO's will also attack the 
- players space ship at random intervals. The game is divided into levels. The player 
- starts with 3 lives. Upon reaching the next level the players ships lives are 
+ player's space ship at random intervals. The game is divided into levels. The player 
+ starts with 3 lives. Upon reaching the next level the player's ship's lives are 
  replenished if any have been lost. Points are awarded as follows:
  * 10 points for an asteroid hit
  * 100 points for destroying a UFO
@@ -20,7 +20,7 @@
  processing website: https://processing.org/download/. The proceesing IDE will 
  compile the processing language to Java and run the program.
  *
- NOTE:The program requires the Minim audio library to be added to the processing
+ NOTE: The program requires the Minim audio library to be added to the processing
  IDE.
  *
  * Notes: 
@@ -440,7 +440,7 @@ class AsteroidGame
             myAudio.playAstHit();
           } else
           {
-            // add explosion object to creat explosion 
+            // add explosion object to create explosion 
             myExplosions.add(new Explosion(myAsteroids.get(i).asteroidLocation));
 
             myAsteroids.remove(myAsteroids.get(i));
@@ -466,7 +466,6 @@ class AsteroidGame
         myShip.shipCoord.y = height/2;
 
         // level up points added to score and lives are replenished
-
         myShip.setScore(500, true);
         newLevel = true;
         myShip.setLives(3);
@@ -576,7 +575,7 @@ class AsteroidGame
    */
   void hideCursor()
   {
-    //built in method to make cursor dissapear during game play
+    //built in method to make cursor disappear during game play
     noCursor();
 
     // use ship shape as cursor during the menu
@@ -593,8 +592,8 @@ class AsteroidGame
   Method called from the built-in mousePressed() method. Monitors mouse clicks on 
    the menu and game over pages. An attempt was made to use nested for loops to iterate
    through each button in the MainMenu objects Button ArrayList ArrayList however the 
-   buttons resulting behaviour was not consistance to the required behavior.
-   Therefore button actual index values were used as a temporary fix
+   buttons resulting behaviour was not consistant to the required behaviour.
+   Therefore button actual index values were used as a temporary fix.
    */
   void mousePress() 
   {
