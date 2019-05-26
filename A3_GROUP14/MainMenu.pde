@@ -6,9 +6,9 @@
  ***************************************************************/
 
 /*
-The MainMenu class creates the starting page interface for the Asteroids game. It aso
- creates a game over screen. This class accesses the Button class to create an array 
- list of Button objects.
+The MainMenu class creates the starting page interface for the Asteroids game. It also
+ creates a game over screen. This class accesses the button class to create an array 
+ list of button objects.
  */
 class MainMenu
 {
@@ -20,21 +20,22 @@ class MainMenu
     instructionsTitle, // String variable to store instructions title
     instructionsDetail;// String variable to store intstructions description
 
-  String[][] myLabels; // 2D String array to store each pages button labels
+  String[][] myLabels; // 2D String array to store each page's button labels
 
   Boolean gameOver, // boolean flag used to state if the game is over
     selected;  // boolean flag used to state the mouse was pressed
 
   int headerY, // variable to store alignment y value for header
     txtH, // variable to store value of the height of the text
-    txtL, // variable to store the lenght of the text
+    txtL, // variable to store the length of the text
     font; // button font size
 
-  // declare Button ArrayList object ArrayList to hole the buttons for each menu page;  
-  ArrayList<ArrayList<Button>> myButtons = new ArrayList<ArrayList<Button>>(); 
+  // declare Button ArrayList object ArrayList to hold the buttons for each menu page  
+  ArrayList<ArrayList<Button>> myButtons = 
+    new ArrayList<ArrayList<Button>>(); 
 
   /*
-  MainMenu constructor initialises varibles
+  MainMenu constructor initialises variables
    */
   MainMenu()
   {
@@ -131,7 +132,7 @@ class MainMenu
 
   /*
   Method to update Button objects Arraylist
-   @PARAM menuMum is an int to correspond to the current menu page
+   @PARAM menuNum: is an int to correspond to the current menu page
    */
   void updateButtons(int menuNum)
   {
