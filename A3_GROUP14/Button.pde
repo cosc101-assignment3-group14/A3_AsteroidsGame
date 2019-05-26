@@ -25,9 +25,9 @@ class Button
   /*
   Button constructor initialises variables and calls the calculateDisplayWidth()
    method to calculate the on screen displayed width of the label. This value is 
-   dependant on font size and is used to create acturate text only button detect.
-   @PARAM xorigin is an int value for the x cordinate location
-   @PARAM yorigin is an int value for the y cordinate location
+   dependent on font size and is used to create accurate text only button detect.
+   @PARAM xorigin is an int value for the x coordinate location
+   @PARAM yorigin is an int value for the y coordinate location
    @PARAM label is a String for the label text
    @PARAM offset is the gap between buttons
    @PARAM fontsize is the fontsize for buttons
@@ -61,7 +61,7 @@ class Button
   /*
   Method to set button detection retangular area for mouse click. 
    The algorithm use the labelWidth calculated in the constructor call.
-   @RETURN: true if area is clicked false if not.
+   @RETURN: true if area is clicked, false if not.
    */
   boolean buttonDetect()
   {
@@ -75,7 +75,7 @@ class Button
 
   /*
   Method to highlight text when mouse hovers over, using the buttonDetect method. 
-   If true the value at the opacity of the text becomes bright else if goes dim.
+   If true the value at the opacity of the text becomes bright, else if goes dim.
    */
   void textHighlight()
   {
