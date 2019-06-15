@@ -1,4 +1,4 @@
-/************************************************************** //<>//
+/**************************************************************  //<>//
  * File: A3_GROUP14.pde
  * Group: 14; {Tegan Lee Barnes, Alison Bryce, Josh Le Gresley}.
  * Date: 12/04/2019
@@ -11,9 +11,9 @@
  player's space ship at random intervals. The game is divided into levels. The player 
  starts with 3 lives. Upon reaching the next level the player's ship's lives are 
  replenished if any have been lost. Points are awarded as follows:
- * 10 points for an asteroid hit
- * 100 points for destroying a UFO
- * 500 points for reaching a new level 
+ 10 points for an asteroid hit
+ 100 points for destroying a UFO
+ 500 points for reaching a new level 
  *
  * Usage: 
  To compile and run the .pde file, download the Processing IDE from the 
